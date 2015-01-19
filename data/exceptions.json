@@ -1,0 +1,15 @@
+{ "_id" : { "$oid" : "54bd783b0b96c09350268f30" }, "host" : ".nmd.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f31" }, "host" : "cbtwitterfeeds.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f32" }, "host" : "dev.sat.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f33" }, "host" : "dev.tools.collegeboard.com" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f34" }, "host" : "mango.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f35" }, "host" : "netconnect.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f36" }, "host" : "pac.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f37" }, "host" : "pacollegeplan.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f38" }, "host" : "regionalforums.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f39" }, "host" : "secure-media.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f3a" }, "host" : "secure-ppmedia.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f3b" }, "host" : "vcm.collegeboard.com" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f3c" }, "host" : "vcm2.collegeboard.com" }
+{ "_id" : { "$oid" : "54bd783c0b96c09350268f3d" }, "host" : "www.collegeboard.org" }
+{ "_id" : { "$oid" : "54bd79d1f80fa21019cc8fae" }, "host" : "test.test.com", "__v" : 0 }

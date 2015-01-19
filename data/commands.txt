@@ -1,0 +1,9 @@
+// exports
+mongoexport -h ds031691.mongolab.com:31691 -d pac-generator -c rules -u admin -p admin -o rules.json
+mongoexport -h ds031691.mongolab.com:31691 -d pac-generator -c exceptions -u admin -p admin -o exceptions.json
+mongoexport -h ds031691.mongolab.com:31691 -d pac-generator -c proxies -u admin -p admin -o proxies.json
+
+// imports
+mongoimport -h ds031691.mongolab.com:31691 -d pac-generator -c rules -u admin -p admin --file rules.json --jsonArray --drop
+mongoimport -h ds031691.mongolab.com:31691 -d pac-generator -c exceptions -u admin -p admin --file exceptions.json --jsonArray --drop
+mongoimport -h ds031691.mongolab.com:31691 -d pac-generator -c proxies -u admin -p admin --file proxies.json --jsonArray --drop

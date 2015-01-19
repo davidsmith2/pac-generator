@@ -9,6 +9,7 @@
   "author": "David Smith",
   "license": "ISC",
   "devDependencies": {
+    "body-parser": "^1.10.1",
     "connect-livereload": "^0.5.2",
     "express": "^4.11.0",
     "glob": "^4.3.5",
@@ -19,11 +20,14 @@
     "grunt-express-server": "^0.4.19",
     "grunt-parallel": "^0.3.1",
     "http": "0.0.0",
-    "jade": "^1.9.0",
+    "jade": "^1.9.1",
     "load-grunt-tasks": "^2.0.0",
     "mkdirp": "^0.5.0",
+    "mongodb-uri": "^0.9.7",
+    "mongoose": "^3.8.21",
     "path": "^0.11.14",
     "python-shell": "0.0.3",
+    "serve-static": "^1.8.0",
     "sprintf-js": "^1.0.2"
   }
 }
