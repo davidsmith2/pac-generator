@@ -6,6 +6,10 @@ module.exports = {
         tasks: [
             {
                 grunt: true,
+                args: ['watch:frontend']
+            },
+            {
+                grunt: true,
                 args: ['watch:backend']
             }
         ]

@@ -1,4 +1,6 @@
-db/credentials.js
+bower_components
 downloads
 node_modules
 public
+
+db/credentials.js

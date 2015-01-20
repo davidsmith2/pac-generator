@@ -1,7 +1,14 @@
 module.exports = {
+    frontend: {
+        files: [
+            'frontend/**/*.css',
+            'frontend/**/*.js'
+        ],
+        tasks: ['build']
+    },
     backend: {
         files: [
-            'backend/server.js',
+            'backend/**/*.js',
             'backend/views/**/*.jade',
             'data/**/*.js'
         ],

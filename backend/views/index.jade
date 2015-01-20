@@ -1,14 +1,26 @@
+doctype html
 html
     head
         title #{title}
+        link(href='/css/lib/bootstrap/bootstrap.css', rel='stylesheet', type='text/css')
+        link(href='/css/index.css', rel='stylesheet', type='text/css')
     body
-        h1 #{title}
-        ul
-            li
-                a(href='/downloads/oak/proxy.pac') Oak
-            li
-                a(href='/downloads/palm/proxy.pac') Palm
-            li
-                a(href='/downloads/qagreen/proxy.pac') QA Green
-            li
-                a(href='/downloads/prod/proxy.pac') Prod
+        .container
+            .row
+                .col-xs-12
+                    h1 #{title}
+                    #proxies-region
+        script(id='proxy-template', type='text/template')
+            | <td><%= name %></td>
+            | <td class="text-center"><a href="#"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a></td>
+            | <td class="text-center"><a href="#"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a></td>
+            | <td class="text-center"><a href="#"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
+        script(type='text/javascript', src='/js/lib/jquery/jquery.js')
+        script(type='text/javascript', src='/js/lib/underscore/underscore.js')
+        script(type='text/javascript', src='/js/lib/backbone/backbone.js')
+        script(type='text/javascript', src='/js/lib/backbone-relational/backbone-relational.js')
+        script(type='text/javascript', src='/js/lib/backbone.babysitter/backbone.babysitter.js')
+        script(type='text/javascript', src='/js/lib/backbone.wreqr/backbone.wreqr.js')
+        script(type='text/javascript', src='/js/lib/marionette/backbone.marionette.js')
+        script(type='text/javascript', src='/js/lib/bootstrap/bootstrap.js')
+        script(type='text/javascript', src='/js/index.js')

@@ -4,8 +4,8 @@ var mongoose = require('mongoose'),
 var ProxySchema = new Schema({
     name: String,
     port: String,
-    exceptions: [String],
-    rules: [String]
+    exceptions: [{type: Schema.Types.ObjectId, ref: 'Exception'}],
+    rules: [{type: Schema.Types.ObjectId, ref: 'Rule'}]
 });
 
 module.exports = mongoose.model('Proxy', ProxySchema);

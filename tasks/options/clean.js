@@ -1,3 +1,3 @@
 module.exports = {
-    downloads: ['downloads/*']
+    public: ['public/*']
 };

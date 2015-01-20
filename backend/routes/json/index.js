@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Rule = require('../../models/Rule');
 
 module.exports = function (server, bodyParser) {
-    var jsonParser = bodyParser.json();
+    //var jsonParser = bodyParser.json();
     var urlencodedParser = bodyParser.urlencoded({extended: false});
     server.get('/api/proxies', function (req, res, next) {
         Proxy.find(function (err, proxies) {
@@ -18,11 +18,11 @@ module.exports = function (server, bodyParser) {
         var proxy = new Proxy(req.body);
         Exception.find(function (err, exceptions) {
             for (var i = 0; i < exceptions.length; i++) {
-                proxy.exceptions.push(exceptions[i].host);
+                proxy.exceptions.push(exceptions[i]);
             }
             Rule.find(function (err, rules) {
                 for (var i = 0; i < rules.length; i++) {
-                    proxy.rules.push(rules[i].host);
+                    proxy.rules.push(rules[i]);
                 }
                 proxy.save(function (err, proxy) {
                     if (err) {
@@ -31,6 +31,27 @@ module.exports = function (server, bodyParser) {
                     res.json(proxy);
                 });
             });
+        });
+    });
+    server.get('/api/proxies/:proxy', function (req, res) {
+        req.proxy.populate('exceptions rules', function (err, proxy) {
+            res.json(req.proxy);
+        });
+    });
+    server.put('/api/proxies/:proxy', urlencodedParser, function (req, res, next) {
+        return req.proxy.save(function (err, proxy) {
+            if (err) {
+                return next(err);
+            }
+            return res.send(proxy);
+        });
+    });
+    server.delete('/api/proxies/:proxy', function (req, res, next) {
+        req.proxy.remove(function (err, proxy) {
+            if (err) {
+                return next(err);
+            }
+            res.send('proxy deleted');
         });
     });
     server.get('/api/exceptions', function (req, res, next) {
