@@ -4,7 +4,7 @@ import sys
 import getopt
 import pacparser
 
-inputfile = 'public/pac/oak/proxy.pac';
+inputfile = '../public/pac/oak/proxy.pac';
 print 'Input file is', inputfile
 pacparser.init()
 pacparser.parse_pac(inputfile)

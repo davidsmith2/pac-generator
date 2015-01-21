@@ -14,7 +14,7 @@
     "backbone-relational": "~0.9.0"
   },
   "install": {
-    "path": "frontend/js/lib",
+    "path": "js/lib",
     "sources": {
       "bootstrap": [
         "bower_components/bootstrap/dist/js/bootstrap.js"

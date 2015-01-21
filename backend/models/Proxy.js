@@ -11,7 +11,7 @@ var ProxySchema = new Schema({
 
 ProxySchema.methods.write = function () {
     var mkdirp = require('mkdirp');
-    var dirp = './public/pac/' + this.name.toLowerCase();
+    var dirp = '../public/pac/' + this.name.toLowerCase();
     var self = this;
     mkdirp(dirp, function (err) {
         var data;
@@ -43,7 +43,7 @@ ProxySchema.methods.test = function (maxTries) {
         console.log('Running test on PAC file for ' + self.name + ' proxy');
         var PythonShell = require('python-shell');
         var script = 'test.py';
-        var options = {scriptPath: './'};
+        var options = {scriptPath: './tests'};
         var callback = function (err) {
             if (err) {
                 throw err;
@@ -53,7 +53,7 @@ ProxySchema.methods.test = function (maxTries) {
         PythonShell.run(script, options, callback);
     };
     setTimeout(function () {
-        var path = './public/pac/' + self.name.toLowerCase() + '/proxy.pac';
+        var path = '../public/pac/' + self.name.toLowerCase() + '/proxy.pac';
         fs.open(path, 'r', function (err) {
             if (err) {
                 handleError();
