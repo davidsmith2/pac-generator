@@ -1,7 +1,12 @@
-var mongoose = require('mongoose'),
-    Proxy = require('../../models/Proxy'),
-    Exception = require('../../models/Exception'),
-    Rule = require('../../models/Rule');
+var mongoose = require('mongoose');
+var Proxy = require('../../models/Proxy');
+var Exception = require('../../models/Exception');
+var Rule = require('../../models/Rule');
+
+var generatePac = function (err, proxy) {
+    proxy.write();
+    //proxy.test(5);
+};
 
 module.exports = function (server, bodyParser) {
     //var jsonParser = bodyParser.json();
@@ -10,6 +15,9 @@ module.exports = function (server, bodyParser) {
         Proxy.find(function (err, proxies) {
             if (err) {
                 return next(err);
+            }
+            for (var i = 0; i < proxies.length; i++) {
+                proxies[i].populate('exceptions rules', generatePac);
             }
             res.json(proxies);
         });
