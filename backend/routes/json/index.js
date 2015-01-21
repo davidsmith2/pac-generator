@@ -3,9 +3,8 @@ var Proxy = require('../../models/Proxy');
 var Exception = require('../../models/Exception');
 var Rule = require('../../models/Rule');
 
-var generatePac = function (err, proxy) {
+var writeToFile = function (err, proxy) {
     proxy.write();
-    //proxy.test(5);
 };
 
 module.exports = function (server, bodyParser) {
@@ -13,11 +12,16 @@ module.exports = function (server, bodyParser) {
     var urlencodedParser = bodyParser.urlencoded({extended: false});
     server.get('/api/proxies', function (req, res, next) {
         Proxy.find(function (err, proxies) {
+            var proxy;
             if (err) {
                 return next(err);
             }
             for (var i = 0; i < proxies.length; i++) {
-                proxies[i].populate('exceptions rules', generatePac);
+                proxy = proxies[i];
+                proxy.populate('exceptions rules', writeToFile);
+                if (proxy.name === 'Oak') {
+                    proxy.test(5);
+                }
             }
             res.json(proxies);
         });
