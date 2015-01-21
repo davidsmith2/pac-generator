@@ -12,9 +12,9 @@ html
                     #proxies-region
         script(id='proxy-template', type='text/template')
             | <td><%= name %></td>
-            | <td class="text-center"><a href="#"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a></td>
-            | <td class="text-center"><a href="/pac/<%= name.toLowerCase() %>/proxy.pac"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a></td>
-            | <td class="text-center"><a href="/proxies/<%= name.toLowerCase() %>"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
+            | <td class="text-center"><button class="btn btn-default btn-sm glyphicon glyphicon-copy" aria-hidden="true" href="#" title="Copy URL to clipboard"></button></td>
+            | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-download" aria-hidden="true" href="/pac/<%= name.toLowerCase() %>/proxy.pac" title="Download"></a></td>
+            | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-info-sign" aria-hidden="true" href="/proxies/<%= name.toLowerCase() %>" title="Show details"></a></td>
         script(type='text/javascript', src='/js/lib/jquery/jquery.js')
         script(type='text/javascript', src='/js/lib/underscore/underscore.js')
         script(type='text/javascript', src='/js/lib/backbone/backbone.js')
