@@ -4,11 +4,11 @@ var Exception = require('../../models/Exception');
 var Rule = require('../../models/Rule');
 
 var writeToFile = function (err, proxy) {
-    proxy.write();
+    //proxy.write();
 };
 
 module.exports = function (server, bodyParser) {
-    //var jsonParser = bodyParser.json();
+    var jsonParser = bodyParser.json();
     var urlencodedParser = bodyParser.urlencoded({extended: false});
     server.get('/api/proxies', function (req, res, next) {
         Proxy.find(function (err, proxies) {
@@ -74,9 +74,17 @@ module.exports = function (server, bodyParser) {
             res.json(exceptions);
         });
     });
-    server.post('/api/exceptions', urlencodedParser, function (req, res, next) {
+    server.post('/api/exceptions', jsonParser, function (req, res, next) {
         var exception = new Exception(req.body);
         exception.save(function (err, exception) {
+            if (err) {
+                return next(err);
+            }
+            res.json(exception);
+        });
+    });
+    server['delete']('/api/exceptions/:exception', function (req, res, next) {
+        req.exception.remove(function (err, exception) {
             if (err) {
                 return next(err);
             }
@@ -110,6 +118,19 @@ module.exports = function (server, bodyParser) {
                 return next(new Error("Can't find proxy"));
             }
             req.proxy = proxy;
+            return next();
+        });
+    });
+    server.param('exception', function (req, res, next, id) {
+        var query = Exception.findById(id);
+        query.exec(function (err, exception) {
+            if (err) {
+                return next(err);
+            }
+            if (!exception) {
+                return next(new Error("Can't find exception"));
+            }
+            req.exception = exception;
             return next();
         });
     });

@@ -1,7 +1,9 @@
 bower_components
+build
 db/credentials.js
 downloads
 frontend/js/lib
 node_modules
 public
+release
 test2.py

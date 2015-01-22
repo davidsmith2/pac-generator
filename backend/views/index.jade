@@ -6,15 +6,30 @@ html
         link(href='/css/index.css', rel='stylesheet', type='text/css')
     body
         .container
+            h1 #{title}
             .row
-                .col-xs-12
-                    h1 #{title}
+                .col-xs-6
+                    #exceptions-region
+                    #rules-region
+                .col-xs-6
                     #proxies-region
+        #modal-region
         script(id='proxy-template', type='text/template')
             | <td><%= name %></td>
             | <td class="text-center"><button class="btn btn-default btn-sm glyphicon glyphicon-copy" aria-hidden="true" href="#" title="Copy URL to clipboard"></button></td>
             | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-download" aria-hidden="true" href="/pac/<%= name.toLowerCase() %>/proxy.pac" title="Download"></a></td>
             | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-info-sign" aria-hidden="true" href="/proxies/<%= name.toLowerCase() %>" title="Show details"></a></td>
+        script(id='exceptions-template', type='text/template')
+            | <button class="btn btn-primary btn-sm js-create">New</button>
+            | <table class="table table-bordered table-striped"></table>
+        script(id='exception-template', type='text/template')
+            | <td><%= host %></td>
+            | <td class="text-center"><a class="btn btn-default btn-sm js-destroy" href="#">Delete</a></td>
+        script(id='rule-template', type='text/template')
+            | <td><%= host %></td>
+        script(id='exception-form-template', type='text/template')
+            | <input name="host" type="text" value="<%= host %>" />
+            | <input type="submit" value="Save" />
         script(type='text/javascript', src='/js/lib/jquery/jquery.js')
         script(type='text/javascript', src='/js/lib/underscore/underscore.js')
         script(type='text/javascript', src='/js/lib/backbone/backbone.js')

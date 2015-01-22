@@ -6,7 +6,7 @@ require('./db/connect');
 
 var server = module.exports = express();
 
-server.use(serveStatic('public'));
+server.use(serveStatic('build'));
 
 server.use(require('connect-livereload')({
     port: 35729
