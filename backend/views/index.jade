@@ -15,6 +15,10 @@ html
                     #proxies-region
         #modal-region
 
+        script(id='proxies-template', type='text/template')
+            | <div class="row"><div class="col-sm-6"><h2 class="mt0">Proxies</h2></div><div class="col-sm-6 text-right"><a class="btn btn-primary btn-sm glyphicon glyphicon-plus js-create" href="#"><span class="sr-only">New</span></a></div></div>
+            | <table class="table table-bordered table-striped"></table>
+
         script(id='proxy-template', type='text/template')
             | <td><%= name %></td>
             | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-copy" href="#"><span class="sr-only">Copy URL to clipboard</a></td>
@@ -39,12 +43,13 @@ html
             | </div>
 
         script(id='rules-template', type='text/template')
-            | <h2>Rules</h2>
-            | <button class="btn btn-primary btn-sm js-create">New</button>
+            | <div class="row"><div class="col-sm-6"><h2 class="mt0">Rules</h2></div><div class="col-sm-6 text-right"><a class="btn btn-primary btn-sm glyphicon glyphicon-plus js-create" href="#"><span class="sr-only">New</span></a></div></div>
             | <table class="table table-bordered table-striped"></table>
 
         script(id='rule-template', type='text/template')
             | <td><%= host %></td>
+            | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-edit js-edit" href="#"><span class="sr-only">Edit</span></a></td>
+            | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-remove js-destroy" href="#"><span class="sr-only">Delete</span></a></td>
 
         script(id='exception-form-template', type='text/template')
             | <div class="form-group form-group-sm">

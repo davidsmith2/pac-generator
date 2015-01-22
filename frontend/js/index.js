@@ -179,26 +179,27 @@
 
 
 
-    var ProxyView = Marionette.ItemView.extend({
-        template: _.template($('#proxy-template').html()),
-        tagName: 'tr'
-    });
-
-    var ProxiesView = Marionette.CollectionView.extend({
-        tagName: 'table',
-        className: 'table table-bordered table-striped',
-        childView: ProxyView
-    });
-
     var RuleView = Marionette.ItemView.extend({
         template: _.template($('#rule-template').html()),
         tagName: 'tr'
     });
 
-    var RulesView = Marionette.CollectionView.extend({
-        tagName: 'table',
-        className: 'table table-bordered table-striped',
-        childView: RuleView
+    var RulesView = Marionette.CompositeView.extend({
+        template: _.template($('#rules-template').html()),
+        childView: RuleView,
+        childViewContainer: 'table'
+
+    });
+
+    var ProxyView = Marionette.ItemView.extend({
+        template: _.template($('#proxy-template').html()),
+        tagName: 'tr'
+    });
+
+    var ProxiesView = Marionette.CompositeView.extend({
+        template: _.template($('#proxies-template').html()),
+        childView: ProxyView,
+        childViewContainer: 'table'
     });
 
     var App = new Marionette.Application();
