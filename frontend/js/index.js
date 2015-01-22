@@ -56,16 +56,33 @@
 
 
 
-    var ExceptionRouter = Marionette.AppRouter.extend({
-        appRoutes: {
-            '!/exceptions/create': 'create',
-            '!/exceptions/:exception/destroy': 'destroy'
+    var ModalView = Marionette.LayoutView.extend({
+        template: _.template($('#modal-template').html()),
+        className: 'modal',
+        regions: {
+            headerRegion: '.modal-header',
+            bodyRegion: '.modal-body',
+            footerRegion: '.modal-footer'
+        },
+        events: {
+            'click .btn-primary': 'save'
+        },
+        initialize: function () {
+            this.$el.modal();
+        },
+        onRender: function () {
+            this.$el.modal('show');
+        },
+        save: function () {
+            this.$el.modal('hide');
+            this.trigger('save');
         }
     });
 
     var ExceptionFormView = Marionette.ItemView.extend({
         template: _.template($('#exception-form-template').html()),
         tagName: 'form',
+        className: 'form-horizontal',
         triggers: {
             'submit': 'submit'
         }
@@ -75,7 +92,14 @@
         template: _.template($('#exception-template').html()),
         tagName: 'tr',
         triggers: {
+            'click .js-edit': 'edit',
             'click .js-destroy': 'destroy'
+        },
+        modelEvents: {
+            'change:host': 'hostChanged'
+        },
+        hostChanged: function () {
+            this.render();
         }
     });
 
@@ -99,6 +123,7 @@
                     });
                     App.exceptionsRegion.show(exceptionsView);
                     self.listenTo(exceptionsView, 'create', self.create);
+                    self.listenTo(exceptionsView, 'childview:edit', self.edit);
                     self.listenTo(exceptionsView, 'childview:destroy', self['destroy']);
                 }
             });
@@ -109,13 +134,34 @@
             var exceptionFormView = new ExceptionFormView({
                 model: exception
             });
-            App.modalRegion.show(exceptionFormView);
-            self.listenTo(exceptionFormView, 'submit', function (options) {
-                options.model.set('host', exceptionFormView.$el.find('[name=host]').val());
-                self.collection.create(options.model.attributes, {
+            var modalView = new ModalView({
+                model: new Backbone.Model({title: 'Create exception'})
+            });
+            App.modalRegion.show(modalView);
+            modalView.bodyRegion.show(exceptionFormView);
+            self.listenTo(modalView, 'save', function () {
+                exception.set('host', exceptionFormView.$el.find('[name=host]').val());
+                self.collection.create(exception.attributes, {
                     success: function (model) {
                         console.log('exception ' + model.get('_id') + ' saved');
                     }
+                });
+            });
+        },
+        edit: function (options) {
+            var self = this;
+            var exception = options.model;
+            var exceptionFormView = new ExceptionFormView({
+                model: exception
+            });
+            var modalView = new ModalView({
+                model: new Backbone.Model({title: 'Edit exception'})
+            });
+            App.modalRegion.show(modalView);
+            modalView.bodyRegion.show(exceptionFormView);
+            self.listenTo(modalView, 'save', function () {
+                exception.save({
+                    host: exceptionFormView.$el.find('[name=host]').val()
                 });
             });
         },
@@ -197,14 +243,6 @@
 
     App.on('start', function () {
         Backbone.history.start();
-    });
-
-    App.on('exception:create', function () {
-        Backbone.history.navigate('!/exceptions/create');
-    });
-
-    App.on('exception:destroy', function (id) {
-        Backbone.history.navigate('!/exceptions/' + id + '/destroy');
     });
 
 }(jQuery, _, Backbone, Marionette));
