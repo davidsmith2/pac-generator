@@ -53,9 +53,6 @@
         model: Rule
     });
 
-
-
-
     var ModalView = Marionette.LayoutView.extend({
         template: _.template($('#modal-template').html()),
         className: 'modal',
@@ -118,16 +115,21 @@
             self.collection = options.collection;
             self.Model = options.Model;
             self.region = options.region;
+            self.compositeViewTitle = options.compositeViewTitle;
+            self.modalTitles = options.modalTitles;
         },
         index: function () {
             var self = this;
             self.collection.fetch({
                 success: function (collection) {
                     var hostsView = new HostsView({collection: collection});
-                    self.region.show(hostsView);
+                    hostsView.on('render', function () {
+                        this.$('h2').html(self.compositeViewTitle);
+                    });
                     hostsView.on('create', self.create, self);
                     hostsView.on('childview:edit', self.edit, self);
                     hostsView.on('childview:delete', self['delete'], self);
+                    self.region.show(hostsView);
                 }
             });
         },
@@ -135,7 +137,7 @@
             var self = this;
             var hostModel = new self.Model();
             var hostFormView = new HostFormView({model: hostModel});
-            var modalView = new ModalView({model: new Backbone.Model({title: 'Create'})});
+            var modalView = new ModalView({model: new Backbone.Model({title: self.modalTitles.create})});
             App.modalRegion.show(modalView);
             modalView.bodyRegion.show(hostFormView);
             self.listenTo(modalView, 'save', function () {
@@ -151,7 +153,7 @@
         edit: function (options) {
             var self = this;
             var hostFormView = new HostFormView({model: options.model});
-            var modalView = new ModalView({model: new Backbone.Model({title: 'Edit'})});
+            var modalView = new ModalView({model: new Backbone.Model({title: self.modalTitles.edit})});
             App.modalRegion.show(modalView);
             modalView.bodyRegion.show(hostFormView);
             self.listenTo(modalView, 'save', function () {
@@ -172,24 +174,6 @@
             });
         }
     });
-
-
-
-
-
-/*
-    var RuleView = Marionette.ItemView.extend({
-        template: _.template($('#rule-template').html()),
-        tagName: 'tr'
-    });
-
-    var RulesView = Marionette.CompositeView.extend({
-        template: _.template($('#rules-template').html()),
-        childView: RuleView,
-        childViewContainer: 'table'
-
-    });
-*/
 
     var ProxyView = Marionette.ItemView.extend({
         template: _.template($('#proxy-template').html()),
@@ -217,7 +201,12 @@
         var exceptionController = new HostController({
             collection: new Exceptions(),
             Model: Exception,
-            region: App.exceptionsRegion
+            region: App.exceptionsRegion,
+            compositeViewTitle: 'Exceptions',
+            modalTitles: {
+                create: 'Create exception',
+                edit: 'Edit exception'
+            }
         });
         exceptionController.index();
 
@@ -225,7 +214,12 @@
         var ruleController = new HostController({
             collection: new Rules(),
             Model: Rule,
-            region: App.rulesRegion
+            region: App.rulesRegion,
+            compositeViewTitle: 'Rules',
+            modalTitles: {
+                create: 'Create rule',
+                edit: 'Edit rule'
+            }
         });
         ruleController.index();
 
