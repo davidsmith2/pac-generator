@@ -93,7 +93,7 @@
         tagName: 'tr',
         triggers: {
             'click .js-edit': 'edit',
-            'click .js-destroy': 'destroy'
+            'click .js-delete': 'delete'
         },
         modelEvents: {
             'change:host': 'hostChanged'
@@ -116,7 +116,7 @@
         initialize: function (options) {
             var self = this;
             self.collection = options.collection;
-            self.model = options.model;
+            self.Model = options.Model;
             self.region = options.region;
         },
         index: function () {
@@ -127,20 +127,21 @@
                     self.region.show(hostsView);
                     hostsView.on('create', self.create, self);
                     hostsView.on('childview:edit', self.edit, self);
-                    hostsView.on('childview:destroy', self.destroy, self);
+                    hostsView.on('childview:delete', self['delete'], self);
                 }
             });
         },
         create: function () {
             var self = this;
-            var hostFormView = new HostFormView({model: self.model});
+            var hostModel = new self.Model();
+            var hostFormView = new HostFormView({model: hostModel});
             var modalView = new ModalView({model: new Backbone.Model({title: 'Create'})});
             App.modalRegion.show(modalView);
             modalView.bodyRegion.show(hostFormView);
             self.listenTo(modalView, 'save', function () {
                 var host = hostFormView.$el.find('[name=host]').val();
-                self.model.set('host', host);
-                self.collection.create(self.model.attributes, {
+                hostModel.set('host', host);
+                self.collection.create(hostModel.attributes, {
                     success: function (model) {
                         console.log('host ' + model.get('_id') + ' created');
                     }
@@ -162,7 +163,7 @@
                 });
             });
         },
-        destroy: function (options) {
+        delete: function (options) {
             var id = options.model.get('_id');
             options.model.destroy({
                 success: function (model) {
@@ -215,7 +216,7 @@
         // exceptions
         var exceptionController = new HostController({
             collection: new Exceptions(),
-            model: new Exception(),
+            Model: Exception,
             region: App.exceptionsRegion
         });
         exceptionController.index();
@@ -223,7 +224,7 @@
         // rules
         var ruleController = new HostController({
             collection: new Rules(),
-            model: new Rule(),
+            Model: Rule,
             region: App.rulesRegion
         });
         ruleController.index();

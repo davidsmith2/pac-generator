@@ -56,11 +56,12 @@ module.exports = function (server, bodyParser) {
         });
     });
     server.put('/api/proxies/:proxy', jsonParser, function (req, res, next) {
-        return req.proxy.save(function (err, proxy) {
+        req.proxy.set(req.body);
+        req.proxy.save(function (err, proxy) {
             if (err) {
                 return next(err);
             }
-            return res.send(proxy);
+            return res.json(proxy);
         });
     });
     server['delete']('/api/proxies/:proxy', function (req, res, next) {
