@@ -8,8 +8,13 @@ var writeToFile = function (err, proxy) {
 };
 
 module.exports = function (server, bodyParser) {
+
     var jsonParser = bodyParser.json();
+
     var urlencodedParser = bodyParser.urlencoded({extended: false});
+
+    // proxies
+
     server.get('/api/proxies', function (req, res, next) {
         Proxy.find(function (err, proxies) {
             var proxy;
@@ -50,7 +55,7 @@ module.exports = function (server, bodyParser) {
             res.json(req.proxy);
         });
     });
-    server.put('/api/proxies/:proxy', urlencodedParser, function (req, res, next) {
+    server.put('/api/proxies/:proxy', jsonParser, function (req, res, next) {
         return req.proxy.save(function (err, proxy) {
             if (err) {
                 return next(err);
@@ -58,7 +63,7 @@ module.exports = function (server, bodyParser) {
             return res.send(proxy);
         });
     });
-    server.delete('/api/proxies/:proxy', function (req, res, next) {
+    server['delete']('/api/proxies/:proxy', function (req, res, next) {
         req.proxy.remove(function (err, proxy) {
             if (err) {
                 return next(err);
@@ -66,6 +71,22 @@ module.exports = function (server, bodyParser) {
             res.send('proxy deleted');
         });
     });
+    server.param('proxy', function (req, res, next, id) {
+        var query = Proxy.findById(id);
+        query.exec(function (err, proxy) {
+            if (err) {
+                return next(err);
+            }
+            if (!proxy) {
+                return next(new Error("Can't find proxy"));
+            }
+            req.proxy = proxy;
+            return next();
+        });
+    });
+
+    // exceptions
+
     server.get('/api/exceptions', function (req, res, next) {
         Exception.find(function (err, exceptions) {
             if (err) {
@@ -83,6 +104,18 @@ module.exports = function (server, bodyParser) {
             res.json(exception);
         });
     });
+    server.get('/api/exceptions/:exception', jsonParser, function (req, res, next) {
+        res.json(req.exception);
+    });
+    server.put('/api/exceptions/:exception', jsonParser, function (req, res, next) {
+        req.exception.set(req.body);
+        req.exception.save(function (err, exception) {
+            if (err) {
+                return next(err);
+            }
+            res.json(exception);
+        });
+    });
     server['delete']('/api/exceptions/:exception', function (req, res, next) {
         req.exception.remove(function (err, exception) {
             if (err) {
@@ -91,6 +124,22 @@ module.exports = function (server, bodyParser) {
             res.json(exception);
         });
     });
+    server.param('exception', function (req, res, next, id) {
+        var query = Exception.findById(id);
+        query.exec(function (err, exception) {
+            if (err) {
+                return next(err);
+            }
+            if (!exception) {
+                return next(new Error("Can't find exception"));
+            }
+            req.exception = exception;
+            return next();
+        });
+    });
+
+    // rules
+
     server.get('/api/rules', function (req, res, next) {
         Rule.find(function (err, rules) {
             if (err) {
@@ -108,30 +157,5 @@ module.exports = function (server, bodyParser) {
             res.json(rule);
         });
     });
-    server.param('proxy', function (req, res, next, id) {
-        var query = Proxy.findById(id);
-        query.exec(function (err, proxy) {
-            if (err) {
-                return next(err);
-            }
-            if (!proxy) {
-                return next(new Error("Can't find proxy"));
-            }
-            req.proxy = proxy;
-            return next();
-        });
-    });
-    server.param('exception', function (req, res, next, id) {
-        var query = Exception.findById(id);
-        query.exec(function (err, exception) {
-            if (err) {
-                return next(err);
-            }
-            if (!exception) {
-                return next(new Error("Can't find exception"));
-            }
-            req.exception = exception;
-            return next();
-        });
-    });
+
 };

@@ -79,8 +79,8 @@
         }
     });
 
-    var ExceptionFormView = Marionette.ItemView.extend({
-        template: _.template($('#exception-form-template').html()),
+    var HostFormView = Marionette.ItemView.extend({
+        template: _.template($('.host-form-template').html()),
         tagName: 'form',
         className: 'form-horizontal',
         triggers: {
@@ -88,8 +88,8 @@
         }
     });
 
-    var ExceptionView = Marionette.ItemView.extend({
-        template: _.template($('#exception-template').html()),
+    var HostView = Marionette.ItemView.extend({
+        template: _.template($('.host-template').html()),
         tagName: 'tr',
         triggers: {
             'click .js-edit': 'edit',
@@ -103,65 +103,62 @@
         }
     });
 
-    var ExceptionsView = Marionette.CompositeView.extend({
-        template: _.template($('#exceptions-template').html()),
-        childView: ExceptionView,
+    var HostsView = Marionette.CompositeView.extend({
+        template: _.template($('.hosts-template').html()),
+        childView: HostView,
         childViewContainer: 'table',
         triggers: {
             'click .js-create': 'create'
         }
     });
 
-    var ExceptionController = Marionette.Controller.extend({
+    var HostController = Marionette.Controller.extend({
+        initialize: function (options) {
+            var self = this;
+            self.collection = options.collection;
+            self.model = options.model;
+            self.region = options.region;
+        },
         index: function () {
             var self = this;
-            self.collection = new Exceptions();
             self.collection.fetch({
-                success: function (exceptions) {
-                    var exceptionsView = new ExceptionsView({
-                        collection: exceptions
-                    });
-                    App.exceptionsRegion.show(exceptionsView);
-                    self.listenTo(exceptionsView, 'create', self.create);
-                    self.listenTo(exceptionsView, 'childview:edit', self.edit);
-                    self.listenTo(exceptionsView, 'childview:destroy', self['destroy']);
+                success: function (collection) {
+                    var hostsView = new HostsView({collection: collection});
+                    self.region.show(hostsView);
+                    hostsView.on('create', self.create, self);
+                    hostsView.on('childview:edit', self.edit, self);
+                    hostsView.on('childview:destroy', self.destroy, self);
                 }
             });
         },
         create: function () {
             var self = this;
-            var exception = new Exception();
-            var exceptionFormView = new ExceptionFormView({
-                model: exception
-            });
-            var modalView = new ModalView({
-                model: new Backbone.Model({title: 'Create exception'})
-            });
+            var hostFormView = new HostFormView({model: self.model});
+            var modalView = new ModalView({model: new Backbone.Model({title: 'Create'})});
             App.modalRegion.show(modalView);
-            modalView.bodyRegion.show(exceptionFormView);
+            modalView.bodyRegion.show(hostFormView);
             self.listenTo(modalView, 'save', function () {
-                exception.set('host', exceptionFormView.$el.find('[name=host]').val());
-                self.collection.create(exception.attributes, {
+                var host = hostFormView.$el.find('[name=host]').val();
+                self.model.set('host', host);
+                self.collection.create(self.model.attributes, {
                     success: function (model) {
-                        console.log('exception ' + model.get('_id') + ' saved');
+                        console.log('host ' + model.get('_id') + ' created');
                     }
                 });
             });
         },
         edit: function (options) {
             var self = this;
-            var exception = options.model;
-            var exceptionFormView = new ExceptionFormView({
-                model: exception
-            });
-            var modalView = new ModalView({
-                model: new Backbone.Model({title: 'Edit exception'})
-            });
+            var hostFormView = new HostFormView({model: options.model});
+            var modalView = new ModalView({model: new Backbone.Model({title: 'Edit'})});
             App.modalRegion.show(modalView);
-            modalView.bodyRegion.show(exceptionFormView);
+            modalView.bodyRegion.show(hostFormView);
             self.listenTo(modalView, 'save', function () {
-                exception.save({
-                    host: exceptionFormView.$el.find('[name=host]').val()
+                var host = hostFormView.$el.find('[name=host]').val();
+                options.model.save({host: host}, {
+                    success: function (model) {
+                        console.log('host ' + model.get('_id') + ' edited');
+                    }
                 });
             });
         },
@@ -169,7 +166,7 @@
             var id = options.model.get('_id');
             options.model.destroy({
                 success: function (model) {
-                    console.log('exception ' + id + ' destroyed');
+                    console.log('host ' + id + ' destroyed');
                 }
             });
         }
@@ -179,6 +176,7 @@
 
 
 
+/*
     var RuleView = Marionette.ItemView.extend({
         template: _.template($('#rule-template').html()),
         tagName: 'tr'
@@ -190,6 +188,7 @@
         childViewContainer: 'table'
 
     });
+*/
 
     var ProxyView = Marionette.ItemView.extend({
         template: _.template($('#proxy-template').html()),
@@ -215,13 +214,16 @@
 
 
 
-        var exceptionController = new ExceptionController();
+        var exceptionController = new HostController({
+            collection: new Exceptions(),
+            model: new Exception(),
+            region: App.exceptionsRegion
+        });
         exceptionController.index();
 
 
 
         var proxies = new Proxies();
-        var rules = new Rules();
         proxies.fetch({
             success: function (proxies) {
                 var proxiesView = new ProxiesView({
@@ -230,6 +232,9 @@
                 App.proxiesRegion.show(proxiesView);
             }
         });
+
+/*
+        var rules = new Rules();
         rules.fetch({
             success: function (rules) {
                 var rulesView = new RulesView({
@@ -238,6 +243,7 @@
                 App.rulesRegion.show(rulesView);
             }
         });
+*/
     });
 
     App.start();
