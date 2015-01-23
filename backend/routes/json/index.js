@@ -157,5 +157,38 @@ module.exports = function (server, bodyParser) {
             res.json(rule);
         });
     });
+    server.get('/api/rules/:rule', jsonParser, function (req, res, next) {
+        res.json(req.rule);
+    });
+    server.put('/api/rules/:rule', jsonParser, function (req, res, next) {
+        req.rule.set(req.body);
+        req.rule.save(function (err, rule) {
+            if (err) {
+                return next(err);
+            }
+            res.json(rule);
+        });
+    });
+    server['delete']('/api/rules/:rule', function (req, res, next) {
+        req.rule.remove(function (err, rule) {
+            if (err) {
+                return next(err);
+            }
+            res.json(rule);
+        });
+    });
+    server.param('rule', function (req, res, next, id) {
+        var query = Rule.findById(id);
+        query.exec(function (err, rule) {
+            if (err) {
+                return next(err);
+            }
+            if (!rule) {
+                return next(new Error("Can't find rule"));
+            }
+            req.rule = rule;
+            return next();
+        });
+    });
 
 };

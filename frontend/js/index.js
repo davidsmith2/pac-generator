@@ -212,8 +212,7 @@
 
     App.addInitializer(function () {
 
-
-
+        // exceptions
         var exceptionController = new HostController({
             collection: new Exceptions(),
             model: new Exception(),
@@ -221,8 +220,15 @@
         });
         exceptionController.index();
 
+        // rules
+        var ruleController = new HostController({
+            collection: new Rules(),
+            model: new Rule(),
+            region: App.rulesRegion
+        });
+        ruleController.index();
 
-
+        // proxies
         var proxies = new Proxies();
         proxies.fetch({
             success: function (proxies) {
@@ -233,17 +239,6 @@
             }
         });
 
-/*
-        var rules = new Rules();
-        rules.fetch({
-            success: function (rules) {
-                var rulesView = new RulesView({
-                    collection: rules
-                });
-                App.rulesRegion.show(rulesView);
-            }
-        });
-*/
     });
 
     App.start();
