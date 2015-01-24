@@ -57,8 +57,8 @@
                 }
             }
         ],
-        save: function () {
-            var url = this.url() + '/save';
+        publish: function () {
+            var url = this.url() + '/publish';
             var options = {
                 url: url,
                 type: 'get'
@@ -71,9 +71,9 @@
         url: '/api/proxies',
         model: Proxy,
         comparator: 'name',
-        save: function () {
+        publish: function () {
             this.each(function (proxy) {
-                proxy.save();
+                proxy.publish();
             });
         }
     });
@@ -225,7 +225,7 @@
         childViewContainer: 'table',
         triggers: {
             'click .js-create': 'create',
-            'click .js-save': 'save'
+            'click .js-publish': 'publish'
         }
     });
 
@@ -241,9 +241,8 @@
                         collection: proxies
                     });
                     proxiesView.on('create', self.create, self);
-                    proxiesView.on('save', self.save, self);
+                    proxiesView.on('publish', self.publish, self);
                     proxiesView.on('childview:copy', self.copy, self);
-                    proxiesView.on('childview:download', self.download, self);
                     proxiesView.on('childview:edit', self.edit, self);
                     proxiesView.on('childview:delete', self['delete'], self);
                     App.proxiesRegion.show(proxiesView);
@@ -268,9 +267,8 @@
                 });
             });
         },
-        save: function (options) {
-
-            options.collection.save();
+        publish: function (options) {
+            options.collection.publish();
         },
         copy: function (options) {
             console.log('copy', options)

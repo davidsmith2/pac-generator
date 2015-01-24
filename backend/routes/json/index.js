@@ -61,7 +61,7 @@ module.exports = function (server, bodyParser) {
             res.send('proxy deleted');
         });
     });
-    server.get('/api/proxies/:proxy/save', function (req, res) {
+    server.get('/api/proxies/:proxy/publish', function (req, res) {
         saveProxy(req.proxy);
         res.json(req.proxy);
     });
