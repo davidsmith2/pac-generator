@@ -207,6 +207,7 @@
         template: _.template($('#proxy-template').html()),
         tagName: 'tr',
         triggers: {
+            'click .js-publish': 'publish',
             'click .js-copy': 'copy',
             'click .js-edit': 'edit',
             'click .js-delete': 'delete'
@@ -241,7 +242,8 @@
                         collection: proxies
                     });
                     proxiesView.on('create', self.create, self);
-                    proxiesView.on('publish', self.publish, self);
+                    proxiesView.on('publish', self.publishAll, self);
+                    proxiesView.on('childview:publish', self.publish, self);
                     proxiesView.on('childview:copy', self.copy, self);
                     proxiesView.on('childview:edit', self.edit, self);
                     proxiesView.on('childview:delete', self['delete'], self);
@@ -267,14 +269,16 @@
                 });
             });
         },
-        publish: function (options) {
+        publishAll: function (options) {
             options.collection.publish();
+        },
+        publish: function (options) {
+            options.model.publish();
         },
         copy: function (options) {
             console.log('copy', options)
         },
         edit: function (options) {
-            console.log('edit', options)
             var self = this;
             var proxyFormView = new ProxyFormView({model: options.model});
             var modalView = new ModalView({model: new Backbone.Model({title: 'Edit proxy'})});
