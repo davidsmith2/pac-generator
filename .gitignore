@@ -1,9 +1,14 @@
+.sublime-grunt.cache
+pac-generator.sublime-project
+pac-generator.sublime-workspace
+
 bower_components
 build
-db/credentials.js
 downloads
-frontend/js/lib
 node_modules
 public
 release
-test2.py
+
+backend/tests/test2.py
+db/credentials.js
+frontend/js/lib
