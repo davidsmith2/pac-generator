@@ -10,5 +10,5 @@ public
 release
 
 backend/tests/test2.py
-db/credentials.js
+backend/db/credentials.js
 frontend/js/lib
