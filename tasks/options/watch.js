@@ -4,7 +4,10 @@ module.exports = {
             'frontend/**/*.css',
             'frontend/**/*.js'
         ],
-        tasks: ['build']
+        tasks: ['build'],
+        options: {
+            livereload: true
+        }
     },
     backend: {
         files: [

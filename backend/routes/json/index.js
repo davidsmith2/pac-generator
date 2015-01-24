@@ -2,60 +2,49 @@ var mongoose = require('mongoose');
 var Proxy = require('../../models/Proxy');
 var Exception = require('../../models/Exception');
 var Rule = require('../../models/Rule');
+var _ = require('underscore');
 
-var writeToFile = function (err, proxy) {
-    //proxy.write();
+var download = function (proxy) {
+    proxy.exceptions = [];
+    proxy.rules = [];
+    Exception.find(function (err, exceptions) {
+        for (var i = 0; i < exceptions.length; i++) {
+            proxy.exceptions.push(exceptions[i]);
+        }
+        Rule.find(function (err, rules) {
+            for (var i = 0; i < rules.length; i++) {
+                proxy.rules.push(rules[i]);
+            }
+            proxy.write();
+        });
+    });
 };
 
 module.exports = function (server, bodyParser) {
-
-    var jsonParser = bodyParser.json();
-
-    var urlencodedParser = bodyParser.urlencoded({extended: false});
 
     // proxies
 
     server.get('/api/proxies', function (req, res, next) {
         Proxy.find(function (err, proxies) {
-            var proxy;
             if (err) {
                 return next(err);
-            }
-            for (var i = 0; i < proxies.length; i++) {
-                proxy = proxies[i];
-                proxy.populate('exceptions rules', writeToFile);
-                if (proxy.name === 'Oak') {
-                    proxy.test(5);
-                }
             }
             res.json(proxies);
         });
     });
-    server.post('/api/proxies', urlencodedParser, function (req, res, next) {
+    server.post('/api/proxies', bodyParser, function (req, res, next) {
         var proxy = new Proxy(req.body);
-        Exception.find(function (err, exceptions) {
-            for (var i = 0; i < exceptions.length; i++) {
-                proxy.exceptions.push(exceptions[i]);
+        proxy.save(function (err, proxy) {
+            if (err) {
+                return next(err);
             }
-            Rule.find(function (err, rules) {
-                for (var i = 0; i < rules.length; i++) {
-                    proxy.rules.push(rules[i]);
-                }
-                proxy.save(function (err, proxy) {
-                    if (err) {
-                        return next(err);
-                    }
-                    res.json(proxy);
-                });
-            });
+            res.json(proxy);
         });
     });
     server.get('/api/proxies/:proxy', function (req, res) {
-        req.proxy.populate('exceptions rules', function (err, proxy) {
-            res.json(req.proxy);
-        });
+        res.json(req.proxy);
     });
-    server.put('/api/proxies/:proxy', jsonParser, function (req, res, next) {
+    server.put('/api/proxies/:proxy', bodyParser, function (req, res, next) {
         req.proxy.set(req.body);
         req.proxy.save(function (err, proxy) {
             if (err) {
@@ -71,6 +60,10 @@ module.exports = function (server, bodyParser) {
             }
             res.send('proxy deleted');
         });
+    });
+    server.get('/api/proxies/:proxy/download', function (req, res) {
+        download(req.proxy);
+        res.json(req.proxy);
     });
     server.param('proxy', function (req, res, next, id) {
         var query = Proxy.findById(id);
@@ -96,7 +89,7 @@ module.exports = function (server, bodyParser) {
             res.json(exceptions);
         });
     });
-    server.post('/api/exceptions', jsonParser, function (req, res, next) {
+    server.post('/api/exceptions', bodyParser, function (req, res, next) {
         var exception = new Exception(req.body);
         exception.save(function (err, exception) {
             if (err) {
@@ -105,10 +98,10 @@ module.exports = function (server, bodyParser) {
             res.json(exception);
         });
     });
-    server.get('/api/exceptions/:exception', jsonParser, function (req, res, next) {
+    server.get('/api/exceptions/:exception', bodyParser, function (req, res, next) {
         res.json(req.exception);
     });
-    server.put('/api/exceptions/:exception', jsonParser, function (req, res, next) {
+    server.put('/api/exceptions/:exception', bodyParser, function (req, res, next) {
         req.exception.set(req.body);
         req.exception.save(function (err, exception) {
             if (err) {
@@ -149,7 +142,7 @@ module.exports = function (server, bodyParser) {
             res.json(rules);
         });
     });
-    server.post('/api/rules', urlencodedParser, function (req, res, next) {
+    server.post('/api/rules', bodyParser, function (req, res, next) {
         var rule = new Rule(req.body);
         rule.save(function (err, rule) {
             if (err) {
@@ -158,10 +151,10 @@ module.exports = function (server, bodyParser) {
             res.json(rule);
         });
     });
-    server.get('/api/rules/:rule', jsonParser, function (req, res, next) {
+    server.get('/api/rules/:rule', bodyParser, function (req, res, next) {
         res.json(req.rule);
     });
-    server.put('/api/rules/:rule', jsonParser, function (req, res, next) {
+    server.put('/api/rules/:rule', bodyParser, function (req, res, next) {
         req.rule.set(req.body);
         req.rule.save(function (err, rule) {
             if (err) {

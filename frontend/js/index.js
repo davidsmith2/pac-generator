@@ -1,5 +1,32 @@
 (function ($, _, Backbone, Marionette) {
 
+    var Exception = Backbone.RelationalModel.extend({
+        urlRoot: '/api/exceptions',
+        idAttribute: '_id',
+        defaults: {
+            host: ''
+        }
+    });
+
+    var Exceptions = Backbone.Collection.extend({
+        url: '/api/exceptions',
+        model: Exception,
+        comparator: 'host'
+    });
+
+    var Rule = Backbone.RelationalModel.extend({
+        idAttribute: '_id',
+        defaults: {
+            host: ''
+        }
+    });
+
+    var Rules = Backbone.Collection.extend({
+        url: '/api/rules',
+        model: Rule,
+        comparator: 'host'
+    });
+
     var Proxy = Backbone.RelationalModel.extend({
         idAttribute: '_id',
         defaults: {
@@ -12,45 +39,43 @@
             {
                 type: Backbone.HasMany,
                 key: 'exceptions',
-                relatedModel: Exception
+                relatedModel: Exception,
+                collectionType: Exceptions,
+                reverseRelation: {
+                    key: 'proxy',
+                    includeInJSON: '_id'
+                }
             },
             {
                 type: Backbone.HasMany,
                 key: 'rules',
-                relatedModel: Rule
+                relatedModel: Rule,
+                collectionType: Rules,
+                reverseRelation: {
+                    key: 'proxy',
+                    includeInJSON: '_id'
+                }
             }
-        ]
+        ],
+        download: function () {
+            var url = this.url() + '/download';
+            var options = {
+                url: url,
+                type: 'get'
+            };
+            return (this.sync || Backbone.sync).call(this, null, this, options);
+        }
     });
 
     var Proxies = Backbone.Collection.extend({
         url: '/api/proxies',
         model: Proxy,
-        comparator: 'name'
-    });
-
-    var Exception = Backbone.RelationalModel.extend({
-        urlRoot: '/api/exceptions',
-        idAttribute: '_id',
-        defaults: {
-            host: ''
+        comparator: 'name',
+        download: function () {
+            this.each(function (proxy) {
+                proxy.download();
+            });
         }
-    });
-
-    var Exceptions = Backbone.Collection.extend({
-        url: '/api/exceptions',
-        model: Exception
-    });
-
-    var Rule = Backbone.RelationalModel.extend({
-        idAttribute: '_id',
-        defaults: {
-            host: ''
-        }
-    });
-
-    var Rules = Backbone.Collection.extend({
-        url: '/api/rules',
-        model: Rule
     });
 
     var ModalView = Marionette.LayoutView.extend({
@@ -79,10 +104,7 @@
     var HostFormView = Marionette.ItemView.extend({
         template: _.template($('.host-form-template').html()),
         tagName: 'form',
-        className: 'form-horizontal',
-        triggers: {
-            'submit': 'submit'
-        }
+        className: 'form-horizontal'
     });
 
     var HostView = Marionette.ItemView.extend({
@@ -175,15 +197,112 @@
         }
     });
 
+    var ProxyFormView = Marionette.ItemView.extend({
+        template: _.template($('.proxy-form-template').html()),
+        tagName: 'form',
+        className: 'form-horizontal'
+    });
+
     var ProxyView = Marionette.ItemView.extend({
         template: _.template($('#proxy-template').html()),
-        tagName: 'tr'
+        tagName: 'tr',
+        triggers: {
+            'click .js-copy': 'copy',
+            'click .js-download': 'download',
+            'click .js-edit': 'edit',
+            'click .js-delete': 'delete'
+        },
+        modelEvents: {
+            'change': 'changed'
+        },
+        changed: function () {
+            this.render();
+        }
     });
 
     var ProxiesView = Marionette.CompositeView.extend({
         template: _.template($('#proxies-template').html()),
         childView: ProxyView,
-        childViewContainer: 'table'
+        childViewContainer: 'table',
+        triggers: {
+            'click .js-create': 'create',
+            'click .js-download': 'download'
+        }
+    });
+
+    var ProxyController = Marionette.Controller.extend({
+        initialize: function (options) {
+            this.collection = options.collection;
+        },
+        index: function () {
+            var self = this;
+            self.collection.fetch({
+                success: function (proxies) {
+                    var proxiesView = new ProxiesView({
+                        collection: proxies
+                    });
+                    proxiesView.on('create', self.create, self);
+                    proxiesView.on('download', self.downloadAll, self);
+                    proxiesView.on('childview:copy', self.copy, self);
+                    proxiesView.on('childview:download', self.download, self);
+                    proxiesView.on('childview:edit', self.edit, self);
+                    proxiesView.on('childview:delete', self['delete'], self);
+                    App.proxiesRegion.show(proxiesView);
+                }
+            });
+        },
+        create: function () {
+            var self = this;
+            var proxyModel = new Proxy();
+            var proxyFormView = new ProxyFormView({model: proxyModel});
+            var modalView = new ModalView({model: new Backbone.Model({title: 'Create proxy'})});
+            App.modalRegion.show(modalView);
+            modalView.bodyRegion.show(proxyFormView);
+            self.listenTo(modalView, 'save', function () {
+                var name = proxyFormView.$el.find('[name=name]').val();
+                var port = proxyFormView.$el.find('[name=port]').val();
+                proxyModel.set({name: name, port: port});
+                self.collection.create(proxyModel.attributes, {
+                    success: function (model) {
+                        console.log('proxy ' + model.get('_id') + ' created');
+                    }
+                });
+            });
+        },
+        downloadAll: function (options) {
+            options.collection.download();
+        },
+        copy: function (options) {
+            console.log('copy', options)
+        },
+        download: function (options) {
+            options.model.download();
+        },
+        edit: function (options) {
+            console.log('edit', options)
+            var self = this;
+            var proxyFormView = new ProxyFormView({model: options.model});
+            var modalView = new ModalView({model: new Backbone.Model({title: 'Edit proxy'})});
+            App.modalRegion.show(modalView);
+            modalView.bodyRegion.show(proxyFormView);
+            self.listenTo(modalView, 'save', function () {
+                var name = proxyFormView.$el.find('[name=name]').val();
+                var port = proxyFormView.$el.find('[name=port]').val();
+                options.model.save({name: name, port: port}, {
+                    success: function (model) {
+                        console.log('proxy ' + model.get('_id') + ' edited');
+                    }
+                });
+            });
+        },
+        delete: function (options) {
+            var id = options.model.get('_id');
+            options.model.destroy({
+                success: function (model) {
+                    console.log('proxy ' + id + ' destroyed');
+                }
+            });
+        }
     });
 
     var App = new Marionette.Application();
@@ -224,15 +343,10 @@
         ruleController.index();
 
         // proxies
-        var proxies = new Proxies();
-        proxies.fetch({
-            success: function (proxies) {
-                var proxiesView = new ProxiesView({
-                    collection: proxies
-                });
-                App.proxiesRegion.show(proxiesView);
-            }
+        var proxyController = new ProxyController({
+            collection: new Proxies()
         });
+        proxyController.index();
 
     });
 

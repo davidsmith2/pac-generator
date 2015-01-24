@@ -4,9 +4,7 @@ var fs = require('fs'),
 
 var ProxySchema = new Schema({
     name: String,
-    port: String,
-    exceptions: [{type: Schema.Types.ObjectId, ref: 'Exception'}],
-    rules: [{type: Schema.Types.ObjectId, ref: 'Rule'}]
+    port: String
 });
 
 ProxySchema.methods.write = function () {
