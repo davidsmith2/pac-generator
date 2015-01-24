@@ -57,8 +57,8 @@
                 }
             }
         ],
-        download: function () {
-            var url = this.url() + '/download';
+        save: function () {
+            var url = this.url() + '/save';
             var options = {
                 url: url,
                 type: 'get'
@@ -71,9 +71,9 @@
         url: '/api/proxies',
         model: Proxy,
         comparator: 'name',
-        download: function () {
+        save: function () {
             this.each(function (proxy) {
-                proxy.download();
+                proxy.save();
             });
         }
     });
@@ -208,7 +208,6 @@
         tagName: 'tr',
         triggers: {
             'click .js-copy': 'copy',
-            'click .js-download': 'download',
             'click .js-edit': 'edit',
             'click .js-delete': 'delete'
         },
@@ -226,7 +225,7 @@
         childViewContainer: 'table',
         triggers: {
             'click .js-create': 'create',
-            'click .js-download': 'download'
+            'click .js-save': 'save'
         }
     });
 
@@ -242,7 +241,7 @@
                         collection: proxies
                     });
                     proxiesView.on('create', self.create, self);
-                    proxiesView.on('download', self.downloadAll, self);
+                    proxiesView.on('save', self.save, self);
                     proxiesView.on('childview:copy', self.copy, self);
                     proxiesView.on('childview:download', self.download, self);
                     proxiesView.on('childview:edit', self.edit, self);
@@ -269,14 +268,12 @@
                 });
             });
         },
-        downloadAll: function (options) {
-            options.collection.download();
+        save: function (options) {
+
+            options.collection.save();
         },
         copy: function (options) {
             console.log('copy', options)
-        },
-        download: function (options) {
-            options.model.download();
         },
         edit: function (options) {
             console.log('edit', options)

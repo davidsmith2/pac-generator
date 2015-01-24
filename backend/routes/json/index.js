@@ -4,7 +4,7 @@ var Exception = require('../../models/Exception');
 var Rule = require('../../models/Rule');
 var _ = require('underscore');
 
-var download = function (proxy) {
+var saveProxy = function (proxy) {
     proxy.exceptions = [];
     proxy.rules = [];
     Exception.find(function (err, exceptions) {
@@ -61,8 +61,8 @@ module.exports = function (server, bodyParser) {
             res.send('proxy deleted');
         });
     });
-    server.get('/api/proxies/:proxy/download', function (req, res) {
-        download(req.proxy);
+    server.get('/api/proxies/:proxy/save', function (req, res) {
+        saveProxy(req.proxy);
         res.json(req.proxy);
     });
     server.param('proxy', function (req, res, next, id) {
