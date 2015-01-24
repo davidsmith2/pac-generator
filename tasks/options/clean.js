@@ -1,4 +1,4 @@
 module.exports = {
-    build: ['build/*'],
-    release: ['release/*']
+    build: ['build'],
+    release: ['release']
 };

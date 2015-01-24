@@ -33,9 +33,9 @@ module.exports = {
         files: [
             {
                 expand: true,
-                cwd: 'build/pac/',
-                src: ['**/*'],
-                dest: 'release/pac'
+                cwd: 'frontend/',
+                src: ['.htaccess'],
+                dest: 'build'
             }
         ]
     }
