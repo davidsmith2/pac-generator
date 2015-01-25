@@ -4,10 +4,11 @@ var fs = require('fs'),
 
 var ProxySchema = new Schema({
     name: String,
-    port: String
+    port: String,
+    server: String
 });
 
-ProxySchema.methods.write = function () {
+ProxySchema.methods.writePAC = function (func) {
     var mkdirp = require('mkdirp');
     var dirp = './build/pac/' + this.name.toLowerCase();
     var self = this;
@@ -22,17 +23,18 @@ ProxySchema.methods.write = function () {
                 return console.log(err);
             }
             console.log('PAC file created for ' + self.name + ' proxy');
+            func(data);
         });
     });
 };
 
-ProxySchema.methods.test = function (maxTries) {
+ProxySchema.methods.testPAC = function (maxTries) {
     var self = this;
-    var handleError = function () {
+    var handleError = function (err) {
         if (maxTries > 0) {
             maxTries--;
             console.log('Trying to find PAC file for ' + self.name + ' proxy. Tries left: ' + maxTries + '.');
-            self.test(maxTries);
+            self.testPAC(maxTries);
         } else {
             return console.log('PAC file not found for ' + self.name + ' proxy');
         }
@@ -54,7 +56,7 @@ ProxySchema.methods.test = function (maxTries) {
         var path = './build/pac/' + self.name.toLowerCase() + '/proxy.pac';
         fs.open(path, 'r', function (err) {
             if (err) {
-                handleError();
+                handleError(err);
             } else {
                 handleTest();
             }

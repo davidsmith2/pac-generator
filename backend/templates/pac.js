@@ -7,7 +7,7 @@ var getHosts = function (arrIn) {
 };
 
 module.exports = function (proxy) {
-    var server = proxy.name.toLowerCase() + 'proxy:'  + proxy.port;
+    var server = proxy.server + ':'  + proxy.port;
     var exceptions = getHosts(proxy.exceptions);
     var rules = getHosts(proxy.rules);
     var output = '';

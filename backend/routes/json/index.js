@@ -4,22 +4,6 @@ var Exception = require('../../models/Exception');
 var Rule = require('../../models/Rule');
 var _ = require('underscore');
 
-var saveProxy = function (proxy) {
-    proxy.exceptions = [];
-    proxy.rules = [];
-    Exception.find(function (err, exceptions) {
-        for (var i = 0; i < exceptions.length; i++) {
-            proxy.exceptions.push(exceptions[i]);
-        }
-        Rule.find(function (err, rules) {
-            for (var i = 0; i < rules.length; i++) {
-                proxy.rules.push(rules[i]);
-            }
-            proxy.write();
-        });
-    });
-};
-
 module.exports = function (server, bodyParser) {
 
     // proxies
@@ -62,8 +46,21 @@ module.exports = function (server, bodyParser) {
         });
     });
     server.get('/api/proxies/:proxy/publish', function (req, res) {
-        saveProxy(req.proxy);
-        res.json(req.proxy);
+        req.proxy.exceptions = [];
+        req.proxy.rules = [];
+        Exception.find(function (err, exceptions) {
+            for (var i = 0; i < exceptions.length; i++) {
+                req.proxy.exceptions.push(exceptions[i]);
+            }
+            Rule.find(function (err, rules) {
+                for (var i = 0; i < rules.length; i++) {
+                    req.proxy.rules.push(rules[i]);
+                }
+                req.proxy.writePAC(function (pac) {
+                    res.send(pac);
+                });
+            });
+        });
     });
     server.param('proxy', function (req, res, next, id) {
         var query = Proxy.findById(id);

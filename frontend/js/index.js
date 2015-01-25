@@ -32,6 +32,7 @@
         defaults: {
             name: '',
             port: '',
+            server: '',
             exceptions: [],
             rules: []
         },
@@ -259,9 +260,11 @@
             App.modalRegion.show(modalView);
             modalView.bodyRegion.show(proxyFormView);
             self.listenTo(modalView, 'save', function () {
-                var name = proxyFormView.$el.find('[name=name]').val();
-                var port = proxyFormView.$el.find('[name=port]').val();
-                proxyModel.set({name: name, port: port});
+                var data = {};
+                data.name = proxyFormView.$el.find('[name=name]').val();
+                data.server = proxyFormView.$el.find('[name=server]').val();
+                data.port = proxyFormView.$el.find('[name=port]').val();
+                proxyModel.set(data);
                 self.collection.create(proxyModel.attributes, {
                     success: function (model) {
                         console.log('proxy ' + model.get('_id') + ' created');
@@ -285,9 +288,11 @@
             App.modalRegion.show(modalView);
             modalView.bodyRegion.show(proxyFormView);
             self.listenTo(modalView, 'save', function () {
-                var name = proxyFormView.$el.find('[name=name]').val();
-                var port = proxyFormView.$el.find('[name=port]').val();
-                options.model.save({name: name, port: port}, {
+                var data = {};
+                data.name = proxyFormView.$el.find('[name=name]').val();
+                data.server = proxyFormView.$el.find('[name=server]').val();
+                data.port = proxyFormView.$el.find('[name=port]').val();
+                options.model.save(data, {
                     success: function (model) {
                         console.log('proxy ' + model.get('_id') + ' edited');
                     }
