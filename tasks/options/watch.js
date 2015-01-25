@@ -6,7 +6,7 @@ module.exports = {
         ],
         tasks: ['build'],
         options: {
-            livereload: true
+            livereload: false
         }
     },
     backend: {
