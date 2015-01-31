@@ -10,6 +10,10 @@ module.exports = {
             },
             {
                 grunt: true,
+                args: ['watch:livereload']
+            },
+            {
+                grunt: true,
                 args: ['watch:backend']
             }
         ]

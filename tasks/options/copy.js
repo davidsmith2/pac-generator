@@ -19,16 +19,6 @@ module.exports = {
             }
         ]
     },
-    js: {
-        files: [
-            {
-                expand: true,
-                cwd: 'frontend/js/',
-                src: ['**/*'],
-                dest: 'build/js'
-            }
-        ]
-    },
     pac: {
         files: [
             {

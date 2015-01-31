@@ -1,12 +1,7 @@
 .sublime-grunt.cache
 
-bower_components
 build
-downloads
 node_modules
-public
-release
 
 backend/tests/test2.py
 backend/db/credentials.js
-frontend/js/lib

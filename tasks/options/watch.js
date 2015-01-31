@@ -1,19 +1,22 @@
 module.exports = {
     frontend: {
         files: [
-            'frontend/**/*.css',
-            'frontend/**/*.js'
+            'frontend/**/*.css'
         ],
-        tasks: ['build'],
+        tasks: ['copy:css']
+    },
+    livereload: {
+        files: [
+            'build/**/*'
+        ],
         options: {
             livereload: true
         }
     },
     backend: {
         files: [
-            'backend/**/*.js',
-            'backend/views/**/*.jade',
-            'data/**/*.js'
+            'backend/**/*.jade',
+            'backend/**/*.js'
         ],
         tasks: ['express:web'],
         options: {

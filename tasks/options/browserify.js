@@ -1,6 +1,7 @@
 module.exports = {
     options: {
-        debug: true
+        debug: true,
+        watch: true
     },
     dev: {
         src: ['frontend/js/index.js'],
