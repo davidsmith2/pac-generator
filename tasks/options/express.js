@@ -1,7 +1,7 @@
 module.exports = {
     web: {
         options: {
-            livereload: false,
+            livereload: true,
             script: './backend/server.js'
         }
     }

@@ -8,14 +8,33 @@
   },
   "author": "David Smith",
   "license": "ISC",
+  "browser": {
+    "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.js",
+    "marionette": "./node_modules/backbone.marionette/lib/backbone.marionette.js"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "bootstrap": {
+      "depends": [
+        "jquery:$",
+        "jquery:jQuery"
+      ]
+    }
+  },
   "devDependencies": {
     "body-parser": "^1.10.1",
     "bower": "^1.3.12",
     "bower-installer": "^1.2.0",
+    "browserify-shim": "^3.8.2",
     "connect-livereload": "^0.5.2",
     "express": "^4.11.0",
     "glob": "^4.3.5",
     "grunt": "^0.4.5",
+    "grunt-browserify": "^3.3.0",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-copy": "^0.7.0",
@@ -32,6 +51,17 @@
     "python-shell": "0.0.3",
     "serve-static": "^1.8.0",
     "sprintf-js": "^1.0.2",
+    "underscore": "^1.7.0"
+  },
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "backbone-relational": "^0.9.0",
+    "backbone.babysitter": "^0.1.6",
+    "backbone.marionette": "^2.3.2",
+    "backbone.wreqr": "^1.3.1",
+    "bootstrap": "^3.3.2",
+    "jquery": "^2.1.3",
+    "marionette": "0.0.0",
     "underscore": "^1.7.0"
   }
 }
