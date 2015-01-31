@@ -7,7 +7,8 @@ module.exports = {
     },
     livereload: {
         files: [
-            'build/**/*'
+            'build/css/**/*',
+            'build/js/**/*'
         ],
         options: {
             livereload: true
