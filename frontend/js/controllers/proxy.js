@@ -6,6 +6,8 @@ var ProxyModel = require('../entities/proxy');
 var ProxiesView = require('../views/proxies');
 var ProxyFormView = require('../views/proxyForm');
 var ModalView = require('../views/modal');
+var AlertView = require('../views/alert');
+var ProxyPublishView = require('../views/proxyPublish');
 
 module.exports = function (App) {
     return Marionette.Controller.extend({
@@ -53,10 +55,24 @@ module.exports = function (App) {
             options.collection.publish();
         },
         publish: function (options) {
-            options.model.publish();
+            var alertView = new AlertView();
+            options.model.publish({
+                success: function (response) {
+                    alertView.on('before:render', function () {
+                        this.$el.addClass('alert-success');
+                    });
+                    alertView.on('render', function () {
+                        this.contentRegion.show(new ProxyPublishView({model: new Backbone.Model(response)}));
+                    });
+                    App.alertRegion.show(alertView);
+                },
+                error: function () {
+                    console.log('here');
+                }
+            });
         },
         copy: function (options) {
-            console.log('copy', options)
+            console.log('copy', options);
         },
         edit: function (options) {
             var self = this;

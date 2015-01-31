@@ -6,6 +6,7 @@ var Marionette = require('marionette');
 var App = new Marionette.Application();
 
 App.addRegions({
+    alertRegion: '#alert-region',
     proxiesRegion: '#proxies-region',
     exceptionsRegion: '#exceptions-region',
     rulesRegion: '#rules-region',

@@ -8,6 +8,9 @@ html
         .container
             h1 #{title}
             .row
+                .col-xs-6.col-xs-offset-3
+                    #alert-region
+            .row
                 .col-xs-6
                     #exceptions-region
                     #rules-region
@@ -78,5 +81,14 @@ html
             |     </div>
             |   </div>
             | </div>
+
+        script(id='alert-template', type='text/template')
+            | <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            |   <span aria-hidden="true">&times;</span>
+            | </button>
+            | <div class="alert-content-region"></div>
+
+        script(id='proxy-publish-template', type='text/template')
+            | <span class="glyphicon glyphicon-ok"></span> PAC file published for <strong><%= name %></strong> proxy
 
         script(type='text/javascript', src='/js/index.js')

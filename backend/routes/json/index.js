@@ -57,7 +57,7 @@ module.exports = function (server, bodyParser) {
                     req.proxy.rules.push(rules[i]);
                 }
                 req.proxy.writePAC(function (pac) {
-                    res.send(pac);
+                    res.json(req.proxy);
                 });
             });
         });

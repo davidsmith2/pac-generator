@@ -1,4 +1,5 @@
 var Backbone = require('backbone');
+var _ = require('underscore');
 require('backbone-relational');
 
 var Exception = require('./exception');
@@ -38,12 +39,13 @@ module.exports = Backbone.RelationalModel.extend({
             }
         }
     ],
-    publish: function () {
+    publish: function (opts) {
         var url = this.url() + '/publish';
         var options = {
             url: url,
             type: 'get'
         };
+        _.extend(options, opts);
         return (this.sync || Backbone.sync).call(this, null, this, options);
     }
 });
