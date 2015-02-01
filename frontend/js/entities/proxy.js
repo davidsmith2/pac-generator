@@ -13,32 +13,8 @@ module.exports = Backbone.RelationalModel.extend({
     defaults: {
         name: '',
         port: '',
-        server: '',
-        exceptions: [],
-        rules: []
+        server: ''
     },
-    relations: [
-        {
-            type: Backbone.HasMany,
-            key: 'exceptions',
-            relatedModel: Exception,
-            collectionType: Exceptions,
-            reverseRelation: {
-                key: 'proxy',
-                includeInJSON: '_id'
-            }
-        },
-        {
-            type: Backbone.HasMany,
-            key: 'rules',
-            relatedModel: Rule,
-            collectionType: Rules,
-            reverseRelation: {
-                key: 'proxy',
-                includeInJSON: '_id'
-            }
-        }
-    ],
     publish: function (opts) {
         var url = this.url() + '/publish';
         var options = {
