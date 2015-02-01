@@ -8,9 +8,6 @@ var App = new Marionette.Application();
 App.addRegions({
     alertRegion: '#alert-region',
     navRegion: '#nav-region',
-    proxiesRegion: '#proxies-region',
-    rulesRegion: '#rules-region',
-    exceptionsRegion: '#exceptions-region',
     modalRegion: '#modal-region'
 });
 

@@ -28,7 +28,7 @@ module.exports = function (App) {
                     hostsView.on('create', self.create, self);
                     hostsView.on('childview:edit', self.edit, self);
                     hostsView.on('childview:delete', self['delete'], self);
-                    self.region.show(hostsView);
+                    App.NavApp.trigger('tab:change', self.region, hostsView);
                 }
             });
         },

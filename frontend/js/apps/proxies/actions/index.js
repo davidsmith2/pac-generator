@@ -12,7 +12,7 @@ module.exports = function (App, controller) {
             compositeView.on('childview:delete', controller['delete'], controller);
             compositeView.on('childview:edit', controller.edit, controller);
             compositeView.on('childview:publish', controller.publish, controller);
-            App.proxiesRegion.show(compositeView);
+            App.NavApp.trigger('tab:change', 'proxiesRegion', compositeView);
         }
     });
 };

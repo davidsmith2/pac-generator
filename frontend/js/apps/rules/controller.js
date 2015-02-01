@@ -11,7 +11,7 @@ module.exports = function (App) {
     return new HostController({
         collection: new RulesCollection(),
         Model: RuleModel,
-        region: App.rulesRegion,
+        region: 'rulesRegion',
         compositeViewTitle: 'Rules',
         modalTitles: {
             create: 'Create rule',

@@ -26,6 +26,9 @@ module.exports = function (App) {
                     ExceptionsApp.start();
                 }
             });
+            App.NavApp.on('tab:change', function (region, view) {
+                tabsView[region].show(view);
+            });
             App.navRegion.show(tabsView);
         }
     });

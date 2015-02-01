@@ -11,7 +11,7 @@ module.exports = function (App) {
     return new HostController({
         collection: new Exceptions(),
         Model: Exception,
-        region: App.exceptionsRegion,
+        region: 'exceptionsRegion',
         compositeViewTitle: 'Exceptions',
         modalTitles: {
             create: 'Create exception',

@@ -7,6 +7,11 @@ require('bootstrap');
 var TabsView = Marionette.LayoutView.extend({
     template: _.template($('#nav-template').html()),
     className: 'row',
+    regions: {
+        proxiesRegion: '#proxies-region',
+        rulesRegion: '#rules-region',
+        exceptionsRegion: '#exceptions-region'
+    },
     events: {
         'click [href=#proxies-region]': 'change',
         'click [href=#rules-region]': 'change',
