@@ -16,7 +16,7 @@ module.exports = function (App, controller, options) {
             App.alertRegion.show(alertView);
         },
         error: function () {
-            console.log('here');
+            console.log('error publishing PAC file');
         }
     });
 };

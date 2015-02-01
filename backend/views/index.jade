@@ -36,10 +36,10 @@ html
             | <table class="table table-bordered table-striped"></table>
 
         script(id='proxy-template', type='text/template')
-            | <td><%= name %></td>
+            | <td><%= name %><br><small><%= href %></small></td>
             | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-edit js-edit" href="#"><span class="sr-only">Edit</span></a></td>
             | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-save js-publish" href="#"><span class="sr-only">Publish</a></td>
-            | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-copy js-copy" href="#"><span class="sr-only">Copy URL to clipboard</a></td>
+            | <td class="text-center"><button class="btn btn-default btn-sm glyphicon glyphicon-copy js-copy" data-toggle="tooltip" data-trigger="click" title="Copied to clipboard" type="button"><span class="sr-only">Copy URL to clipboard</span></button></td>
             | <td class="text-center"><a class="btn btn-default btn-sm glyphicon glyphicon-remove js-delete" href="#"><span class="sr-only">Delete</span></a></td>
 
         script(class='proxy-form-template', type='text/template')

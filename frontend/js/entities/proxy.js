@@ -15,8 +15,21 @@ module.exports = Backbone.RelationalModel.extend({
         port: '',
         server: ''
     },
+    initialize: function () {
+        this.updateComputedProperties();
+    },
+    updateComputedProperties: function () {
+        var href = location.href + 'pac/' + this.get('name').toLowerCase() + '/proxy.pac';
+        this.set('href', href);
+    },
     publish: function (opts) {
-        var url = this.url() + '/publish';
+        this.__sync__(opts, '/publish');
+    },
+    copy: function (opts) {
+        this.__sync__(opts, '/copy/?href=' + this.get('href'));
+    },
+    __sync__: function (opts, route) {
+        var url = this.url() + route;
         var options = {
             url: url,
             type: 'get'

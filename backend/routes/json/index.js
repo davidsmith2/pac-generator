@@ -62,6 +62,19 @@ module.exports = function (server, bodyParser) {
             });
         });
     });
+
+
+
+    server.get('/api/proxies/:proxy/copy', function (req, res) {
+        var copyPaste = require('copy-paste');
+        var q = req.query;
+        copyPaste.copy(q.href, function () {
+            res.json(q);
+        });
+    });
+
+
+
     server.param('proxy', function (req, res, next, id) {
         var query = Proxy.findById(id);
         query.exec(function (err, proxy) {
