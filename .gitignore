@@ -1,5 +1,6 @@
 .sublime-grunt.cache
 
+bower_components
 build
 node_modules
 

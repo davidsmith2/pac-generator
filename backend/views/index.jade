@@ -3,6 +3,7 @@ html
     head
         title #{title}
         link(href='/css/lib/bootstrap/bootstrap.css', rel='stylesheet', type='text/css')
+        link(href='/css/lib/bootstrap.vertical-tabs/bootstrap.vertical-tabs.css', rel='stylesheet', type='text/css')
         link(href='/css/index.css', rel='stylesheet', type='text/css')
     body
         .container
@@ -10,13 +11,25 @@ html
             .row
                 .col-xs-6.col-xs-offset-3
                     #alert-region
-            .row
-                .col-xs-6
-                    #exceptions-region
-                    #rules-region
-                .col-xs-6
-                    #proxies-region
+            #nav-region
         #modal-region
+
+        script(id='nav-template', type='text/template')
+            | <div class="col-xs-3">
+            |    <ul class="nav nav-tabs tabs-left">
+            |      <li class="active"><a href="#proxies-region" data-toggle="tab">Proxies</a></li>
+            |      <li><a href="#rules-region" data-toggle="tab">Rules</a></li>
+            |      <li><a href="#exceptions-region" data-toggle="tab">Exceptions</a></li>
+            |    </ul>
+            | </div>
+            | <div class="col-xs-9">
+            |    <div class="tab-content">
+            |      <div class="tab-pane active" id="proxies-region"></div>
+            |      <div class="tab-pane" id="rules-region"></div>
+            |      <div class="tab-pane" id="exceptions-region"></div>
+            |    </div>
+            | </div>  
+
 
         script(id='proxies-template', type='text/template')
             | <div class="row"><div class="col-sm-6"><h2 class="mt0">Proxies</h2></div><div class="col-sm-6 text-right"><div class="btn-group "><a class="btn btn-default btn-sm glyphicon glyphicon-save js-publish" href="#"><span class="sr-only">Publish</span><a class="btn btn-default btn-sm glyphicon glyphicon-plus js-create" href="#"><span class="sr-only">New</span></a></div></div></div>

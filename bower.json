@@ -1,0 +1,19 @@
+{
+  "name": "pac-generator",
+  "version": "0.0.0",
+  "homepage": "https://github.com/davidsmith2/pac-generator",
+  "authors": [
+    "davidsmith2 <davidsmith2@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-vertical-tabs": "~1.2.1"
+  }
+}

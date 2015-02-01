@@ -7,16 +7,15 @@ var App = new Marionette.Application();
 
 App.addRegions({
     alertRegion: '#alert-region',
+    navRegion: '#nav-region',
     proxiesRegion: '#proxies-region',
-    exceptionsRegion: '#exceptions-region',
     rulesRegion: '#rules-region',
+    exceptionsRegion: '#exceptions-region',
     modalRegion: '#modal-region'
 });
 
 App.addInitializer(function () {
-    require('./apps/proxies/app')(App);
-    require('./apps/rules/app')(App);
-    require('./apps/exceptions/app')(App);
+    require('./apps/nav/app')(App);
 });
 
 App.start();

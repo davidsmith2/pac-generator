@@ -5,6 +5,7 @@ var _ = require('underscore');
 
 module.exports = function (App) {
     App.module('ExceptionsApp', function (ExceptionsApp, App, Backbone, Marionette, $, _) {
+        ExceptionsApp.startWithParent = false;
         ExceptionsApp.on('start', function () {
             console.log(this.moduleName + ' started');
             require('./router')(App);
@@ -13,4 +14,5 @@ module.exports = function (App) {
             console.log(this.moduleName + ' stopped');
         });
     });
+    return App.ExceptionsApp;
 };

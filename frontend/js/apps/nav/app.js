@@ -4,15 +4,15 @@ var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports = function (App) {
-    App.module('RulesApp', function (RulesApp, App, Backbone, Marionette, $, _) {
-        RulesApp.startWithParent = false;
-        RulesApp.on('start', function () {
+    App.module('NavApp', function (NavApp, App, Backbone, Marionette, $, _) {
+        NavApp.on('start', function () {
             console.log(this.moduleName + ' started');
-            require('./router')(App);
+            var controller = require('./controller')(App);
+            controller.show();
         });
-        RulesApp.on('stop', function () {
+        NavApp.on('stop', function () {
             console.log(this.moduleName + ' stopped');
         });
     });
-    return App.RulesApp;
+    return App.NavApp;
 };
