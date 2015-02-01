@@ -8,7 +8,7 @@ var HostsView = require('../views/hosts');
 var ModalView = require('../views/modal');
 
 module.exports = function (App) {
-    return Marionette.Controller.extend({
+    var Controller = Marionette.Controller.extend({
         initialize: function (options) {
             var self = this;
             self.collection = options.collection;
@@ -73,5 +73,5 @@ module.exports = function (App) {
             });
         }
     });
+    return Controller;
 };
-

@@ -2,15 +2,16 @@ var Backbone = require('backbone');
 var Marionette = require('marionette');
 var $ = require('jquery');
 
-var ProxyModel = require('../entities/proxy');
-var ProxiesView = require('../views/proxies');
-var ProxyFormView = require('../views/proxyForm');
-var ModalView = require('../views/modal');
-var AlertView = require('../views/alert');
-var ProxyPublishView = require('../views/proxyPublish');
+var ProxiesCollection = require('../../entities/proxies');
+var ProxyModel = require('../../entities/proxy');
+var ProxiesView = require('../../views/proxies');
+var ProxyFormView = require('../../views/proxyForm');
+var ModalView = require('../../views/modal');
+var AlertView = require('../../views/alert');
+var ProxyPublishView = require('../../views/proxyPublish');
 
 module.exports = function (App) {
-    return Marionette.Controller.extend({
+    var Controller = Marionette.Controller.extend({
         initialize: function (options) {
             this.collection = options.collection;
         },
@@ -100,5 +101,8 @@ module.exports = function (App) {
                 }
             });
         }
+    });
+    return new Controller({
+        collection: new ProxiesCollection()
     });
 };
