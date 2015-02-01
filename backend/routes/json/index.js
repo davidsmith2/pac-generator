@@ -42,7 +42,7 @@ module.exports = function (server, bodyParser) {
             if (err) {
                 return next(err);
             }
-            res.send('proxy deleted');
+            res.json(proxy);
         });
     });
     server.get('/api/proxies/:proxy/publish', function (req, res) {

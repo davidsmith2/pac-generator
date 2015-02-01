@@ -7,10 +7,10 @@ module.exports = Marionette.ItemView.extend({
     template: _.template($('#proxy-template').html()),
     tagName: 'tr',
     triggers: {
-        'click .js-publish': 'publish',
         'click .js-copy': 'copy',
+        'click .js-delete': 'delete',
         'click .js-edit': 'edit',
-        'click .js-delete': 'delete'
+        'click .js-publish': 'publish'
     },
     modelEvents: {
         'change': 'changed'
