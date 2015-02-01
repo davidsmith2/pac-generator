@@ -7,15 +7,17 @@ var Exceptions = require('../../entities/exceptions');
 var Exception = require('../../entities/exception');
 
 module.exports = function (App) {
-    var HostController = require('../../controllers/host')(App);
+    var HostController = require('../../common/controllers/host/controller')(App);
     return new HostController({
-        collection: new Exceptions(),
-        Model: Exception,
-        region: 'exceptionsRegion',
-        compositeViewTitle: 'Exceptions',
-        modalTitles: {
-            create: 'Create exception',
-            edit: 'Edit exception'
+        collectionType: Exceptions,
+        relatedModel: Exception,
+        regionName: 'exceptionsRegion',
+        content: {
+            regionTitle: 'Exceptions',
+            modalTitles: {
+                create: 'Create exception',
+                edit: 'Edit exception'
+            }
         }
     });
 };

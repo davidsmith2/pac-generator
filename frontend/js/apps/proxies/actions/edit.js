@@ -1,6 +1,6 @@
 var Backbone = require('backbone');
 
-var ModalView = require('../../../views/modal');
+var ModalView = require('../../../common/views/modal');
 var FormView = require('../views/form');
 
 module.exports = function (App, controller, options) {

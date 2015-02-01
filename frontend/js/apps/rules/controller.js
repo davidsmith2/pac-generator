@@ -3,19 +3,21 @@ var Marionette = require('marionette');
 var $ = require('jquery');
 var _ = require('underscore');
 
-var RulesCollection = require('../../entities/rules');
-var RuleModel = require('../../entities/rule');
+var Rules = require('../../entities/rules');
+var Rule = require('../../entities/rule');
 
 module.exports = function (App) {
-    var HostController = require('../../controllers/host')(App);
+    var HostController = require('../../common/controllers/host/controller')(App);
     return new HostController({
-        collection: new RulesCollection(),
-        Model: RuleModel,
-        region: 'rulesRegion',
-        compositeViewTitle: 'Rules',
-        modalTitles: {
-            create: 'Create rule',
-            edit: 'Edit rule'
+        collectionType: Rules,
+        relatedModel: Rule,
+        regionName: 'rulesRegion',
+        content: {
+            regionTitle: 'Rules',
+            modalTitles: {
+                create: 'Create rule',
+                edit: 'Edit rule'
+            }
         }
     });
 };

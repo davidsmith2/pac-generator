@@ -1,6 +1,6 @@
 var Backbone = require('backbone');
 
-var AlertView = require('../../../views/alert');
+var AlertView = require('../../../common/views/alert');
 var MessageView = require('../views/message');
 
 module.exports = function (App, controller, options) {
