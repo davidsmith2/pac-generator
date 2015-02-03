@@ -4,7 +4,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports =  Marionette.LayoutView.extend({
-    template: _.template($('#alert-template').html()),
+    template: require('./templates/alert.hbs'),
     className: 'alert',
     regions: {
         contentRegion: '.alert-content-region'

@@ -4,7 +4,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports = Marionette.ItemView.extend({
-    template: _.template($('.host-template').html()),
+    template: require('./templates/tableRow.hbs'),
     tagName: 'tr',
     triggers: {
         'click .js-edit': 'edit',

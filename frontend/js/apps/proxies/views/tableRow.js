@@ -5,7 +5,7 @@ var _ = require('underscore');
 require('bootstrap');
 
 module.exports = Marionette.ItemView.extend({
-    template: _.template($('#proxy-template').html()),
+    template: require('./templates/tableRow.hbs'),
     tagName: 'tr',
     triggers: {
         'click .js-delete': 'delete',

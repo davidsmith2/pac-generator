@@ -1,6 +1,7 @@
 module.exports = {
     options: {
         debug: true,
+        transform: ['hbsfy'],
         watch: true,
         browserifyOptions: {
             debug: true

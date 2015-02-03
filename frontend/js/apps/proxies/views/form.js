@@ -4,7 +4,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports = Marionette.ItemView.extend({
-    template: _.template($('.proxy-form-template').html()),
+    template: require('./templates/form.hbs'),
     tagName: 'form',
     className: 'form-horizontal'
 });

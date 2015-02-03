@@ -5,7 +5,7 @@ var _ = require('underscore');
 require('bootstrap');
 
 module.exports = Marionette.LayoutView.extend({
-    template: _.template($('#modal-template').html()),
+    template: require('./templates/modal.hbs'),
     className: 'modal',
     regions: {
         headerRegion: '.modal-header',

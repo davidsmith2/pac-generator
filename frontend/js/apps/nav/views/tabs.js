@@ -4,8 +4,9 @@ var $ = require('jquery');
 var _ = require('underscore');
 require('bootstrap');
 
+
 var TabsView = Marionette.LayoutView.extend({
-    template: _.template($('#nav-template').html()),
+    template: require('./templates/tabs.hbs'),
     className: 'row',
     regions: {
         proxiesRegion: '#proxies-region',

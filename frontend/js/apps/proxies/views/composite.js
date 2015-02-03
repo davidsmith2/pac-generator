@@ -7,7 +7,7 @@ require('bootstrap');
 var childView = require('./tableRow');
 
 module.exports = Marionette.CompositeView.extend({
-    template: _.template($('#proxies-template').html()),
+    template: require('./templates/composite.hbs'),
     childView: childView,
     childViewContainer: 'table',
     triggers: {
