@@ -1,17 +1,18 @@
-var AlertView = require('../../../common/views/alert');
-var MessageView = require('../views/message');
+var GrowlView = require('../../../common/views/growl');
 
 module.exports = function (App, controller, options) {
-    var alertView = new AlertView();
+    var growlOptions = {}, growlSettings = {};
+    growlSettings.placement = {};
+    growlSettings.placement.align = 'center';
     options.collection.publish({
         success: function (response) {
-            alertView.on('before:render', function () {
-                this.$el.addClass('alert-success');
+            growlOptions.icon = 'glyphicon glyphicon-ok';
+            growlOptions.message = 'PAC files published for all proxies';
+            growlSettings.type = 'success';
+            return new GrowlView({
+                options: growlOptions,
+                settings: growlSettings
             });
-            alertView.on('render', function () {
-                this.contentRegion.show(new MessageView());
-            });
-            App.alertRegion.show(alertView);
         },
         error: function () {
             console.log('error publishing PAC files');
