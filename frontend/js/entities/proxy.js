@@ -23,10 +23,10 @@ module.exports = Backbone.RelationalModel.extend({
         this.set('href', href);
     },
     publish: function (opts) {
-        this.__sync__(opts, '/publish');
+        this.__sync__(opts, '/?action=publish');
     },
     copy: function (opts) {
-        this.__sync__(opts, '/copy/?href=' + this.get('href'));
+        this.__sync__(opts, '/?action=copy&href=' + this.get('href'));
     },
     __sync__: function (opts, route) {
         var url = this.url() + route;

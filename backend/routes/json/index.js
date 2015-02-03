@@ -1,8 +1,26 @@
+var copyPaste = require('copy-paste');
 var mongoose = require('mongoose');
-var Proxy = require('../../models/Proxy');
-var Exception = require('../../models/Exception');
-var Rule = require('../../models/Rule');
 var _ = require('underscore');
+
+var Exception = require('../../models/Exception');
+var Proxy = require('../../models/Proxy');
+var Rule = require('../../models/Rule');
+
+var publish = function (proxy) {
+    proxy.exceptions = [];
+    proxy.rules = [];
+    Exception.find(function (err, exceptions) {
+        for (var i = 0; i < exceptions.length; i++) {
+            proxy.exceptions.push(exceptions[i]);
+        }
+        Rule.find(function (err, rules) {
+            for (var i = 0; i < rules.length; i++) {
+                proxy.rules.push(rules[i]);
+            }
+            proxy.writePAC();
+        });
+    });
+};
 
 module.exports = function (server, bodyParser) {
 
@@ -10,8 +28,14 @@ module.exports = function (server, bodyParser) {
 
     server.get('/api/proxies', function (req, res, next) {
         Proxy.find(function (err, proxies) {
+            var q = req.query;
             if (err) {
                 return next(err);
+            }
+            if (q.action === 'publish') {
+                for (var i = 0; i < proxies.length; i++) {
+                    publish(proxies[i]);
+                }
             }
             res.json(proxies);
         });
@@ -26,6 +50,12 @@ module.exports = function (server, bodyParser) {
         });
     });
     server.get('/api/proxies/:proxy', function (req, res) {
+        var q = req.query;
+        if (q.action === 'publish') {
+            publish(req.proxy);
+        } else if (q.action === 'copy') {
+            copyPaste.copy(q.href);
+        }
         res.json(req.proxy);
     });
     server.put('/api/proxies/:proxy', bodyParser, function (req, res, next) {
@@ -45,36 +75,6 @@ module.exports = function (server, bodyParser) {
             res.json(proxy);
         });
     });
-    server.get('/api/proxies/:proxy/publish', function (req, res) {
-        req.proxy.exceptions = [];
-        req.proxy.rules = [];
-        Exception.find(function (err, exceptions) {
-            for (var i = 0; i < exceptions.length; i++) {
-                req.proxy.exceptions.push(exceptions[i]);
-            }
-            Rule.find(function (err, rules) {
-                for (var i = 0; i < rules.length; i++) {
-                    req.proxy.rules.push(rules[i]);
-                }
-                req.proxy.writePAC(function (pac) {
-                    res.json(req.proxy);
-                });
-            });
-        });
-    });
-
-
-
-    server.get('/api/proxies/:proxy/copy', function (req, res) {
-        var copyPaste = require('copy-paste');
-        var q = req.query;
-        copyPaste.copy(q.href, function () {
-            res.json(q);
-        });
-    });
-
-
-
     server.param('proxy', function (req, res, next, id) {
         var query = Proxy.findById(id);
         query.exec(function (err, proxy) {

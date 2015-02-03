@@ -8,7 +8,7 @@ var ProxySchema = new Schema({
     server: String
 });
 
-ProxySchema.methods.writePAC = function (func) {
+ProxySchema.methods.writePAC = function () {
     var mkdirp = require('mkdirp');
     var dirp = './build/pac/' + this.name.toLowerCase();
     var self = this;
@@ -23,7 +23,6 @@ ProxySchema.methods.writePAC = function (func) {
                 return console.log(err);
             }
             console.log('PAC file created for ' + self.name + ' proxy');
-            func(data);
         });
     });
 };

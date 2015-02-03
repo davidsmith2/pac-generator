@@ -102,6 +102,11 @@ html
             | <div class="alert-content-region"></div>
 
         script(id='proxy-publish-template', type='text/template')
-            | <span class="glyphicon glyphicon-ok"></span> PAC file published for <strong><%= name %></strong> proxy
+            | <span class="glyphicon glyphicon-ok"></span>
+            | <% if (name) { %>
+            |   PAC file published for <strong><%= name %> proxy</strong>
+            | <% } else { %>
+            |   PAC files published for <strong>all proxies</strong>
+            | <% } %>
 
         script(type='text/javascript', src='/js/index.js')
