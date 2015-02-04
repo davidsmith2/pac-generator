@@ -5,7 +5,8 @@ var _ = require('underscore');
 require('bootstrap');
 require('bootstrap-growl');
 
-module.exports = Backbone.View.extend({
+module.exports = Marionette.ItemView.extend({
+    template: false,
     defaults: {
         options: {},
         settings: {
@@ -17,11 +18,11 @@ module.exports = Backbone.View.extend({
         }
     },
     initialize: function (opts) {
-        var options = _.extend(this.defaults.options, opts.options);
-        var settings = _.extend(this.defaults.settings, opts.settings);
-        this.render(options, settings);
+        this.options = _.extend(this.defaults.options, opts.options);
+        this.settings = _.extend(this.defaults.settings, opts.settings);
+        this.render();
     },
-    render: function (options, settings) {
-        $.growl(options, settings);
+    onBeforeRender: function () {
+        $.growl(this.options, this.settings);
     }
 });
