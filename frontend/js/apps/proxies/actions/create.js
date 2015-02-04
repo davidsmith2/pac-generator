@@ -1,22 +1,22 @@
 var Backbone = require('backbone');
 
-var Proxy = require('../../../entities/proxy');
+var FormView = require('../../../common/views/form');
 var ModalView = require('../../../common/views/modal');
-var FormView = require('../views/form');
+var Proxy = require('../../../entities/proxy');
 
 module.exports = function (App, controller) {
-    var proxy = new Proxy();
-    var formView = new FormView({model: proxy});
-    var modalView = new ModalView({model: new Backbone.Model({title: 'Create proxy'})});
+    var formView = new FormView({
+        model: new Proxy(),
+        template: require('../views/templates/form.hbs')
+    });
+    var modalView = new ModalView({
+        model: new Backbone.Model({title: 'Create proxy'})
+    });
     App.modalRegion.show(modalView);
     modalView.bodyRegion.show(formView);
-    controller.listenTo(modalView, 'save', function () {
-        var attributes = {};
-        attributes.name = formView.$el.find('[name=name]').val();
-        attributes.server = formView.$el.find('[name=server]').val();
-        attributes.port = formView.$el.find('[name=port]').val();
-        proxy.set(attributes);
-        controller.collection.create(proxy.attributes, {
+    modalView.on('save', formView.save, formView);
+    controller.listenTo(formView, 'saved', function (proxy) {
+        this.collection.create(proxy.attributes, {
             success: function (__proxy__) {
                 console.log('proxy ' + __proxy__.get('_id') + ' created');
             }

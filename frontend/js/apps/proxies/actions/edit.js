@@ -1,21 +1,23 @@
 var Backbone = require('backbone');
 
+var FormView = require('../../../common/views/form');
 var ModalView = require('../../../common/views/modal');
-var FormView = require('../views/form');
 
 module.exports = function (App, controller, options) {
-    var formView = new FormView({model: options.model});
-    var modalView = new ModalView({model: new Backbone.Model({title: 'Edit proxy'})});
+    var formView = new FormView({
+        model: options.model,
+        template: require('../views/templates/form.hbs')
+    });
+    var modalView = new ModalView({
+        model: new Backbone.Model({title: 'Edit proxy'})
+    });
     App.modalRegion.show(modalView);
     modalView.bodyRegion.show(formView);
-    controller.listenTo(modalView, 'save', function () {
-        var attributes = {};
-        attributes.name = formView.$el.find('[name=name]').val();
-        attributes.server = formView.$el.find('[name=server]').val();
-        attributes.port = formView.$el.find('[name=port]').val();
-        options.model.save(attributes, {
-            success: function (proxy) {
-                console.log('proxy ' + proxy.get('_id') + ' edited');
+    modalView.on('save', formView.save, formView);
+    controller.listenTo(formView, 'saved', function (proxy) {
+        proxy.save(proxy.attributes, {
+            success: function (__proxy__) {
+                console.log('proxy ' + __proxy__.get('_id') + ' edited');
             }
         });
     });
