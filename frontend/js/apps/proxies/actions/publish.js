@@ -2,8 +2,6 @@ var GrowlView = require('../../../common/views/growl');
 
 module.exports = function (App, controller, options) {
     var growlOptions = {}, growlSettings = {};
-    growlSettings.placement = {};
-    growlSettings.placement.align = 'center';
     options.model.publish({
         success: function () {
             growlOptions.icon = 'glyphicon glyphicon-ok';
