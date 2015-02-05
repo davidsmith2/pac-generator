@@ -10,7 +10,7 @@ module.exports = {
             },
             {
                 grunt: true,
-                args: ['watch:coffeeify']
+                args: ['watch:coffee']
             },
             {
                 grunt: true,

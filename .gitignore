@@ -1,8 +1,10 @@
 .sublime-grunt.cache
+.tmp
 
 bower_components
 build
 node_modules
+release
 
 backend/tests/test2.py
 backend/db/credentials.js

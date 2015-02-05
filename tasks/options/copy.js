@@ -19,6 +19,16 @@ module.exports = {
             }
         ]
     },
+    hbs: {
+        files: [
+            {
+                expand: true,
+                cwd: 'frontend/js/',
+                src: ['**/*.hbs'],
+                dest: '.tmp/js'
+            }
+        ]
+    },
     pac: {
         files: [
             {

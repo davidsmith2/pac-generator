@@ -5,11 +5,12 @@ module.exports = {
         ],
         tasks: ['copy:css']
     },
-    coffeeify: {
+    coffee: {
         files: [
-            'frontend/js/**/*.coffee'
+            'frontend/js/**/*.coffee',
+            'frontend/js/**/*.hbs'
         ],
-        tasks: ['coffeeify']
+        tasks: ['copy:hbs', 'coffee', 'browserify']
     },
     livereload: {
         files: [

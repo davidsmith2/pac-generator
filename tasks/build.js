@@ -1,7 +1,8 @@
 module.exports = function (grunt) {
     grunt.registerTask('build', [
-        'clean:build',
+        'clean',
         'build-non-js',
-        'coffeeify'
+        'coffee',
+        'browserify'
     ]);
 };
