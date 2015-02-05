@@ -15,4 +15,4 @@ App.addInitializer () =>
 App.start()
 
 App.on 'start', () =>
-    Backbone.history.start();
+    Backbone.history.start()

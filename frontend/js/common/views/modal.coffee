@@ -18,4 +18,4 @@ class ModalView extends Marionette.LayoutView
         @.$el.modal 'hide'
         @.trigger 'save'
 
-module.exports = ModalView;
+module.exports = ModalView

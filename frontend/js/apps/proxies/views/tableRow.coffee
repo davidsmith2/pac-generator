@@ -20,6 +20,6 @@ class TableRowView extends Marionette.ItemView
         $el.tooltip().on 'shown.bs.tooltip', () =>
             self.trigger 'copy', model: self.model
     changed: () =>
-        this.render();
+        this.render()
 
 module.exports = TableRowView

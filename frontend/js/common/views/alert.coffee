@@ -7,4 +7,4 @@ class AlertView extends Marionette.LayoutView
     regions:
         contentRegion: '.alert-content-region'
 
-module.exports = AlertView;
+module.exports = AlertView

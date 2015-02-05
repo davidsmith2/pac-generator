@@ -3,4 +3,4 @@ module.exports = (App) =>
         ExceptionsApp.startWithParent = false
         ExceptionsApp.on 'start', () =>
             require('./router')(App)
-    return App.ExceptionsApp;
+    return App.ExceptionsApp

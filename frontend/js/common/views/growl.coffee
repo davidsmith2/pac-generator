@@ -19,4 +19,4 @@ class GrowlView extends Marionette.ItemView
     onBeforeRender: () =>
         $.growl @.options, @.settings
 
-module.exports = GrowlView;
+module.exports = GrowlView

@@ -1,14 +1,16 @@
 module.exports = {
-    coffee_to_js: {
+    dev: {
+        expand: true,
+        cwd: 'frontend/js',
+        dest: '<%= coffee.dev.cwd %>',
+        ext: '.js',
+        src: [
+            '*.coffee',
+            '**/*.coffee'
+        ],
         options: {
             bare: true,
             sourceMap: true
-        },
-        expand: true,
-        flatten: false,
-        cwd: 'frontend/js',
-        src: ['**/*.coffee'],
-        dest: '.tmp/js',
-        ext: '.js'
+        }
     }
 };

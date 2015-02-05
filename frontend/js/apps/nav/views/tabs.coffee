@@ -16,10 +16,8 @@ class TabsView extends Marionette.LayoutView
         'click [href=#rules-region]':       'change',
         'click [href=#exceptions-region]':  'change'
     change: (e) =>
-        id = $(e.target)
-            .attr 'href'
-            .slice 1
+        id = $(e.target).attr('href').slice(1)
         this.trigger 'change', id
 
-module.exports = new TabsView;
+module.exports = new TabsView
 

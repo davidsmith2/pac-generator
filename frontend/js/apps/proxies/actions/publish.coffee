@@ -12,4 +12,4 @@ module.exports = (App, controller, options) =>
                 options: growlOptions
                 settings: growlSettings
         error: () =>
-            console.log('error publishing PAC file');
+            console.log('error publishing PAC file')

@@ -10,4 +10,4 @@ class FormView extends Marionette.ItemView
     save: () =>
         @.trigger 'save'
 
-module.exports = FormView;
+module.exports = FormView

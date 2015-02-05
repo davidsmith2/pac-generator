@@ -6,4 +6,4 @@ class Exceptions extends Backbone.Collection
     model: Exception
     comparator: 'host'
 
-module.exports = Exceptions;
+module.exports = Exceptions
