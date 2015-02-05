@@ -36,7 +36,11 @@ module.exports = {
             'frontend/js/common/controllers/host/actions/edit.js': 'frontend/js/common/controllers/host/actions/edit.coffee',
             'frontend/js/common/controllers/host/actions/index.js': 'frontend/js/common/controllers/host/actions/index.coffee',
             'frontend/js/common/controllers/host/views/composite.js': 'frontend/js/common/controllers/host/views/composite.coffee',
-            'frontend/js/common/controllers/host/views/tableRow.js': 'frontend/js/common/controllers/host/views/tableRow.coffee'
+            'frontend/js/common/controllers/host/views/tableRow.js': 'frontend/js/common/controllers/host/views/tableRow.coffee',
+            'frontend/js/common/views/alert.js':                        'frontend/js/common/views/alert.coffee',
+            'frontend/js/common/views/form.js':                        'frontend/js/common/views/form.coffee',
+            'frontend/js/common/views/growl.js':                        'frontend/js/common/views/growl.coffee',
+            'frontend/js/common/views/modal.js':                        'frontend/js/common/views/modal.coffee'
         }
     }
 };

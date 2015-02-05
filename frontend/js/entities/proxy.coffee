@@ -20,7 +20,7 @@ class Proxy extends Backbone.RelationalModel
         this.__sync__ opts, '/?action=copy&href=' + this.get('href')
     __sync__: (opts, route) =>
         url = this.url() + route;
-        options
+        options =
             url: url
             type: 'get'
         _.extend options, opts

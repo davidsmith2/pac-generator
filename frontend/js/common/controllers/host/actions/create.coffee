@@ -12,6 +12,6 @@ module.exports = (App, controller) =>
     modalView.bodyRegion.show formView
     modalView.on 'save', formView.save, formView
     controller.listenTo formView, 'saved', (host) =>
-        controller.collection.create host.attributes, =>
+        controller.collection.create host.attributes, 
             success: (__host__) =>
                 console.log 'host ' + __host__.get('_id') + ' created'

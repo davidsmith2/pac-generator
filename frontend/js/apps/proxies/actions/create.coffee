@@ -13,6 +13,6 @@ module.exports = (App, controller) =>
     modalView.bodyRegion.show formView
     modalView.on 'save', formView.save, formView
     controller.listenTo formView, 'saved', (proxy) =>
-        controller.collection.create proxy.attributes, =>
+        controller.collection.create proxy.attributes, 
             success: (__proxy__) =>
                 console.log 'proxy ' + __proxy__.get('_id') + ' created'

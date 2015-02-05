@@ -1,4 +1,4 @@
 module.exports = (App, controller, options) =>
-    options.model.destroy =>
+    options.model.destroy
         success: (host) =>
             console.log 'host ' + host.get('_id') + ' destroyed'

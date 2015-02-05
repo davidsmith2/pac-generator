@@ -8,7 +8,7 @@ class Proxies extends Backbone.Collection
     comparator: 'name'
     publish: (opts) =>
         url = this.url + '/?action=publish'
-        options
+        options =
             url: url
             type: 'get'
         _.extend options, opts
