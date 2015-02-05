@@ -14,7 +14,9 @@ module.exports = {
             'frontend/js/apps/proxies/actions/edit.js':         'frontend/js/apps/proxies/actions/edit.coffee',
             'frontend/js/apps/proxies/actions/index.js':        'frontend/js/apps/proxies/actions/index.coffee',
             'frontend/js/apps/proxies/actions/publish.js':      'frontend/js/apps/proxies/actions/publish.coffee',
-            'frontend/js/apps/proxies/actions/publishAll.js':   'frontend/js/apps/proxies/actions/publishAll.coffee'
+            'frontend/js/apps/proxies/actions/publishAll.js':   'frontend/js/apps/proxies/actions/publishAll.coffee',
+            'frontend/js/apps/proxies/views/composite.js':      'frontend/js/apps/proxies/views/composite.coffee',
+            'frontend/js/apps/proxies/views/tableRow.js':       'frontend/js/apps/proxies/views/tableRow.coffee'
         }
     }
 };
