@@ -29,7 +29,14 @@ module.exports = {
             'frontend/js/entities/proxy.js':                    'frontend/js/entities/proxy.coffee',
             'frontend/js/entities/rule.js':                     'frontend/js/entities/rule.coffee',
             'frontend/js/entities/rules.js':                    'frontend/js/entities/rules.coffee',
-            'frontend/js/common/behaviors/SaveBehavior.js':     'frontend/js/common/behaviors/SaveBehavior.coffee'
+            'frontend/js/common/behaviors/SaveBehavior.js':     'frontend/js/common/behaviors/SaveBehavior.coffee',
+            'frontend/js/common/controllers/host/controller.js': 'frontend/js/common/controllers/host/controller.coffee',
+            'frontend/js/common/controllers/host/actions/create.js': 'frontend/js/common/controllers/host/actions/create.coffee',
+            'frontend/js/common/controllers/host/actions/delete.js': 'frontend/js/common/controllers/host/actions/delete.coffee',
+            'frontend/js/common/controllers/host/actions/edit.js': 'frontend/js/common/controllers/host/actions/edit.coffee',
+            'frontend/js/common/controllers/host/actions/index.js': 'frontend/js/common/controllers/host/actions/index.coffee',
+            'frontend/js/common/controllers/host/views/composite.js': 'frontend/js/common/controllers/host/views/composite.coffee',
+            'frontend/js/common/controllers/host/views/tableRow.js': 'frontend/js/common/controllers/host/views/tableRow.coffee'
         }
     }
 };
