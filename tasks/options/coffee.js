@@ -16,7 +16,13 @@ module.exports = {
             'frontend/js/apps/proxies/actions/publish.js':      'frontend/js/apps/proxies/actions/publish.coffee',
             'frontend/js/apps/proxies/actions/publishAll.js':   'frontend/js/apps/proxies/actions/publishAll.coffee',
             'frontend/js/apps/proxies/views/composite.js':      'frontend/js/apps/proxies/views/composite.coffee',
-            'frontend/js/apps/proxies/views/tableRow.js':       'frontend/js/apps/proxies/views/tableRow.coffee'
+            'frontend/js/apps/proxies/views/tableRow.js':       'frontend/js/apps/proxies/views/tableRow.coffee',
+            'frontend/js/apps/rules/app.js':                    'frontend/js/apps/rules/app.coffee',
+            'frontend/js/apps/rules/router.js':                 'frontend/js/apps/rules/router.coffee',
+            'frontend/js/apps/rules/controller.js':             'frontend/js/apps/rules/controller.coffee',
+            'frontend/js/apps/exceptions/app.js':               'frontend/js/apps/exceptions/app.coffee',
+            'frontend/js/apps/exceptions/router.js':            'frontend/js/apps/exceptions/router.coffee',
+            'frontend/js/apps/exceptions/controller.js':        'frontend/js/apps/exceptions/controller.coffee'
         }
     }
 };
