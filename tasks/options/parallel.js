@@ -6,7 +6,11 @@ module.exports = {
         tasks: [
             {
                 grunt: true,
-                args: ['watch:frontend']
+                args: ['watch:copy']
+            },
+            {
+                grunt: true,
+                args: ['watch:coffeeify']
             },
             {
                 grunt: true,
