@@ -24,11 +24,12 @@ module.exports = {
             'frontend/js/apps/exceptions/router.js':            'frontend/js/apps/exceptions/router.coffee',
             'frontend/js/apps/exceptions/controller.js':        'frontend/js/apps/exceptions/controller.coffee',
             'frontend/js/entities/exception.js':                'frontend/js/entities/exception.coffee',
-            'frontend/js/entities/exceptions.js':                'frontend/js/entities/exceptions.coffee',
-            'frontend/js/entities/proxies.js':                'frontend/js/entities/proxies.coffee',
-            'frontend/js/entities/proxy.js':                'frontend/js/entities/proxy.coffee',
-            'frontend/js/entities/rule.js':                'frontend/js/entities/rule.coffee',
-            'frontend/js/entities/rules.js':                'frontend/js/entities/rules.coffee'
+            'frontend/js/entities/exceptions.js':               'frontend/js/entities/exceptions.coffee',
+            'frontend/js/entities/proxies.js':                  'frontend/js/entities/proxies.coffee',
+            'frontend/js/entities/proxy.js':                    'frontend/js/entities/proxy.coffee',
+            'frontend/js/entities/rule.js':                     'frontend/js/entities/rule.coffee',
+            'frontend/js/entities/rules.js':                    'frontend/js/entities/rules.coffee',
+            'frontend/js/common/behaviors/SaveBehavior.js':     'frontend/js/common/behaviors/SaveBehavior.coffee'
         }
     }
 };
