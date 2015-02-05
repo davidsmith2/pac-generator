@@ -1,9 +1,15 @@
 module.exports = {
-    frontend: {
+    css: {
         files: [
             'frontend/**/*.css'
         ],
         tasks: ['copy:css']
+    },
+    js: {
+        files: [
+            'frontend/**/*.coffee'
+        ],
+        tasks: ['coffee', 'browserify']
     },
     livereload: {
         files: [
