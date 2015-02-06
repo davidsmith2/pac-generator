@@ -1,26 +1,4 @@
 module.exports = {
-    copy: {
-        files: [
-            'frontend/css/**/*.css'
-        ],
-        tasks: ['copy:css']
-    },
-    coffee: {
-        files: [
-            'frontend/js/**/*.coffee',
-            'frontend/js/**/*.hbs'
-        ],
-        tasks: ['copy:hbs', 'coffee', 'browserify']
-    },
-    livereload: {
-        files: [
-            'build/css/**/*',
-            'build/js/**/*'
-        ],
-        options: {
-            livereload: true
-        }
-    },
     backend: {
         files: [
             'backend/**/*.jade',
@@ -31,5 +9,27 @@ module.exports = {
             atBegin: true,
             spawn: false
         }
-    }
+    },
+    coffee: {
+        files: [
+            'frontend/js/**/*.coffee'
+        ],
+        tasks: ['coffee', 'browserify']
+    },
+    copy: {
+        files: [
+            'frontend/css/**/*.css',
+            'frontend/js/**/*.hbs'
+        ],
+        tasks: ['copy:css', 'copy:hbs']
+    },
+    livereload: {
+        files: [
+            'build/css/**/*',
+            'build/js/**/*'
+        ],
+        options: {
+            livereload: true
+        }
+    },
 };
