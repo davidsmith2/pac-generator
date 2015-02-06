@@ -2,7 +2,7 @@ module.exports = {
     dev: {
         expand: true,
         cwd: 'frontend/js',
-        dest: '<%= coffee.dev.cwd %>',
+        dest: '.tmp/js',
         ext: '.js',
         src: [
             '*.coffee',

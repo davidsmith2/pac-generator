@@ -6,7 +6,7 @@ module.exports = {
             }
         },
         files: {
-            './build/js/index.js': ['./frontend/js/index.js']
+            './build/js/index.js': ['./.tmp/js/index.js']
         }
     }
 };
