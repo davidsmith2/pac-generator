@@ -14,5 +14,7 @@ module.exports = (App, controller, options) =>
     controller.listenTo formView, 'saved', (host) =>
         host.save host.attributes, 
             success: (__host__) =>
-                console.log 'host ' + __host__.get('_id') + ' edited'
-                App.trigger 'proxies:updated'
+                hostName = __host__.get 'host'
+                options =
+                    message: hostName + ' host edited. Please publish PAC files.'
+                App.trigger 'host:updated', options

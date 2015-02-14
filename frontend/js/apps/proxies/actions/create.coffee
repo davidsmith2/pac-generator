@@ -15,5 +15,7 @@ module.exports = (App, controller) =>
     controller.listenTo formView, 'saved', (proxy) =>
         controller.collection.create proxy.attributes, 
             success: (__proxy__) =>
-                console.log 'proxy ' + __proxy__.get('_id') + ' created'
-                
+                proxyName = __proxy__.get 'name'
+                options =
+                    message: proxyName + ' proxy created. Please publish PAC file.'
+                App.ProxiesApp.trigger 'proxy:updated', options

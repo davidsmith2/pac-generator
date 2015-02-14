@@ -6,7 +6,7 @@ module.exports = (App, controller, options) =>
     options.collection.publish
         success: () =>
             growlOptions.icon = 'glyphicon glyphicon-ok'
-            growlOptions.message = 'PAC files published for all proxies'
+            growlOptions.message = 'PAC files published for all proxies.'
             growlSettings.type = 'success'
             return new GrowlView
                 options: growlOptions

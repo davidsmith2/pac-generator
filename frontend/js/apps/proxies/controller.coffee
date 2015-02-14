@@ -5,6 +5,7 @@ module.exports = (App) =>
     class ProxyController extends Marionette.Controller
         initialize: () =>
             this.collection = new Proxies
+            App.ProxiesApp.on 'proxy:updated', @.notify, @
         index: () =>
             return require('./actions/index')(App, this)
         create: () =>
@@ -17,4 +18,6 @@ module.exports = (App) =>
             return require('./actions/publish')(App, this, view)
         copy: (view) =>
             return require('./actions/copy')(App, this, view)
+        notify: (options) =>
+            return require('../../common/actions/notify')(options)
     return new ProxyController
