@@ -18,6 +18,10 @@ class TableRowView extends Marionette.ItemView
         'click @ui.copy':       'copy'
     modelEvents:
         'change':               'changed'
+    behaviors:
+        PublishBehavior:
+            behaviorClass: require '../../../common/behaviors/PublishBehavior'
+            buttonSelector: '.js-publish'
     changed: () =>
         @.render()
         @.enablePublishing()
@@ -27,17 +31,8 @@ class TableRowView extends Marionette.ItemView
         $el.tooltip().on 'shown.bs.tooltip', () =>
             @.trigger 'copy', model: self.model
     enablePublishing: () =>
-        $el = @.ui.publish
-        $el.removeClass 'btn-default'
-        $el.addClass 'btn-warning'
-        $el.attr
-            disabled: false
+        @.trigger 'publish:enable'
     disablePublishing: () =>
-        $el = @.ui.publish
-        $el.removeClass 'btn-warning'
-        $el.addClass 'btn-default'
-        $el.attr
-            disabled: true
-        @.trigger 'disabled'
+        @.trigger 'publish:disable'
 
 module.exports = TableRowView

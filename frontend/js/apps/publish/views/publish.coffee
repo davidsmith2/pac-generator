@@ -2,28 +2,22 @@ Marionette = require 'marionette'
 
 class PublishView extends Marionette.ItemView
     template: require './templates/publish.hbs'
-    tagName: 'button'
-    className: 'btn btn-default pull-right mt1'
+    className: 'pull-right mt1'
+    ui:
+        publish: '.js-publish'
     events:
-        'click': 'onClick'
-    onClick: (e) =>
+        'click @ui.publish': 'publish'
+    behaviors:
+        PublishBehavior:
+            behaviorClass: require '../../../common/behaviors/PublishBehavior'
+            buttonSelector: '.js-publish'
+    publish: (e) =>
         e.preventDefault()
         @.disable()
-    onBeforeRender: () =>
-        @.$el.attr
-            disabled: true
+        @.trigger 'publish'
     enable: () =>
-        $el = @.$el
-        $el.removeClass 'btn-default'
-        $el.addClass 'btn-warning'
-        $el.attr
-            disabled: false
+        @.trigger 'publish:enable'
     disable: (e) =>
-        $el = @.$el
-        $el.removeClass 'btn-warning'
-        $el.addClass 'btn-default'
-        $el.attr
-            disabled: true
-        @.trigger 'disabled'
+        @.trigger 'publish:disable'
 
 module.exports = new PublishView

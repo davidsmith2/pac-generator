@@ -6,7 +6,7 @@ module.exports = (App) =>
         initialize: () =>
             App.on 'proxies:acquired', @.onProxiesAcquired, @
             App.on 'proxies:updated', @.onProxiesUpdated, @
-            @.listenTo publishView, 'disabled', @.publish
+            @.listenTo publishView, 'publish', @.publish
         show: () =>
             App.publishRegion.show publishView
         onProxiesAcquired: (collection) =>
