@@ -16,5 +16,4 @@ module.exports = (App, controller) =>
         controller.collection.create proxy.attributes, 
             success: (__proxy__) =>
                 console.log 'proxy ' + __proxy__.get('_id') + ' created'
-                App.trigger 'proxies:updated'
                 

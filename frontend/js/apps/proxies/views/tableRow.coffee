@@ -5,21 +5,39 @@ require 'bootstrap'
 class TableRowView extends Marionette.ItemView
     template: require './templates/tableRow.hbs'
     tagName: 'tr'
+    ui:
+        copy:                   '.js-copy'
+        'delete':               '.js-delete'
+        edit:                   '.js-edit'
+        publish:                '.js-publish'
     triggers:
-        'click .js-delete': 'delete'
-        'click .js-edit': 'edit'
-        'click .js-publish': 'publish'
+        'click @ui.delete':     'delete'
+        'click @ui.edit':       'edit'
+        'click @ui.publish':    'publish'
     events:
-        'click .js-copy': 'copy'
+        'click @ui.copy':       'copy'
     modelEvents:
-        'change': 'changed'
+        'change':               'changed'
+    changed: () =>
+        @.render()
+        @.enablePublishing()
     copy: (e) =>
-        $el = $(e.target)
-        self = this
+        $el = @.ui.copy
         e.preventDefault()
         $el.tooltip().on 'shown.bs.tooltip', () =>
-            self.trigger 'copy', model: self.model
-    changed: () =>
-        this.render()
+            @.trigger 'copy', model: self.model
+    enablePublishing: () =>
+        $el = @.ui.publish
+        $el.removeClass 'btn-default'
+        $el.addClass 'btn-warning'
+        $el.attr
+            disabled: false
+    disablePublishing: () =>
+        $el = @.ui.publish
+        $el.removeClass 'btn-warning'
+        $el.addClass 'btn-default'
+        $el.attr
+            disabled: true
+        @.trigger 'disabled'
 
 module.exports = TableRowView

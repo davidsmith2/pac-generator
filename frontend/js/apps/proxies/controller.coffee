@@ -5,16 +5,16 @@ module.exports = (App) =>
     class ProxyController extends Marionette.Controller
         initialize: () =>
             this.collection = new Proxies
-        copy: (options) =>
-            return require('./actions/copy')(App, this, options)
-        create: () =>
-            return require('./actions/create')(App, this)
-        'delete': (options) =>
-            return require('./actions/delete')(App, this, options)
-        edit: (options) =>
-            return require('./actions/edit')(App, this, options)
         index: () =>
             return require('./actions/index')(App, this)
-        publish: (options) =>
-            return require('./actions/publish')(App, this, options)
+        create: () =>
+            return require('./actions/create')(App, this)
+        edit: (view) =>
+            return require('./actions/edit')(App, this, view)
+        'delete': (view) =>
+            return require('./actions/delete')(App, this, view)
+        publish: (view) =>
+            return require('./actions/publish')(App, this, view)
+        copy: (view) =>
+            return require('./actions/copy')(App, this, view)
     return new ProxyController

@@ -15,4 +15,3 @@ module.exports = (App, controller, options) =>
         proxy.save proxy.attributes, 
             success: (__proxy__) =>
                 console.log 'proxy ' + __proxy__.get('_id') + ' edited'
-                App.trigger 'proxies:updated'

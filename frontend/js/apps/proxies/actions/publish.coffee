@@ -1,12 +1,13 @@
 GrowlView = require '../../../common/views/growl'
 
-module.exports = (App, controller, options) =>
+module.exports = (App, controller, view) =>
     growlOptions = {}
     growlSettings = {}
-    options.model.publish
+    view.model.publish
         success: () =>
+            view.disablePublishing()
             growlOptions.icon = 'glyphicon glyphicon-ok'
-            growlOptions.message = 'PAC file published for ' + options.model.get('name') + ' proxy'
+            growlOptions.message = 'PAC file published for ' + view.model.get('name') + ' proxy'
             growlSettings.type = 'success'
             return new GrowlView
                 options: growlOptions
