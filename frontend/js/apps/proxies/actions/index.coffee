@@ -12,3 +12,4 @@ module.exports = (App, controller) =>
             compositeView.on 'childview:edit', controller.edit, controller
             compositeView.on 'childview:publish', controller.publish, controller
             App.NavApp.trigger 'tab:change', 'proxiesRegion', compositeView
+            App.trigger 'proxies:acquired', proxies

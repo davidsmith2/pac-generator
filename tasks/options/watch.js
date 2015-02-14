@@ -12,7 +12,8 @@ module.exports = {
     },
     coffee: {
         files: [
-            'frontend/js/**/*.coffee'
+            'frontend/js/**/*.coffee',
+            'frontend/js/**/*.hbs'
         ],
         tasks: ['coffee', 'browserify']
     },

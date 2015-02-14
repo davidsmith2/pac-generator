@@ -8,7 +8,6 @@ class CompositeView extends Marionette.CompositeView
     childViewContainer: 'table'
     triggers:
         'click .js-create': 'create'
-        'click .js-publish': 'publish'
     onRender: () =>
         this.$('[data-toggle=tooltip]').tooltip()
 

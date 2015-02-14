@@ -17,6 +17,4 @@ module.exports = (App) =>
             return require('./actions/index')(App, this)
         publish: (options) =>
             return require('./actions/publish')(App, this, options)
-        publishAll: (options) =>
-            return require('./actions/publishAll')(App, this, options)
     return new ProxyController

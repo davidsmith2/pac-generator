@@ -15,3 +15,4 @@ module.exports = (App, controller, options) =>
         host.save host.attributes, 
             success: (__host__) =>
                 console.log 'host ' + __host__.get('_id') + ' edited'
+                App.trigger 'proxies:updated'

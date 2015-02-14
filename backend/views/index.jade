@@ -7,10 +7,13 @@ html
         link(href='/css/index.css', rel='stylesheet', type='text/css')
     body
         .container
-            h1 #{title}
             .row
-                .col-xs-6.col-xs-offset-3
+                .col-xs-4
+                    h1.h2 #{title}
+                .col-xs-4
                     #alert-region
+                .col-xs-4
+                    #publish-region
             #nav-region
         #modal-region
         script(type='text/javascript', src='/js/index.js')
