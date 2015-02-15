@@ -1,18 +1,24 @@
+Backbone = require 'backbone'
 Marionette = require 'marionette'
-publishView = require './views/publish'
+
+LayoutView = require './views/layout'
 
 module.exports = (App) =>
-    class PublishController extends Marionette.Controller
+    class HeaderController extends Marionette.Controller
         initialize: () =>
+            @.headerRegion = App.headerRegion
+            @.layoutView = new LayoutView
+                model: new Backbone.Model
+                    title: @.headerRegion.$el.data('title')
+            @.listenTo @.layoutView, 'publish', @.publish
             App.on 'proxies:acquired', @.onProxiesAcquired, @
             App.on 'host:updated', @.onHostUpdated, @
-            @.listenTo publishView, 'publish', @.publish
         show: () =>
-            App.publishRegion.show publishView
+            @.headerRegion.show @.layoutView
         onProxiesAcquired: (collection) =>
             @.collection = collection
         onHostUpdated: (opts) =>
-            publishView.enable()
+            @.layoutView.enablePublishing()
             @.notify(opts)
         publish: () =>
             options = {collection: @.collection}
@@ -20,4 +26,4 @@ module.exports = (App) =>
         notify: (opts) =>
             return require('../../common/actions/notify')(opts)
 
-    return new PublishController
+    return new HeaderController

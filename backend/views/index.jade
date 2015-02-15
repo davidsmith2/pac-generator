@@ -7,13 +7,8 @@ html
         link(href='/css/index.css', rel='stylesheet', type='text/css')
     body
         .container
-            .row
-                .col-xs-4
-                    h1.h2 #{title}
-                .col-xs-4
-                    #alert-region
-                .col-xs-4
-                    #publish-region
-            #nav-region
+            header#header-region(data-title='#{title}')
+            nav#nav-region
+            footer#footer-region
         #modal-region
         script(type='text/javascript', src='/js/index.js')

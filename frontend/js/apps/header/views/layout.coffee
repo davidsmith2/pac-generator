@@ -1,8 +1,8 @@
 Marionette = require 'marionette'
 
-class PublishView extends Marionette.ItemView
-    template: require './templates/publish.hbs'
-    className: 'pull-right mt1'
+class LayoutView extends Marionette.LayoutView
+    template: require './templates/layout.hbs'
+    className: 'page-header clearfix'
     ui:
         publish: '.js-publish'
     events:
@@ -13,11 +13,11 @@ class PublishView extends Marionette.ItemView
             buttonSelector: '.js-publish'
     publish: (e) =>
         e.preventDefault()
-        @.disable()
+        @.disablePublishing()
         @.trigger 'publish'
-    enable: () =>
+    enablePublishing: () =>
         @.trigger 'publish:enable'
-    disable: (e) =>
+    disablePublishing: (e) =>
         @.trigger 'publish:disable'
 
-module.exports = new PublishView
+module.exports = LayoutView
