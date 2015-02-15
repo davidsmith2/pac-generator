@@ -1,22 +1,34 @@
 Marionette = require 'marionette'
 $ = require 'jquery'
-_ = require 'underscore'
 require 'bootstrap-growl'
+
+Communicator = require '../communicator'
 
 class GrowlView extends Marionette.ItemView
     template: false
     defaults:
-        options: {}
+        options:
+            message: ''
+            icon: 'glyphicon glyphicon-info-sign'
         settings:
             offset: 0
             placement:
                 align: 'center'
             template: require('./templates/growl.hbs')()
+            type: 'info'
     initialize: (opts) =>
-        @.options = _.extend @.defaults.options, opts.options
-        @.settings = _.extend @.defaults.settings, opts.settings
+        @.options = $.extend {}, @.defaults.options, opts.options
+        @.settings = $.extend {}, @.defaults.settings, opts.settings
         @.render()
     onBeforeRender: () =>
         $.growl @.options, @.settings
+
+
+API = 
+    growl: (opts) =>
+        return new GrowlView opts
+
+Communicator.commands.setHandler 'growl:show', (opts) =>
+    return API.growl opts
 
 module.exports = GrowlView

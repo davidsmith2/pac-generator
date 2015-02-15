@@ -16,6 +16,7 @@ module.exports = (App, controller) =>
         controller.collection.create proxy.attributes, 
             success: (__proxy__) =>
                 proxyName = __proxy__.get 'name'
-                options =
-                    message: proxyName + ' proxy created. Please publish PAC file.'
-                App.ProxiesApp.trigger 'proxy:updated', options
+                opts =
+                    options:
+                        message: proxyName + ' proxy created. Please publish PAC file.'
+                controller.notify opts

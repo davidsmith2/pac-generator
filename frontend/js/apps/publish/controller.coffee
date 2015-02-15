@@ -10,14 +10,14 @@ module.exports = (App) =>
         show: () =>
             App.publishRegion.show publishView
         onProxiesAcquired: (collection) =>
-            this.collection = collection
-        onHostUpdated: (options) =>
+            @.collection = collection
+        onHostUpdated: (opts) =>
             publishView.enable()
-            @.notify(options)
+            @.notify(opts)
         publish: () =>
-            options = {collection: this.collection}
-            return require('./actions/publish')(App, this, options)
-        notify: (options) =>
-            return require('../../common/actions/notify')(options)
+            options = {collection: @.collection}
+            return require('./actions/publish')(App, @, options)
+        notify: (opts) =>
+            return require('../../common/actions/notify')(opts)
 
     return new PublishController

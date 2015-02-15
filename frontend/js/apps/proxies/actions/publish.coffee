@@ -1,16 +1,13 @@
-GrowlView = require '../../../common/views/growl'
-
 module.exports = (App, controller, view) =>
-    growlOptions = {}
-    growlSettings = {}
     view.model.publish
         success: () =>
+            opts =
+                options:
+                    message: 'PAC file published for ' + view.model.get('name') + ' proxy.'
+                    icon: 'glyphicon glyphicon-ok'
+                settings:
+                    type: 'success'
+            controller.notify opts
             view.disablePublishing()
-            growlOptions.icon = 'glyphicon glyphicon-ok'
-            growlOptions.message = 'PAC file published for ' + view.model.get('name') + ' proxy.'
-            growlSettings.type = 'success'
-            return new GrowlView
-                options: growlOptions
-                settings: growlSettings
         error: () =>
             console.log('error publishing PAC file')

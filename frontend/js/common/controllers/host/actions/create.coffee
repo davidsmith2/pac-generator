@@ -15,6 +15,7 @@ module.exports = (App, controller) =>
         controller.collection.create host.attributes, 
             success: (__host__) =>
                 hostName = __host__.get 'host'
-                options =
-                    message: hostName + ' host created. Please publish PAC files.'
-                App.trigger 'host:updated', options
+                opts =
+                    options:
+                        message: hostName + ' host created. Please publish PAC files.'
+                App.trigger 'host:updated', opts
