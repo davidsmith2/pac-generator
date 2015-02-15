@@ -6,7 +6,7 @@ module.exports = {
         tasks: [
             {
                 grunt: true,
-                args: ['watch:copy']
+                args: ['watch:backend']
             },
             {
                 grunt: true,
@@ -14,11 +14,11 @@ module.exports = {
             },
             {
                 grunt: true,
-                args: ['watch:livereload']
+                args: ['watch:copy']
             },
             {
                 grunt: true,
-                args: ['watch:backend']
+                args: ['watch:livereload']
             }
         ]
     }

@@ -15,7 +15,7 @@ module.exports = {
             'frontend/js/**/*.coffee',
             'frontend/js/**/*.hbs'
         ],
-        tasks: ['coffee', 'browserify']
+        tasks: ['bootlint', 'coffee', 'browserify']
     },
     copy: {
         files: [
