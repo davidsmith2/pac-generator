@@ -12,17 +12,22 @@ module.exports = {
     },
     coffee: {
         files: [
-            'frontend/js/**/*.coffee',
-            'frontend/js/**/*.hbs'
+            'frontend/js/**/*.coffee'
         ],
-        tasks: ['bootlint', 'coffee', 'browserify']
+        tasks: ['coffee', 'browserify']
     },
-    copy: {
+    hbs: {
         files: [
-            'frontend/css/**/*.css',
             'frontend/js/**/*.hbs'
         ],
-        tasks: ['copy:css', 'copy:hbs']
+        tasks: ['bootlint', 'copy:hbs']
+    },
+    less: {
+        files: [
+            'frontend/css/*.less',
+            'frontend/css/**/*.less'
+        ],
+        tasks: ['less']
     },
     livereload: {
         files: [

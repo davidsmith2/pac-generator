@@ -1,14 +1,4 @@
 module.exports = {
-    css: {
-        files: [
-            {
-                expand: true,
-                cwd: 'frontend/css/',
-                src: ['**/*'],
-                dest: 'build/css'
-            }
-        ]
-    },
     fonts: {
         files: [
             {

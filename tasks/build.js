@@ -3,6 +3,7 @@ module.exports = function (grunt) {
         'bootlint',
         'clean',
         'copy',
+        'less',
         'coffee',
         'browserify'
     ]);
