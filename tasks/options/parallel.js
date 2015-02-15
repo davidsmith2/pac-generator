@@ -14,7 +14,11 @@ module.exports = {
             },
             {
                 grunt: true,
-                args: ['watch:copy']
+                args: ['watch:hbs']
+            },
+            {
+                grunt: true,
+                args: ['watch:less']
             },
             {
                 grunt: true,

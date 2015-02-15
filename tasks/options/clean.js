@@ -1,4 +1,1 @@
-module.exports = {
-    build: ['build'],
-    release: ['release']
-};
+module.exports = ['build'];
