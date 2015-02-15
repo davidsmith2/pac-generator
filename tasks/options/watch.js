@@ -12,15 +12,10 @@ module.exports = {
     },
     coffee: {
         files: [
-            'frontend/js/**/*.coffee'
-        ],
-        tasks: ['coffee', 'browserify']
-    },
-    hbs: {
-        files: [
+            'frontend/js/**/*.coffee',
             'frontend/js/**/*.hbs'
         ],
-        tasks: ['bootlint', 'copy:hbs']
+        tasks: ['bootlint', 'copy:hbs', 'coffee', 'browserify']
     },
     less: {
         files: [
