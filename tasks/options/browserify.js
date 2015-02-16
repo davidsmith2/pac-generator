@@ -2,11 +2,13 @@ module.exports = {
     build: {
         options: {
             browserifyOptions: {
-                debug: true
-            }
+                debug: true,
+                extensions: ['.coffee']
+            },
+            transform: ['coffeeify']
         },
         files: {
-            './build/js/index.js': ['./.tmp/js/index.js']
+            './build/js/index.js': ['./frontend/js/index.coffee']
         }
     }
 };

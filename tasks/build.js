@@ -4,7 +4,6 @@ module.exports = function (grunt) {
         'clean',
         'copy',
         'less',
-        'coffee',
         'browserify'
     ]);
 };

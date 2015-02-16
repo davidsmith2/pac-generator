@@ -14,7 +14,7 @@ App.addInitializer () =>
     require('./apps/header/app')(App)
     require('./apps/nav/app')(App)
 
-App.start()
-
 App.on 'start', () =>
     Backbone.history.start()
+
+App.start()
