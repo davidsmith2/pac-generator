@@ -1,5 +1,6 @@
 .sublime-grunt.cache
 .tmp
+.vagrant
 
 bower_components
 build

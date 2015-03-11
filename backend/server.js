@@ -4,7 +4,10 @@ var serveStatic = require('serve-static');
 
 require('./db/connect');
 
-var server = module.exports = express();
+var server = express();
+
+var IP = '0.0.0.0';
+var PORT = 3000;
 
 server.use(serveStatic('build'));
 
@@ -17,6 +20,8 @@ server.set('view engine', 'jade');
 
 require('./routes')(server);
 
-server.listen(3000, function () {
+server.listen(PORT, IP, function () {
     console.log( 'Express server listening' );
 });
+
+module.exports = server;
