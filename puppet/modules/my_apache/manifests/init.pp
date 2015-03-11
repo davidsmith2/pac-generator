@@ -2,8 +2,6 @@
 #
 class my_apache {
 	class { 'apache': }
-	apache::mod { 'rewrite': }
-	apache::mod { 'vhost_alias': }
 	apache::vhost { 'pac.collegeboard.org':
 		port 		=> '80',
 		docroot 	=> '/vagrant/build',
@@ -18,8 +16,9 @@ class my_apache {
 		],
 		proxy_pass	=> [
 			{
-				path	=> '/',
-				url		=> 'http://10.0.2.2:3000',
+				path			=> '/',
+				url				=> 'http://localhost:3000/',
+				reverse_urls 	=> ['http://localhost:3000/'],
 			}
 		]
 	}

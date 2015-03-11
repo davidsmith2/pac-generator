@@ -10,24 +10,24 @@ module.exports = {
             spawn: false
         }
     },
-    coffee: {
-        files: [
-            'frontend/js/**/*.coffee'
-        ],
-        tasks: ['browserify']
-    },
-    hbs: {
-        files: [
-            'frontend/js/**/*.hbs'
-        ],
-        tasks: ['bootlint', 'browserify']
-    },
-    less: {
+    css: {
         files: [
             'frontend/css/*.less',
             'frontend/css/**/*.less'
         ],
         tasks: ['less']
+    },
+    html: {
+        files: [
+            'frontend/js/**/*.hbs'
+        ],
+        tasks: ['bootlint', 'browserify']
+    },
+    js: {
+        files: [
+            'frontend/js/**/*.coffee'
+        ],
+        tasks: ['browserify']
     },
     livereload: {
         files: [

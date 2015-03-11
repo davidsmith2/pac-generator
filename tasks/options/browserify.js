@@ -7,8 +7,7 @@ module.exports = {
             },
             transform: ['coffeeify']
         },
-        files: {
-            './build/js/index.js': ['./frontend/js/index.coffee']
-        }
+        src: ['./frontend/js/index.coffee'],
+        dest: './build/js/index.js'
     }
 };
