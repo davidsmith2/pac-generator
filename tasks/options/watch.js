@@ -21,13 +21,7 @@ module.exports = {
         files: [
             'frontend/js/**/*.hbs'
         ],
-        tasks: ['bootlint', 'browserify']
-    },
-    js: {
-        files: [
-            'frontend/js/**/*.coffee'
-        ],
-        tasks: ['browserify']
+        tasks: ['bootlint']
     },
     livereload: {
         files: [

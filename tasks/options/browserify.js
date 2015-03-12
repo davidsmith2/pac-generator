@@ -5,7 +5,8 @@ module.exports = {
                 debug: true,
                 extensions: ['.coffee']
             },
-            transform: ['coffeeify']
+            transform: ['coffeeify'],
+            watch: true
         },
         src: ['./frontend/js/index.coffee'],
         dest: './build/js/index.js'
