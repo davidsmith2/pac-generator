@@ -2,6 +2,8 @@
 #
 class my_apache {
 	class { 'apache': }
+	$host_ip = '10.0.2.2'
+	$host_port = '3000'
 	apache::vhost { 'pac.collegeboard.org':
 		port 		=> '80',
 		docroot 	=> '/vagrant/build',
@@ -17,8 +19,8 @@ class my_apache {
 		proxy_pass	=> [
 			{
 				path			=> '/',
-				url				=> 'http://localhost:3000/',
-				reverse_urls 	=> ['http://localhost:3000/'],
+				url				=> "http://${host_ip}:${host_port}/",
+				reverse_urls 	=> ["http://${host_ip}:${host_port}/"],
 			}
 		]
 	}
