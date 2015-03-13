@@ -8,6 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.name = "pac-generator"
     v.customize ["modifyvm", :id, "--memory", "1024"]
   end
+  config.librarian_puppet.puppetfile_dir = "config/puppet"
   config.vm.provision "puppet" do |puppet|
      puppet.manifests_path = "config/puppet/manifests"
      puppet.module_path = "config/puppet/modules"
