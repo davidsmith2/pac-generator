@@ -2,7 +2,7 @@ var jade = require('jade');
 var express = require('express');
 var serveStatic = require('serve-static');
 
-require('./db/connect');
+require('./backend/db/connect');
 
 var server = express();
 
@@ -14,10 +14,10 @@ server.use(require('connect-livereload')({
     port: 35729
 }));
 
-server.set('views', __dirname + '/views');
+server.set('views', __dirname + '/backend/views');
 server.set('view engine', 'jade');
 
-require('./routes')(server);
+require('./backend/routes')(server);
 
 server.listen(PORT, function () {
     console.log( 'Express server listening' );
