@@ -1,13 +1,17 @@
 {
-  "name": "pac-file-generator",
+  "name": "pac-generator",
   "version": "0.0.0",
-  "description": "",
+  "description": "Proxy Auto Configuration file generator",
   "main": ".mongorc.js",
   "scripts": {
     "test": ""
   },
   "author": "David Smith",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidsmith2/pac-generator"
+  },
   "browser": {
     "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.js",
     "marionette": "./node_modules/backbone.marionette/lib/backbone.marionette.js"
@@ -27,16 +31,14 @@
     }
   },
   "devDependencies": {
-    "body-parser": "^1.10.1",
     "bower": "^1.3.12",
     "bower-installer": "^1.2.0",
     "browserify-shim": "^3.8.2",
     "coffeeify": "^1.0.0",
     "connect-livereload": "^0.5.2",
-    "copy-paste": "^1.0.1",
-    "express": "^4.11.0",
     "glob": "^4.3.5",
     "grunt": "^0.4.5",
+    "grunt-awsebtdeploy": "^0.1.11",
     "grunt-bootlint": "^0.7.0",
     "grunt-browserify": "^3.3.0",
     "grunt-cli": "^0.1.13",
@@ -46,18 +48,9 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-express-server": "^0.4.19",
     "grunt-parallel": "^0.3.1",
+    "grunt-zip": "^0.16.2",
     "hbsfy": "^2.2.1",
-    "http": "0.0.0",
-    "jade": "^1.9.1",
-    "load-grunt-tasks": "^2.0.0",
-    "mkdirp": "^0.5.0",
-    "mongodb-uri": "^0.9.7",
-    "mongoose": "^3.8.21",
-    "path": "^0.11.14",
-    "python-shell": "0.0.3",
-    "serve-static": "^1.8.0",
-    "sprintf-js": "^1.0.2",
-    "underscore": "^1.7.0"
+    "load-grunt-tasks": "^2.0.0"
   },
   "dependencies": {
     "backbone": "^1.1.2",
@@ -65,11 +58,22 @@
     "backbone.babysitter": "^0.1.6",
     "backbone.marionette": "^2.3.2",
     "backbone.wreqr": "^1.3.1",
+    "body-parser": "^1.10.1",
     "bootstrap": "^3.3.2",
     "bootstrap-growl": "^2.0.0",
+    "copy-paste": "^1.0.1",
+    "express": "^4.11.0",
     "handlebars": "^2.0.0",
+    "http": "0.0.0",
+    "jade": "^1.9.1",
     "jquery": "^2.1.3",
-    "marionette": "0.0.0",
+    "mkdirp": "^0.5.0",
+    "mongodb-uri": "^0.9.7",
+    "mongoose": "^3.8.21",
+    "path": "^0.11.14",
+    "python-shell": "0.0.3",
+    "serve-static": "^1.8.0",
+    "sprintf-js": "^1.0.2",
     "underscore": "^1.7.0"
   }
 }
