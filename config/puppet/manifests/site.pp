@@ -29,7 +29,7 @@ node default {
     }
     class { 'apache': }
     $host_ip = '10.0.2.2'
-    $host_port = '3000'
+    $host_port = '8081'
     apache::vhost { 'pac.collegeboard.org':
         port        => '80',
         docroot     => '/vagrant/build',

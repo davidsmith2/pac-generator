@@ -1,14 +1,33 @@
+var libs = [
+    'backbone',
+    'backbone-relational',
+    'bootstrap',
+    'bootstrap-growl',
+    'handlebars',
+    'jquery',
+    'marionette',
+    'underscore'
+];
+
 module.exports = {
-    build: {
+    libs: {
+        src: [],
+        dest: './build/js/libs.js',
+        options: {
+            external: null,
+            require: libs
+        }
+    },
+    app: {
+        src: ['./frontend/js/app.coffee'],
+        dest: './build/js/app.js',
         options: {
             browserifyOptions: {
                 debug: true,
                 extensions: ['.coffee']
             },
-            transform: ['coffeeify'],
+            external: libs,
             watch: true
-        },
-        src: ['./frontend/js/index.coffee'],
-        dest: './build/js/index.js'
+        }
     }
 };
