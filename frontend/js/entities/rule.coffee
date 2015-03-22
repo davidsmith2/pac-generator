@@ -1,5 +1,5 @@
-Backbone = require('backbone');
-require('backbone-relational');
+Backbone = require 'backbone'
+require 'backbone-relational'
 
 class Rule extends Backbone.RelationalModel
     urlRoot: '/api/rules'

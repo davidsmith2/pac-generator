@@ -1,5 +1,5 @@
-Backbone = require 'Backbone'
-Marionette = require 'Marionette'
+Backbone = require 'backbone'
+Marionette = require 'marionette'
 $ = require 'jquery'
 _ = require 'underscore'
 
