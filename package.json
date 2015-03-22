@@ -54,7 +54,8 @@
     "grunt-parallel": "^0.3.1",
     "grunt-zip": "^0.16.2",
     "hbsfy": "^2.2.1",
-    "load-grunt-tasks": "^2.0.0"
+    "load-grunt-tasks": "^2.0.0",
+    "moment": "^2.9.0"
   },
   "browser": {
     "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.js",
