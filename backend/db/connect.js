@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var uriUril = require('mongodb-uri');
-var credentials = require('../db/credentials');
 
 var mongodbOptions = {
     server: {
@@ -17,7 +16,7 @@ var mongodbOptions = {
     }
 };
 
-var mongodbUri = 'mongodb://' + credentials.user + ':' + credentials.password + '@ds031691.mongolab.com:31691/pac-generator';
+var mongodbUri = 'mongodb://admin:admin@ds031691.mongolab.com:31691/pac-generator';
 var mongooseUri = uriUril.formatMongoose(mongodbUri);
 
 mongoose.connect(mongodbUri, mongodbOptions);

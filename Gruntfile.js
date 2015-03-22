@@ -18,8 +18,7 @@ module.exports = function (grunt) {
   });
   // project config
   config = {
-    pkg: grunt.file.readJSON('package.json'),
-    aws: grunt.file.readJSON('credentials.json')
+    pkg: grunt.file.readJSON('package.json')
   };
   // merge config and options for "grunt-"-prefixed modules
   grunt.util._.extend(config, loadConfig('./tasks/options/'));
