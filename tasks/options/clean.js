@@ -1,1 +1,4 @@
-module.exports = ['build'];
+module.exports = {
+    build: ['build'],
+    deploy: ['deploy']
+};
