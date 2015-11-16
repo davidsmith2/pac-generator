@@ -1,11 +1,10 @@
 var libs = [
     'backbone',
     'backbone-relational',
+    'backbone.marionette',
     'bootstrap',
-    'bootstrap-growl',
     'handlebars',
     'jquery',
-    'marionette',
     'underscore'
 ];
 
