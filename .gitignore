@@ -9,6 +9,7 @@ config/puppet/.tmp/
 config/puppet/modules/
 config/puppet/Puppetfile.lock
 credentials.json
+deploy
 node_modules
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

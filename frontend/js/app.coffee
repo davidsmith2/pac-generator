@@ -1,6 +1,7 @@
+console.log 'test'
+
 Backbone = require 'backbone'
 $ = require 'jquery'
-
 
 Backbone.$ = $;
 window.jQuery = $;

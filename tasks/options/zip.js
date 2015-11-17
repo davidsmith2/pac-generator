@@ -1,7 +1,5 @@
-var moment = require('moment');
-var nowMoment = moment().format('YYYYMMDDHHmmss');
 module.exports = {
-    dev: {
+    deploy: {
         src: [
             '.ebextensions/**/*',
             'app.js',
@@ -9,6 +7,6 @@ module.exports = {
             'build/**/*',
             'package.json'
         ],
-        dest: 'deploy/<%= pkg.name %>-' + nowMoment + '.zip'
+        dest: 'deploy/<%= pkg.name %>.zip'
     }
 };

@@ -1,9 +1,10 @@
 module.exports = function (grunt) {
     grunt.registerTask('build', [
+        'clean',
         'bootlint',
-        'clean:build',
         'copy',
         'less',
-        'browserify'
+        'browserify',
+        'zip:deploy'
     ]);
 };
