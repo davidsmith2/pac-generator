@@ -1,5 +1,3 @@
-console.log 'test'
-
 Backbone = require 'backbone'
 $ = require 'jquery'
 
