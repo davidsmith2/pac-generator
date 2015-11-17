@@ -1,8 +1,23 @@
 language: node_js
 node_js:
-    - "0.10"
+- '0.10'
 before_install:
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - npm install -g grunt-cli
+- echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- npm install -g grunt-cli
 install: npm install
 before_script: grunt build
+deploy:
+  edge: true
+  skip_cleanup: true
+  zip-file: 'deploy/pac-generator.zip'
+  provider: elasticbeanstalk
+  access_key_id: AKIAJUKNYJE7W2NCHUBQ
+  secret_access_key:
+    secure: XbDrk0OWj1NG7zvdUtogqs+px9MfCllkb5UXFiXqBQBz5QIXPwjyQ9grhcL6NaxbY2rbeKEcZke4oRiPHSwHlRHxn/+mzl4ciGv/bm0afhIuIRKpurDjACaZCzSGZo+koL1V3qa54QvVuFXF4FJs0g4BMO/LPkwY8z5bh1M4DdQ=
+  region: us-east-1
+  app: pac-generator
+  env: pac-generator-dev
+  bucket_name: elasticbeanstalk-us-east-1-798511191442
+  on:
+    repo: davidsmith2/pac-generator
+    branch: ci
