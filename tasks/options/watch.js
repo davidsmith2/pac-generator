@@ -1,8 +1,10 @@
 module.exports = {
     backend: {
         files: [
+            'app.js',
             'backend/**/*.jade',
-            'backend/**/*.js'
+            'backend/**/*.js',
+            'config/**/*.js'
         ],
         tasks: ['express:web'],
         options: {

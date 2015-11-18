@@ -1,0 +1,13 @@
+doctype html
+html
+    head
+        title #{pageName} | #{appName}
+        link(href='/css/index.css', rel='stylesheet', type='text/css')
+    body
+        .container
+            header#header-region(data-title='#{appName}', data-username='#{user.local.email}')
+            nav#nav-region
+            footer#footer-region
+        #modal-region
+        script(type='text/javascript', src='/js/libs.js')
+        script(type='text/javascript', src='/js/app.js')
