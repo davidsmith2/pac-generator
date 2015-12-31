@@ -1,7 +1,9 @@
 var getHosts = function (arrIn) {
     var arrOut = [];
     for (var i = 0; i < arrIn.length; i++) {
-        arrOut.push(arrIn[i].host);
+        if (arrIn[i].active) {
+            arrOut.push(arrIn[i].host);
+        }
     }
     return "'" + arrOut.join("','") + "'";
 };

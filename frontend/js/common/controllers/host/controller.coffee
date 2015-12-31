@@ -15,4 +15,6 @@ module.exports = (App) =>
             return require('./actions/edit')(App, this, options)
         index: () =>
             return require('./actions/index')(App, this)
+        toggle: (options) =>
+            return require('./actions/toggle')(App, this, options)
     return Controller

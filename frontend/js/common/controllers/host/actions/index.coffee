@@ -10,4 +10,5 @@ module.exports = (App, controller) =>
             compositeView.on 'create', controller.create, controller
             compositeView.on 'childview:edit', controller.edit, controller
             compositeView.on 'childview:delete', controller['delete'], controller
+            compositeView.on 'childview:toggle', controller.toggle, controller
             App.NavApp.trigger 'tab:change', controller.regionName, compositeView

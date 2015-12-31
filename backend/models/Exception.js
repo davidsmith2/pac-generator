@@ -1,9 +1,8 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var hostSchema = require('../schemas/hostSchema');
 
-var ExceptionSchema = new Schema({
-    host: String,
-    proxy: String
-});
+Schema = mongoose.Schema;
+
+var ExceptionSchema = new Schema(hostSchema);
 
 module.exports = mongoose.model('Exception', ExceptionSchema);

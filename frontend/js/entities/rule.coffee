@@ -1,10 +1,6 @@
-Backbone = require 'backbone'
-require 'backbone-relational'
+Host = require './host'
 
-class Rule extends Backbone.RelationalModel
+class Rule extends Host
     urlRoot: '/api/rules'
-    idAttribute: '_id'
-    defaults:
-        host: ''
 
 module.exports = Rule

@@ -1,10 +1,6 @@
-Backbone = require 'backbone'
-require 'backbone-relational'
+Host = require './host'
 
-class Exception extends Backbone.RelationalModel
+class Exception extends Host
     urlRoot: '/api/exceptions'
-    idAttribute: '_id'
-    defaults:
-        host: ''
 
 module.exports = Exception

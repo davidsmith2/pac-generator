@@ -1,9 +1,8 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var hostSchema = require('../schemas/hostSchema');
 
-var RuleSchema = new Schema({
-    host: String,
-    proxy: String
-});
+var Schema = mongoose.Schema;
+
+var RuleSchema = new Schema(hostSchema);
 
 module.exports = mongoose.model('Rule', RuleSchema);
