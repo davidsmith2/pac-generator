@@ -1,16 +1,41 @@
-var jade = require('jade');
-var express = require('express');
-var serveStatic = require('serve-static');
+// imports and basic setup
 
-require('./backend/db/connect');
+var express         = require('express');
+var mongoose        = require('mongoose');
+var passport        = require('passport');
+var flash           = require('connect-flash');
 
-var app = express();
-var env = app.settings.env;
-var PORT = 8081;
+var morgan          = require('morgan');
+var cookieParser    = require('cookie-parser');
+var bodyParser      = require('body-parser');
+var session         = require('express-session');
 
+var jade            = require('jade');
+var serveStatic     = require('serve-static');
+
+var configDB        = require('./backend/config/database');
+
+var app             = express();
+var port            = 8081;
+var env             = app.settings.env;
+
+// configuration
+
+mongoose.connection.on('error', console.error.bind(console, 'Mongoose connection error'));
+mongoose.connection.once('open', console.log.bind(console, 'Mongoose connection open'));
+mongoose.connect(configDB.url, configDB.options);
+
+require('./backend/config/passport')(passport);
+
+// app setup
+
+app.use(morgan('dev'));
+app.use(cookieParser());
 app.use(serveStatic('build'));
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 
-if ('development' === env) {
+if (env === 'development') {
     app.use(require('connect-livereload')({
         port: 35729
     }));
@@ -19,9 +44,24 @@ if ('development' === env) {
 app.set('views', __dirname + '/backend/views');
 app.set('view engine', 'jade');
 
-require('./backend/routes')(app);
+// passport setup
 
-app.listen(PORT, function () {
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+// routes
+
+require('./backend/routes')(app, bodyParser, passport);
+
+// launch
+
+app.listen(port, function () {
     console.log( 'Express server listening' );
 });
 

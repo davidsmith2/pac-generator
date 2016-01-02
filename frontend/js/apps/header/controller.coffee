@@ -10,6 +10,7 @@ module.exports = (App) =>
             @.layoutView = new LayoutView
                 model: new Backbone.Model
                     title: @.headerRegion.$el.data('title')
+                    username: @.headerRegion.$el.data('username')
             @.listenTo @.layoutView, 'publish', @.publish
             App.on 'proxies:acquired', @.onProxiesAcquired, @
             App.on 'host:updated', @.onHostUpdated, @

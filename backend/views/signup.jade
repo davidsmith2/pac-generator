@@ -1,0 +1,29 @@
+doctype html
+html
+    head
+        title #{pageName} | #{appName}
+        link(href='/css/index.css', rel='stylesheet', type='text/css')
+    body
+        .container
+            .row
+                .col-sm-6.col-sm-offset-3
+                    header#header-region
+                        .page-header
+                            h1.text-center #{appName}
+                    main#main-region
+                        .jumbotron
+                            h2 #{pageName}
+                            if flashMessage
+                                .alert.alert-danger #{flashMessage}
+                            form(action='/signup', method='post')
+                                .form-group
+                                    label Email
+                                    input.form-control(name='email', type='text', value='davidsmith2@gmail.com')
+                                .form-group
+                                    label Password
+                                    input.form-control(name='password', type='password', value='password')
+                                button.btn-btn-warning.btn-lg(type='submit') Sign up
+                    footer#footer-region
+                        hr
+                        p.text-center Have an account? #[a(href='/login') Log in]. Or #[a(href='/') go home].
+        script(type='text/javascript', src='/js/libs.js')
