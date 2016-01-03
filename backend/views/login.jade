@@ -17,11 +17,11 @@ html
                                 .alert.alert-danger #{flashMessage}
                             form(action='/login', method='post')
                                 .form-group
-                                    label Email
-                                    input.form-control(name='email', type='text', value='davidsmith2@gmail.com')
+                                    label(for='email') Email
+                                    input#email.form-control(name='email', type='text')
                                 .form-group
-                                    label Password
-                                    input.form-control(name='password', type='password', value='password')
+                                    label(for='password') Password
+                                    input#password.form-control(name='password', type='password')
                                 button.btn-btn-warning.btn-lg(type='submit') Log in
                     footer#footer-region
                         hr
