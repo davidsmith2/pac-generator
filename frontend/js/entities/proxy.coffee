@@ -9,6 +9,7 @@ class Proxy extends Backbone.RelationalModel
         name: ''
         port: ''
         server: ''
+        _creator: window.user.id
     initialize: () =>
         this.updateComputedProperties()
     updateComputedProperties: () =>

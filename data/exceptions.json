@@ -1,15 +1,26 @@
-{ "_id" : { "$oid" : "54bd783b0b96c09350268f30" }, "host" : ".nmd.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f31" }, "host" : "cbtwitterfeeds.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f32" }, "host" : "dev.sat.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f33" }, "host" : "dev.tools.collegeboard.com" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f34" }, "host" : "mango.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f35" }, "host" : "netconnect.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f36" }, "host" : "pac.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f37" }, "host" : "pacollegeplan.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f38" }, "host" : "regionalforums.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f39" }, "host" : "secure-media.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f3a" }, "host" : "secure-ppmedia.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f3b" }, "host" : "vcm.collegeboard.com" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f3c" }, "host" : "vcm2.collegeboard.com" }
-{ "_id" : { "$oid" : "54bd783c0b96c09350268f3d" }, "host" : "www.collegeboard.org" }
-{ "_id" : { "$oid" : "54bd79d1f80fa21019cc8fae" }, "host" : "test.test.com", "__v" : 0 }
+[
+    {"host":".nmd.collegeboard.org","active":true},
+    {"host":"cbtwitterfeeds.collegeboard.org","active":true},
+    {"host":"mango.collegeboard.org","active":true},
+    {"host":"netconnect.collegeboard.org","active":true},
+    {"host":"pac.collegeboard.org","active":true},
+    {"host":"regionalforums.collegeboard.org","active":true},
+    {"host":"secure-media.collegeboard.org","active":true},
+    {"host":"secure-ppmedia.collegeboard.org","active":true},
+    {"host":"vcm.collegeboard.com","active":true},
+    {"host":"vcm2.collegeboard.com","active":true},
+    {"host":"cbuwstg.collegeboard.org","active":true},
+    {"host":"dev.sat.collegeboard.org","active":true},
+    {"host":"pacollegeplan.collegeboard.org","active":true},
+    {"host":"sandbox.collegeboard.org","active":true},
+    {"host":"sitesearch.collegeboard.org","active":true},
+    {"host":"student.collegeboard.org","active":true},
+    {"host":"www.collegeboard.org","active":true},
+    {"host":"uihub.wcm.collegeboard.org","active":true},
+    {"host":"uihubstg.wcm.collegeboard.org","active":true},
+    {"host":"collegereadiness.collegeboard.org","active":true},
+    {"host":"rpsgenbldd30","active":true},
+    {"host":"jira.hive.collegeboard.org","active":true},
+    {"host":"bamboo.hive.collegeboard.org","active":true},
+    {"host":"k12reports.collegeboard.org","active":true}
+]

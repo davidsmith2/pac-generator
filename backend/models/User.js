@@ -1,11 +1,17 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
-var UserSchema = mongoose.Schema({
+var Schema = mongoose.Schema;
+
+var UserSchema = Schema({
+    _id: String,
     local: {
         email: String,
         password: String
-    }
+    },
+    proxies: [{type: Schema.Types.ObjectId, ref: 'Proxy'}],
+    rules: [{type: Schema.Types.ObjectId, ref: 'Rule'}],
+    exceptions: [{type: Schema.Types.ObjectId, ref: 'Exception'}]
 });
 
 UserSchema.methods.generateHash = function (password) {

@@ -1,11 +1,15 @@
-var fs = require('fs'),
-    mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var _ = require('underscore');
+var fs = require('fs');
+var mongoose = require('mongoose');
 
-var ProxySchema = new Schema({
+//var creatorSchema = require('../schemas/creatorSchema');
+//var proxySchema = require('../schemas/proxySchema');
+
+var ProxySchema = new mongoose.Schema({
     name: String,
     port: String,
-    server: String
+    server: String,
+    _creator: {type: String, ref: 'User'}
 });
 
 ProxySchema.methods.writePAC = function () {

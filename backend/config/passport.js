@@ -26,7 +26,7 @@ module.exports = function (passport) {
             if (user) {
                 return done(null, false, req.flash('signupMessage', 'That email address has been taken.'));
             } else {
-                var newUser            = new User();
+                var newUser            = new User({_id: email});
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password);
                 newUser.save(function (err) {

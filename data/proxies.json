@@ -1,5 +1,16 @@
-{ "_id" : { "$oid" : "54bd85c60b96c09350268f51" }, "name" : "Oak", "port" : 3128, "exceptions" : "[ \".nmd.collegeboard.org\", \"cbtwitterfeeds.collegeboard.org\", \"dev.sat.collegeboard.org\", \"dev.tools.collegeboard.com\", \"mango.collegeboard.org\", \"netconnect.collegeboard.org\", \"pac.collegeboard.org\", \"pacollegeplan.collegeboard.org\", \"regionalforums.collegeboard.org\", \"secure-media.collegeboard.org\", \"secure-ppmedia.collegeboard.org\", \"vcm.collegeboard.com\", \"vcm2.collegeboard.com\", \"www.collegeboard.org\", \"test.test.com\" ]", "rules" : "[ \".collegeboard.org\", \".collegeboard.com\" ]" }
-{ "_id" : { "$oid" : "54bd85c60b96c09350268f52" }, "name" : "Apple", "port" : 3128, "exceptions" : "[ \".nmd.collegeboard.org\", \"cbtwitterfeeds.collegeboard.org\", \"dev.sat.collegeboard.org\", \"dev.tools.collegeboard.com\", \"mango.collegeboard.org\", \"netconnect.collegeboard.org\", \"pac.collegeboard.org\", \"pacollegeplan.collegeboard.org\", \"regionalforums.collegeboard.org\", \"secure-media.collegeboard.org\", \"secure-ppmedia.collegeboard.org\", \"vcm.collegeboard.com\", \"vcm2.collegeboard.com\", \"www.collegeboard.org\", \"test.test.com\" ]", "rules" : "[ \".collegeboard.org\", \".collegeboard.com\" ]" }
-{ "_id" : { "$oid" : "54bd85c60b96c09350268f53" }, "name" : "Beech", "port" : 3128, "exceptions" : "[ \".nmd.collegeboard.org\", \"cbtwitterfeeds.collegeboard.org\", \"dev.sat.collegeboard.org\", \"dev.tools.collegeboard.com\", \"mango.collegeboard.org\", \"netconnect.collegeboard.org\", \"pac.collegeboard.org\", \"pacollegeplan.collegeboard.org\", \"regionalforums.collegeboard.org\", \"secure-media.collegeboard.org\", \"secure-ppmedia.collegeboard.org\", \"vcm.collegeboard.com\", \"vcm2.collegeboard.com\", \"www.collegeboard.org\", \"test.test.com\" ]", "rules" : "[ \".collegeboard.org\", \".collegeboard.com\" ]" }
-{ "_id" : { "$oid" : "54bd85c60b96c09350268f54" }, "name" : "Palm", "port" : 3128, "exceptions" : "[ \".nmd.collegeboard.org\", \"cbtwitterfeeds.collegeboard.org\", \"dev.sat.collegeboard.org\", \"dev.tools.collegeboard.com\", \"mango.collegeboard.org\", \"netconnect.collegeboard.org\", \"pac.collegeboard.org\", \"pacollegeplan.collegeboard.org\", \"regionalforums.collegeboard.org\", \"secure-media.collegeboard.org\", \"secure-ppmedia.collegeboard.org\", \"vcm.collegeboard.com\", \"vcm2.collegeboard.com\", \"www.collegeboard.org\", \"test.test.com\" ]", "rules" : "[ \".collegeboard.org\", \".collegeboard.com\" ]" }
-{ "_id" : { "$oid" : "54bd85c60b96c09350268f55" }, "name" : "Pine", "port" : 3128, "exceptions" : "[ \".nmd.collegeboard.org\", \"cbtwitterfeeds.collegeboard.org\", \"dev.sat.collegeboard.org\", \"dev.tools.collegeboard.com\", \"mango.collegeboard.org\", \"netconnect.collegeboard.org\", \"pac.collegeboard.org\", \"pacollegeplan.collegeboard.org\", \"regionalforums.collegeboard.org\", \"secure-media.collegeboard.org\", \"secure-ppmedia.collegeboard.org\", \"vcm.collegeboard.com\", \"vcm2.collegeboard.com\", \"www.collegeboard.org\", \"test.test.com\" ]", "rules" : "[ \".collegeboard.org\", \".collegeboard.com\" ]" }
+[
+    {"name":"Oak","port":"3128","server":"oakproxy"},
+    {"name":"Palm","port":"3128","server":"palmproxy"},
+    {"name":"Beech","port":"3128","server":"beechproxy"},
+    {"name":"Pine","port":"3128","server":"pineproxy"},
+    {"name":"Apple","port":"3128","server":"appleproxy"},
+    {"name":"Birch","port":"3128","server":"birchproxy"},
+    {"name":"Ash","port":"3128","server":"ashproxy"},
+    {"name":"Elm","port":"3128","server":"elmproxy"},
+    {"name":"Cedar","port":"3128","server":"cedarproxy"},
+    {"name":"Maple","port":"3128","server":"mapleproxy"},
+    {"name":"Pear","port":"3128","server":"pearproxy"},
+    {"name":"QA","port":"3128","server":"qaproxy"},
+    {"name":"Spruce","port":"3128","server":"spruceproxy"},
+    {"name":"Admin","port":"3128","server":"adminproxy"}
+]

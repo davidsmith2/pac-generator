@@ -22,23 +22,33 @@ var publish = function (proxy) {
     });
 };
 
+var filterByCreator = function (collection, userId) {
+    return _.filter(collection, function (model) {
+        return model._creator && (model._creator._id === userId);
+    });
+};
+
 module.exports = function (server, bodyParser) {
 
     // proxies
 
     server.get('/api/proxies', function (req, res, next) {
-        Proxy.find(function (err, proxies) {
-            var q = req.query;
-            if (err) {
-                return next(err);
-            }
-            if (q.action === 'publish') {
-                for (var i = 0; i < proxies.length; i++) {
-                    publish(proxies[i]);
+        Proxy
+            .find()
+            .populate('_creator')
+            .exec(function (err, proxies) {
+                var q = req.query;
+                proxies = filterByCreator(proxies, req.user.id);
+                if (err) {
+                    return next(err);
                 }
-            }
-            res.json(proxies);
-        });
+                if (q.action === 'publish') {
+                    for (var i = 0; i < proxies.length; i++) {
+                        publish(proxies[i]);
+                    }
+                }
+                res.json(proxies);
+            });
     });
     server.post('/api/proxies', bodyParser, function (req, res, next) {
         var proxy = new Proxy(req.body);
@@ -89,68 +99,19 @@ module.exports = function (server, bodyParser) {
         });
     });
 
-    // exceptions
-
-    server.get('/api/exceptions', function (req, res, next) {
-        Exception.find(function (err, exceptions) {
-            if (err) {
-                return next(err);
-            }
-            res.json(exceptions);
-        });
-    });
-    server.post('/api/exceptions', bodyParser, function (req, res, next) {
-        var exception = new Exception(req.body);
-        exception.save(function (err, exception) {
-            if (err) {
-                return next(err);
-            }
-            res.json(exception);
-        });
-    });
-    server.get('/api/exceptions/:exception', bodyParser, function (req, res, next) {
-        res.json(req.exception);
-    });
-    server.put('/api/exceptions/:exception', bodyParser, function (req, res, next) {
-        req.exception.set(req.body);
-        req.exception.save(function (err, exception) {
-            if (err) {
-                return next(err);
-            }
-            res.json(exception);
-        });
-    });
-    server['delete']('/api/exceptions/:exception', function (req, res, next) {
-        req.exception.remove(function (err, exception) {
-            if (err) {
-                return next(err);
-            }
-            res.json(exception);
-        });
-    });
-    server.param('exception', function (req, res, next, id) {
-        var query = Exception.findById(id);
-        query.exec(function (err, exception) {
-            if (err) {
-                return next(err);
-            }
-            if (!exception) {
-                return next(new Error("Can't find exception"));
-            }
-            req.exception = exception;
-            return next();
-        });
-    });
-
     // rules
 
     server.get('/api/rules', function (req, res, next) {
-        Rule.find(function (err, rules) {
-            if (err) {
-                return next(err);
-            }
-            res.json(rules);
-        });
+        Rule
+            .find()
+            .populate('_creator')
+            .exec(function (err, rules) {
+                rules = filterByCreator(rules, req.user.id);
+                if (err) {
+                    return next(err);
+                }
+                res.json(rules);
+            });
     });
     server.post('/api/rules', bodyParser, function (req, res, next) {
         var rule = new Rule(req.body);
@@ -191,6 +152,63 @@ module.exports = function (server, bodyParser) {
                 return next(new Error("Can't find rule"));
             }
             req.rule = rule;
+            return next();
+        });
+    });
+
+    // exceptions
+
+    server.get('/api/exceptions', function (req, res, next) {
+        Exception
+            .find()
+            .populate('_creator')
+            .exec(function (err, exceptions) {
+                exceptions = filterByCreator(exceptions, req.user.id);
+                if (err) {
+                    return next(err);
+                }
+                res.json(exceptions);
+            });
+    });
+    server.post('/api/exceptions', bodyParser, function (req, res, next) {
+        var exception = new Exception(req.body);
+        exception.save(function (err, exception) {
+            if (err) {
+                return next(err);
+            }
+            res.json(exception);
+        });
+    });
+    server.get('/api/exceptions/:exception', bodyParser, function (req, res, next) {
+        res.json(req.exception);
+    });
+    server.put('/api/exceptions/:exception', bodyParser, function (req, res, next) {
+        req.exception.set(req.body);
+        req.exception.save(function (err, exception) {
+            if (err) {
+                return next(err);
+            }
+            res.json(exception);
+        });
+    });
+    server['delete']('/api/exceptions/:exception', function (req, res, next) {
+        req.exception.remove(function (err, exception) {
+            if (err) {
+                return next(err);
+            }
+            res.json(exception);
+        });
+    });
+    server.param('exception', function (req, res, next, id) {
+        var query = Exception.findById(id);
+        query.exec(function (err, exception) {
+            if (err) {
+                return next(err);
+            }
+            if (!exception) {
+                return next(new Error("Can't find exception"));
+            }
+            req.exception = exception;
             return next();
         });
     });
