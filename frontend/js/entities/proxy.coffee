@@ -13,7 +13,7 @@ class Proxy extends Backbone.RelationalModel
     initialize: () =>
         this.updateComputedProperties()
     updateComputedProperties: () =>
-        href = location.href + 'pac/' + this.get('name').toLowerCase() + '/proxy.pac'
+        href = location.protocol + '//' + location.host + '/pac/' + this.get('name').toLowerCase() + '/proxy.pac'
         this.set('href', href)
     publish: (opts) =>
         this.__sync__ opts, '/?action=publish'
