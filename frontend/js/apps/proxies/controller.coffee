@@ -15,8 +15,6 @@ module.exports = (App) =>
             return require('./actions/delete')(App, this, view)
         publish: (view) =>
             return require('./actions/publish')(App, this, view)
-        copy: (view) =>
-            return require('./actions/copy')(App, this, view)
         notify: (opts) =>
             return require('../../common/actions/notify')(opts)
     return new ProxyController

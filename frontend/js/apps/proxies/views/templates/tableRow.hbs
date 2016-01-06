@@ -1,26 +1,28 @@
-<td>
-    {{name}}<br>
-    <small>{{href}}</small>
+<td class="col-sm-3">
+    {{name}}
 </td>
-<td class="text-center">
+<td class="col-sm-5">
+    <small id="{{name}}">{{href}}</small>
+</td>
+<td class="col-sm-1 text-center">
+    <a class="btn btn-default btn-sm js-copy" data-clipboard-target="#{{name}}" data-placement="bottom" href="#" title="Copy URL to clipboard">
+        <span class="glyphicon glyphicon-copy"></span>
+        <span class="sr-only">Copy URL to clipboard</span>
+    </a>
+</td>
+<td class="col-sm-1 text-center">
     <a class="btn btn-default btn-sm js-edit" href="#">
         <span class="glyphicon glyphicon-edit"></span>
         <span class="sr-only">Edit</span>
     </a>
 </td>
-<td class="text-center">
+<td class="col-sm-1 text-center">
     <button class="btn btn-default btn-sm js-publish" disabled="true" type="button">
         <span class="glyphicon glyphicon-save"></span>
         <span class="sr-only">Publish</span>
     </button>
 </td>
-<td class="text-center">
-    <button class="btn btn-default btn-sm js-copy" data-toggle="tooltip" data-trigger="click" title="Copied to clipboard" type="button">
-        <span class="glyphicon glyphicon-copy"></span>
-        <span class="sr-only">Copy URL to clipboard</span>
-    </button>
-</td>
-<td class="text-center">
+<td class="col-sm-1 text-center">
     <a class="btn btn-default btn-sm js-delete" href="#">
         <span class="glyphicon glyphicon-remove"></span>
         <span class="sr-only">Delete</span>

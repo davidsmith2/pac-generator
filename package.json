@@ -19,6 +19,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.10.1",
     "bootstrap": "~3.3.2",
+    "clipboard": "^1.5.5",
     "connect-flash": "~0.1.1",
     "cookie-parser": "~1.4.0",
     "copy-paste": "~1.0.1",

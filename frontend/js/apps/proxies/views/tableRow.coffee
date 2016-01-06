@@ -1,6 +1,7 @@
 Marionette = require 'marionette'
 $ = require 'jquery'
 require 'bootstrap'
+Clipboard = require 'clipboard'
 
 class TableRowView extends Marionette.ItemView
     template: require './templates/tableRow.hbs'
@@ -22,14 +23,17 @@ class TableRowView extends Marionette.ItemView
         PublishBehavior:
             behaviorClass: require '../../../common/behaviors/PublishBehavior'
             buttonSelector: '.js-publish'
+    onRender: () =>
+        @.clipboard = new Clipboard('.js-copy')
+        @.$('.js-copy').tooltip()
     changed: () =>
         @.render()
         @.enablePublishing()
     copy: (e) =>
-        $el = @.ui.copy
         e.preventDefault()
-        $el.tooltip().on 'shown.bs.tooltip', () =>
-            @.trigger 'copy', model: self.model
+        @.clipboard.on 'success', (e) =>
+            e.clearSelection()
+            @.clipboard.destroy()
     enablePublishing: () =>
         @.trigger 'publish:enable'
     disablePublishing: () =>

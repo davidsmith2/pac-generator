@@ -1,4 +1,3 @@
-var copyPaste = require('copy-paste');
 var mongoose = require('mongoose');
 var _ = require('underscore');
 
@@ -63,8 +62,6 @@ module.exports = function (server, bodyParser) {
         var q = req.query;
         if (q.action === 'publish') {
             publish(req.proxy);
-        } else if (q.action === 'copy') {
-            copyPaste.copy(q.href);
         }
         res.json(req.proxy);
     });

@@ -17,8 +17,6 @@ class Proxy extends Backbone.RelationalModel
         this.set('href', href)
     publish: (opts) =>
         this.__sync__ opts, '/?action=publish'
-    copy: (opts) =>
-        this.__sync__ opts, '/?action=copy&href=' + this.get('href')
     __sync__: (opts, route) =>
         url = this.url() + route;
         options =
