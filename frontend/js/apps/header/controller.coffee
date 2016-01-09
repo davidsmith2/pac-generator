@@ -11,19 +11,8 @@ module.exports = (App) =>
                 model: new Backbone.Model
                     title: @.headerRegion.$el.data('title')
                     username: @.headerRegion.$el.data('username')
-            @.listenTo @.layoutView, 'publish', @.publish
-            App.on 'proxies:acquired', @.onProxiesAcquired, @
-            App.on 'host:updated', @.onHostUpdated, @
         show: () =>
             @.headerRegion.show @.layoutView
-        onProxiesAcquired: (collection) =>
-            @.collection = collection
-        onHostUpdated: (opts) =>
-            @.layoutView.enablePublishing()
-            @.notify(opts)
-        publish: () =>
-            options = {collection: @.collection}
-            return require('./actions/publish')(App, @, options)
         notify: (opts) =>
             return require('../../common/actions/notify')(opts)
 

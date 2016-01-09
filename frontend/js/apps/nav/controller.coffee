@@ -2,11 +2,13 @@ Marionette = require 'marionette'
 tabsView = require './views/tabs'
 
 module.exports = (App) =>
+    ControlsApp = require('../controls/app')(App)
     ProxiesApp = require('../proxies/app')(App)
     RulesApp = require('../rules/app')(App)
     ExceptionsApp = require('../exceptions/app')(App)
     class NavController extends Marionette.Controller
         show: () =>
+            ControlsApp.start()
             ProxiesApp.start()
             tabsView.on 'change', (id) =>
                 if id is 'proxies-region'

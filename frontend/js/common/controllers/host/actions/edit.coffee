@@ -5,7 +5,7 @@ ModalView = require '../../../views/modal'
 module.exports = (App, controller, options) =>
     formView = new FormView
         model: options.model
-        template: require '../views/templates/form.hbs'
+        template: require '../../../views/templates/hostForm.hbs'
     modalView = new ModalView
         model: new Backbone.Model title: controller.content.modalTitles.edit
     App.modalRegion.show modalView

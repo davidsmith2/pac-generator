@@ -1,5 +1,5 @@
 module.exports = (App, controller, options) =>
-    options.collection.publish
+    controller.collections.proxies.publish
         success: () =>
             opts = 
                 options:
@@ -9,4 +9,4 @@ module.exports = (App, controller, options) =>
                     type: 'success'
             controller.notify opts
         error: () =>
-            console.log('error publishing PAC files')
+            console.log('Error publishing PAC files')

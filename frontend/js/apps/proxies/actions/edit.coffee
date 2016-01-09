@@ -5,7 +5,7 @@ ModalView = require '../../../common/views/modal'
 module.exports = (App, controller, options) =>
     formView = new FormView
         model: options.model
-        template: require '../views/templates/form.hbs'
+        template: require '../../../common/views/templates/proxyForm.hbs'
     modalView = new ModalView
         model: new Backbone.Model title: 'Edit proxy'
     App.modalRegion.show modalView

@@ -1,5 +1,7 @@
 Marionette = require 'marionette'
 
+ResourceLayoutView = require '../../views/resourceLayout'
+
 module.exports = (App) =>
     class Controller extends Marionette.Controller
         initialize: (options) =>
@@ -7,8 +9,7 @@ module.exports = (App) =>
             @.relatedModel = options.relatedModel
             @.regionName = options.regionName
             @.content = options.content
-        create: () =>
-            return require('./actions/create')(App, this)
+            @.layout = new ResourceLayoutView
         'delete': (options) =>
             return require('./actions/delete')(App, this, options)
         edit: (options) =>

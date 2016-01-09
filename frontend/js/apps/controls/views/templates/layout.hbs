@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-sm-6">
+        <h2 class="mt0">{{title}}</h2>
+    </div>
+    <div class="col-sm-6">
+        <div class="pull-right">
+            <a class="btn btn-primary btn-md js-create" href="#">
+                <span class="glyphicon glyphicon-plus"></span>
+                Create new {{resourceType}}
+            </a>
+            {{#if allowsPublishing}}
+                <button class="btn btn-default btn-md js-publish" disabled="true" type="button" style="margin-left: 1em; ">
+                    <span class="glyphicon glyphicon-save"></span>
+                    Publish PAC files
+                </button>
+            {{/if}}
+        </div>
+    </div>
+</div>
