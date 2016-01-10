@@ -1,13 +1,11 @@
-// Exported data should not be reimported with the expectation of maintaining data integrity
+// dump from prod
+mongodump -h ds031691.mongolab.com:31691 -d pac-generator -c users -u admin -p admin -o ./data
+mongodump -h ds031691.mongolab.com:31691 -d pac-generator -c proxies -u admin -p admin -o ./data
+mongodump -h ds031691.mongolab.com:31691 -d pac-generator -c rules -u admin -p admin -o ./data
+mongodump -h ds031691.mongolab.com:31691 -d pac-generator -c exceptions -u admin -p admin -o ./data
 
-// exports
-mongoexport -h ds031691.mongolab.com:31691 -d pac-generator -c proxies -u admin -p admin -o proxies.json
-mongoexport -h ds031691.mongolab.com:31691 -d pac-generator -c rules -u admin -p admin -o rules.json
-mongoexport -h ds031691.mongolab.com:31691 -d pac-generator -c exceptions -u admin -p admin -o exceptions.json
-mongoexport -h ds031691.mongolab.com:31691 -d pac-generator -c users -u admin -p admin -o users.json
-
-// imports
-mongoimport -h ds031691.mongolab.com:31691 -d pac-generator -c proxies -u admin -p admin --file proxies.json --jsonArray --drop
-mongoimport -h ds031691.mongolab.com:31691 -d pac-generator -c rules -u admin -p admin --file rules.json --jsonArray --drop
-mongoimport -h ds031691.mongolab.com:31691 -d pac-generator -c exceptions -u admin -p admin --file exceptions.json --jsonArray --drop
-mongoimport -h ds031691.mongolab.com:31691 -d pac-generator -c users -u admin -p admin --file users.json --jsonArray --drop
+// restore to dev
+mongorestore -h ds039125.mongolab.com:39125 -d pac-generator-local -u admin -p admin users.bson
+mongorestore -h ds039125.mongolab.com:39125 -d pac-generator-local -u admin -p admin proxies.bson
+mongorestore -h ds039125.mongolab.com:39125 -d pac-generator-local -u admin -p admin rules.bson
+mongorestore -h ds039125.mongolab.com:39125 -d pac-generator-local -u admin -p admin exceptions.bson

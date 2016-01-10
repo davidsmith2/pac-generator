@@ -1,7 +1,6 @@
-var uriUril = require('mongodb-uri');
+var uriUtil = require('mongodb-uri');
 
 module.exports = {
-    url: uriUril.formatMongoose('mongodb://admin:admin@ds031691.mongolab.com:31691/pac-generator'),
     options: {
         server: {
             socketOptions: {
@@ -15,5 +14,11 @@ module.exports = {
                 connectTimeoutMS: 30000
             }
         }
+    },
+    development: {
+        url: uriUtil.formatMongoose('mongodb://admin:admin@ds039125.mongolab.com:39125/pac-generator-local')
+    },
+    production: {
+        url: uriUtil.formatMongoose('mongodb://admin:admin@ds031691.mongolab.com:31691/pac-generator')
     }
 };

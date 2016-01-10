@@ -23,7 +23,7 @@ var env             = app.settings.env;
 
 mongoose.connection.on('error', console.error.bind(console, 'Mongoose connection error'));
 mongoose.connection.once('open', console.log.bind(console, 'Mongoose connection open'));
-mongoose.connect(configDB.url, configDB.options);
+mongoose.connect(configDB[env].url, configDB.options);
 
 require('./backend/config/passport')(passport);
 
