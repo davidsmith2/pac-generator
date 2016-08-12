@@ -4,14 +4,8 @@
 .vagrant
 backend/tests/test2.py
 backend/db/credentials.js
-bower_components
 build
 config/puppet/.tmp/
 config/puppet/modules/
 config/puppet/Puppetfile.lock
-credentials.json
 node_modules
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml

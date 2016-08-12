@@ -4,21 +4,24 @@
 
 PAC Generator is a data-driven proxy auto-config file generator.
 
-## Dev dependencies
+## Local environment setup
 
-### Mac
+In order to run the app in Mac you'll need:
 
-* OS X 10.11.5
-* git 2.7.4
-* grunt-cli 0.1.13
-* grunt 0.4.5
-* node 0.10.30
+* OS X 10.10.3 or newer
+* Docker for Mac
+* Git
 
-## Build and run the project
+You can check version numbers from Terminal with:
 
-```
-git clone https://github.com/davidsmith2/pac-generator.git
-cd pac-generator
-npm i
-grunt
-```
+* OS X: `sw_vers -productVersion`
+* Docker: `docker --version && docker-compose --version && docker-machine --version`
+* Git: `git --version`
+
+Then to run the app:
+
+* Clone Git repo: `git clone https://github.com/davidsmith2/pac-generator.git`
+* Copy Git hooks: `cd pac-generator && cp hooks/pre-commit .git/hooks`
+* Build Docker image: `docker build -t pac-generator .`
+* Run Docker image: `docker run -p 49161:8081 -d pac-generator`
+* Open app in browser: `localhost:49161`
