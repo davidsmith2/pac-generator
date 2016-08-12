@@ -23,5 +23,5 @@ Then to run the app:
 * Clone Git repo: `git clone https://github.com/davidsmith2/pac-generator.git`
 * Copy Git hooks: `cd pac-generator && cp hooks/pre-commit .git/hooks`
 * Build Docker image: `docker build -t pac-generator .`
-* Run Docker image: `docker run -p 49161:8081 -d pac-generator`
-* Open app in browser: `localhost:49161`
+* Run Docker image: `docker run -v ${pwd}:/usr/src/app -p 8081:8081 -p 35729:35729 -d pac-generator`
+* Open app in browser: `localhost:8081`

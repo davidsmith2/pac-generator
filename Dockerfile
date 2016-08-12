@@ -15,8 +15,9 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-# Map app port
+# Map ports
 EXPOSE 8081
+EXPOSE 35729
 
 # Define run command
 CMD grunt
