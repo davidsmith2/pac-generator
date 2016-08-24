@@ -25,3 +25,17 @@ Then to run the app:
 * Build Docker image: `docker build -t pac-generator .`
 * Run Docker image: `docker run -v ${pwd}:/usr/src/app -p 8081:8081 -p 35729:35729 -d pac-generator`
 * Open app in browser: `localhost:8081`
+
+## Docker commands
+
+To remove untagged images:
+
+```
+docker rmi $(docker images -q --filter "dangling=true")
+```
+
+To remove stopped containers:
+
+```
+docker rm $(docker ps -a -q)
+```
