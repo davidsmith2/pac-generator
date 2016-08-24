@@ -2,9 +2,10 @@ module.exports = {
     deploy: {
         src: [
             '.ebextensions/**/*',
-            'app.js',
             'backend/**/*',
             'build/**/*',
+            'app.js',
+            'Dockerfile',
             'package.json'
         ],
         dest: 'deploy/<%= pkg.name %>.zip'
