@@ -20,4 +20,4 @@ deploy:
   bucket_name: elasticbeanstalk-us-east-1-798511191442
   on:
     repo: davidsmith2/pac-generator
-    branch: master
+    branch: development
