@@ -1,23 +1,22 @@
 language: node_js
 node_js:
 - '0.10'
+services:
+- docker
 before_install:
 - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- npm install -g grunt-cli
-install: npm install
-before_script: grunt build
-deploy:
-  edge: true
-  skip_cleanup: true
-  zip-file: 'deploy/pac-generator.zip'
-  provider: elasticbeanstalk
-  access_key_id: AKIAJUKNYJE7W2NCHUBQ
-  secret_access_key:
-    secure: XbDrk0OWj1NG7zvdUtogqs+px9MfCllkb5UXFiXqBQBz5QIXPwjyQ9grhcL6NaxbY2rbeKEcZke4oRiPHSwHlRHxn/+mzl4ciGv/bm0afhIuIRKpurDjACaZCzSGZo+koL1V3qa54QvVuFXF4FJs0g4BMO/LPkwY8z5bh1M4DdQ=
-  region: us-east-1
-  app: pac-generator
-  env: pac-generator-dev
-  bucket_name: elasticbeanstalk-us-east-1-798511191442
-  on:
-    repo: davidsmith2/pac-generator
-    branch: development
+install:
+- docker build -t davidsmith2/pac-generator:$TRAVIS_COMMIT .
+- docker run -p 127.0.0.1:80:80 -d davidsmith2/pac-generator:$TRAVIS_COMMIT
+- docker ps -a
+after_success:
+- docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+- chmod +x ./deploy.sh
+- "./deploy.sh $TRAVIS_COMMIT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY"
+env:
+  global:
+  - secure: SFhg4/Hwqerpf0V2CwEP6Ksa4FX80cBIlgvpzkqDk/UfGMNPEmfN4hWvjTb7n2JvTftZAQxWi1sVEJHoM0ifH0PEI9+it5k/36ivTvrdVa6ZpENqdI1Amru21h0g6/NGZZTOVyLCtnD/sn47sonnV38c16Ohouv4XkrvTfsyX3A=
+  - secure: RWYVxK3VU8VW2F4PM1E4pWFUZhg+WYNb3QXEAuL94GdR9+BID18sjFwe/BCKZjSJYgb2RnVQPFkLaE2xWB5ESbRFJbsNrU3vyJMJ4fDh6CaMuP2jsqiqf//qV0hjKKxG/9gedLJnL/roMISiPh4HBuYyJP0/f42L7rUdQvj2qYE=
+  - secure: Qf4X6BOgErSmoXzlRorXj2jrqcqyQOFehkX6Y4QhLlP6XeDhc6L+0gEJViIIkKfX5mniEO9k5c1bOmHoqdxn7kKS70CYfPV8b+tsgk5AZIQQrC/V8UtpQMMBM+wi00OdySXyqvjiV0JMCgKUIeHigfc3iyqQvgbchONpdEq7HqU=
+  - secure: dRotGmdK4wKqbC2Uf9lYyDOwEUGsXj/+qE1zNLeghWDQfH4dl9yhTa3Dx+LTIkE/dHudvJ8SGE2utAOytZ8eo31b0vlAhpriVnGTxEfkZT71hPv5quWUGqgfDXALmretHv3oV2uI2+KcgDxHXIxp0ZP6uFJ8MGMLjItE4ggFjTo=
+  - secure: WkSZVANZ9atMb5/fQTGmB8UBZMDutzr1pr2FRp7n1gNQIk2zXxa5nrnA1coWYZmBfYBYAgMp25qqS8s9vukLHhxiWksK8hRXGmFOli/VjwsrOPKDc8nv4jFDxLYIR8PcQdfFwv1UwPbBAr2A9Im72eYe8/Sb79BqeNAmGdDxLyM=
