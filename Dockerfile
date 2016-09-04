@@ -1,23 +1,32 @@
-# Define from what image we want to build from
+# Base images
 FROM node:0.10
 
-# Create the working directory for the application
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+# Add user for app
+RUN useradd --user-group --create-home --shell /bin/false app
 
-# Install grunt-cli
-RUN npm install -g grunt-cli@0.1
+# Env variable for app home
+ENV HOME=/home/app
 
-# Install app dependencies
-COPY package.json /usr/src/app/
-RUN npm install
+# Copy packaging files to container
+COPY package.json npm-shrinkwrap.json $HOME/pac-generator/
 
-# Bundle app source
-COPY . /usr/src/app
+# Grant ownership of home dir to app user
+RUN chown -R app:app $HOME/*
 
-# Map ports
-EXPOSE 8081
-EXPOSE 35729
+# Define working dir
+WORKDIR $HOME/pac-generator
 
-# Define run command
+# Switch user to root
+USER root
+
+# Install Grunt CLI
+RUN npm install -g grunt-cli@0.1 && npm install
+
+# Copy app source to container
+COPY . $HOME/pac-generator
+
+# Switch user to app
+USER app
+
+# Run grunt
 CMD grunt

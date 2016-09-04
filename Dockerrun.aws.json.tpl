@@ -8,5 +8,14 @@
     {
       "ContainerPort": "8081"
     }
-  ]
+  ],
+  "Volumes": [
+    {
+      "HostDirectory": ".",
+      "ContainerDirectory": "/home/app/pac-generator"
+    },
+    {
+      "ContainerDirectory": "/home/app/pac-generator/node_modules"
+    }
+  ]  
 }
