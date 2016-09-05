@@ -28,5 +28,8 @@ COPY . $HOME/pac-generator
 # Switch user to app
 USER app
 
+# Expose ports
+EXPOSE 8081
+
 # Run grunt
 CMD grunt
