@@ -1,13 +1,7 @@
 .DS_Store
-.librarian/
 .sublime-grunt.cache
-.vagrant
 backend/tests/test2.py
-backend/db/credentials.js
 build
-config/puppet/.tmp/
-config/puppet/modules/
-config/puppet/Puppetfile.lock
 node_modules
 
 # Elastic Beanstalk Files
