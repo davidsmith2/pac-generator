@@ -18,10 +18,10 @@ html
                             form(action='/login', method='post')
                                 .form-group
                                     label(for='email') Email
-                                    input#email.form-control(name='email', type='text', value='davidsmith2@gmail.com')
+                                    input#email.form-control(name='email', placeholder='Your email', type='text')
                                 .form-group
                                     label(for='password') Password
-                                    input#password.form-control(name='password', type='password')
+                                    input#password.form-control(name='password', placeholder='Your password', type='password')
                                 button.btn-btn-warning.btn-lg(type='submit') Log in
                     footer#footer-region
                         hr
