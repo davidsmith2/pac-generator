@@ -5,7 +5,6 @@ var ACCESS_KEY_ID = grunt.option('AWS_ACCESS_KEY_ID');
 var APPLICATION_NAME = 'pac-generator';
 var DEPLOY_TIMEOUT_MIN = 45;
 var ENVIRONMENT_CNAME = 'pac-generator-dev.elasticbeanstalk.com';
-//var ENVIRONMENT_NAME = 'pac-generator-dev-01';
 var REGION = 'us-east-1';
 var S3_BUCKET = 'elasticbeanstalk-us-east-1-798511191442';
 var SECRET_ACCESS_KEY = grunt.option('AWS_SECRET_ACCESS_KEY');

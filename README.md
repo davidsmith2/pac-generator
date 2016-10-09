@@ -46,3 +46,8 @@ docker tag ${IMAGE_ID} davidsmith2/pac-generator:${COMMIT}
 docker login -e ${EMAIL} -u ${USERNAME} -p ${PASSWORD}
 docker push davidsmith2/pac-generator:${COMMIT}
 ```
+
+## Cloud environments
+
+* pac-generator-dev-01: EC2 t1.micro
+* pac-generator-dev-02: EC2 t2.micro
