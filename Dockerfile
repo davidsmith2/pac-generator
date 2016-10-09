@@ -10,6 +10,4 @@ RUN npm install -g grunt-cli@0.1 && npm install
 
 COPY . $HOME/pac-generator
 
-EXPOSE 8081
-
 CMD grunt
