@@ -6,7 +6,7 @@ module.exports = {
     deploy: {
         src: [
             '.ebextensions/**/*',
-            'Dockerfile'
+            'Dockerrun.aws.json'
         ],
         dest: 'deploy/<%= pkg.name %>-' + SHA1 + '.zip'
     }
