@@ -16,9 +16,9 @@ module.exports = {
         }
     },
     development: {
-        url: uriUtil.formatMongoose('mongodb://admin:admin@ds039125.mongolab.com:39125/pac-generator-local')
+        url: uriUtil.formatMongoose('mongodb://admin:admin@ds039125.mlab.com:39125/pac-generator-local')
     },
     production: {
-        url: uriUtil.formatMongoose('mongodb://admin:admin@ds031691.mongolab.com:31691/pac-generator')
+        url: uriUtil.formatMongoose('mongodb://admin:admin@ds031691.mlab.com:31691/pac-generator')
     }
 };
