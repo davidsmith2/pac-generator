@@ -1,10 +1,9 @@
 module.exports = {
-    backend: {
+    expressWeb: {
         files: [
-            'app.js',
-            'backend/**/*.jade',
-            'backend/**/*.js',
-            'config/**/*.js'
+            'src/**/*.js',
+            '!src/public/**/*.js',
+            'src/views/**/*.jade'
         ],
         tasks: ['express:web'],
         options: {
@@ -12,26 +11,22 @@ module.exports = {
             spawn: false
         }
     },
-    css: {
-        files: [
-            'frontend/css/*.less',
-            'frontend/css/**/*.less'
-        ],
+    less: {
+        files: ['src/public/css/**/*.less', '!src/public/css/lib/**/*.less'],
         tasks: ['less']
     },
-    html: {
-        files: [
-            'frontend/js/**/*.hbs'
-        ],
+    bootlint: {
+        files: ['src/public/js/**/*.hbs'],
         tasks: ['bootlint']
     },
+    browserify: {
+        files: ['src/public/js/**/*.coffee'],
+        tasks: ['browserify:app']
+    },
     livereload: {
-        files: [
-            'build/css/**/*',
-            'build/js/**/*'
-        ],
+        files: ['dist/public/css/**/*', 'dist/public/js/**/*'],
         options: {
             livereload: true
         }
-    },
+    }
 };

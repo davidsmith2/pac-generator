@@ -4,6 +4,7 @@
   "description": "Proxy Auto Configuration file generator",
   "main": ".mongorc.js",
   "scripts": {
+    "start": "node --harmony ./node_modules/.bin/grunt",
     "test": ""
   },
   "author": "David Smith",
@@ -46,14 +47,15 @@
   "devDependencies": {
     "bower": "~1.3.12",
     "bower-installer": "~1.2.0",
-    "browserify-shim": "~3.8.2",
+    "browserify": "^13.0.1",
+    "browserify-shim": "^3.8.12",
     "coffeeify": "~1.0.0",
     "connect-livereload": "~0.5.2",
     "glob": "~4.3.5",
     "grunt": "~0.4.5",
     "grunt-awsebtdeploy": "^0.2.1",
     "grunt-bootlint": "~0.7.0",
-    "grunt-browserify": "~3.3.0",
+    "grunt-browserify": "^5.0.0",
     "grunt-cli": "~0.1.13",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-copy": "~0.7.0",
@@ -63,7 +65,7 @@
     "grunt-express-server": "~0.4.19",
     "grunt-git": "~0.3.7",
     "grunt-parallel": "~0.3.1",
-    "grunt-shell": "^1.3.1",
+    "grunt-shell": "^2.0.0",
     "grunt-zip": "~0.16.2",
     "hbsfy": "~2.2.1",
     "load-grunt-tasks": "~2.0.0",
@@ -73,13 +75,6 @@
     "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.js",
     "bootstrap-growl": "./node_modules/bootstrap-growl-legacy/bootstrap-growl.js",
     "marionette": "./node_modules/backbone.marionette/lib/backbone.marionette.js"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim",
-      "coffeeify",
-      "hbsfy"
-    ]
   },
   "browserify-shim": {
     "bootstrap": {

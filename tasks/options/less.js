@@ -2,12 +2,12 @@ module.exports = {
     build: {
         options: {
             sourceMap: true,
-            sourceMapFilename: 'build/css/index.css.map',
+            sourceMapFilename: 'dist/public/css/index.css.map',
             sourceMapURL: '/css/index.css.map',
             outputSourceFiles: true
         },
         files: {
-            'build/css/index.css': ['frontend/css/index.less']
+            'dist/public/css/index.css': ['src/public/css/index.less']
         }
     }
 };

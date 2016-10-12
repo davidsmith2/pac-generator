@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
     grunt.registerTask('build', [
-        'clean:build',
+        'clean:dist',
         'bootlint',
         'copy',
         'less',

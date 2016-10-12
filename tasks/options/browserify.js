@@ -11,22 +11,26 @@ var libs = [
 module.exports = {
     libs: {
         src: [],
-        dest: './build/js/libs.js',
+        dest: './dist/public/js/libs.js',
         options: {
             external: null,
             require: libs
         }
     },
     app: {
-        src: ['./frontend/js/app.coffee'],
-        dest: './build/js/app.js',
+        src: ['./src/public/js/app.coffee'],
+        dest: './dist/public/js/app.js',
         options: {
             browserifyOptions: {
                 debug: true,
                 extensions: ['.coffee']
             },
             external: libs,
-            watch: true
+            transform: [
+                'browserify-shim',
+                'coffeeify',
+                'hbsfy'
+            ]
         }
     }
 };

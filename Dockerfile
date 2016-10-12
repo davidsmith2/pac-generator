@@ -6,8 +6,8 @@ COPY package.json npm-shrinkwrap.json $HOME/pac-generator/
 
 WORKDIR $HOME/pac-generator
 
-RUN npm install -g grunt-cli@0.1 && npm install
+RUN npm install
 
-COPY . $HOME/pac-generator
+COPY . $HOME/pac-generator/
 
-CMD grunt
+CMD ["npm", "run", "start"]

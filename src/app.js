@@ -13,7 +13,7 @@ var session         = require('express-session');
 var jade            = require('jade');
 var serveStatic     = require('serve-static');
 
-var configDB        = require('./backend/config/database');
+var configDB        = require('./config/database');
 
 var app             = express();
 var port            = 8081;
@@ -25,13 +25,14 @@ mongoose.connection.on('error', console.error.bind(console, 'Mongoose connection
 mongoose.connection.once('open', console.log.bind(console, 'Mongoose connection open'));
 mongoose.connect(configDB[env].url, configDB.options);
 
-require('./backend/config/passport')(passport);
+require('./config/passport')(passport);
 
 // app setup
 
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(serveStatic('build'));
+
+app.use(serveStatic('dist/public'));
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
@@ -41,7 +42,7 @@ if (env === 'development') {
     }));
 }
 
-app.set('views', __dirname + '/backend/views');
+app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 // passport setup
@@ -57,7 +58,7 @@ app.use(flash());
 
 // routes
 
-require('./backend/routes')(app, bodyParser, passport);
+require('./routes')(app, bodyParser, passport);
 
 // launch
 

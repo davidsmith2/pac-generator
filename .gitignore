@@ -1,7 +1,8 @@
 .DS_Store
 .sublime-grunt.cache
+
 backend/tests/test2.py
-build
+dist
 node_modules
 
 # Elastic Beanstalk Files

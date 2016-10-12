@@ -2,7 +2,7 @@ module.exports = {
     web: {
         options: {
             livereload: true,
-            script: './app.js'
+            script: './src/app.js'
         }
     }
 };

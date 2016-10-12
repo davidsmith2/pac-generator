@@ -1,21 +1,17 @@
 module.exports = {
-    fonts: {
+    public: {
         files: [
             {
                 expand: true,
-                cwd: 'frontend/fonts/',
+                cwd: 'src/public/fonts/',
                 src: ['**/*'],
-                dest: 'build/fonts'
-            }
-        ]
-    },
-    pac: {
-        files: [
+                dest: 'dist/public/fonts'
+            },
             {
                 expand: true,
-                cwd: 'frontend/',
+                cwd: 'src/public/',
                 src: ['.htaccess'],
-                dest: 'build'
+                dest: 'dist/public'
             }
         ]
     }
