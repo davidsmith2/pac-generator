@@ -7,7 +7,7 @@ AWS_SECRET_ACCESS_KEY=$3
 
 docker push davidsmith2/pac-generator:"$SHA1"
 
-docker exec -it "$(docker ps -q)" node --harmony ./node_modules/.bin/grunt deploy \
+docker exec -it "$(docker ps -q)" node ./node_modules/.bin/grunt deploy \
 	--SHA1="$SHA1" \
 	--AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
 	--AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"
