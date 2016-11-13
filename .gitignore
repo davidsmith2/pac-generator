@@ -1,10 +1,5 @@
 .DS_Store
-.sublime-grunt.cache
-
-backend/tests/test2.py
-dist
 node_modules
-
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

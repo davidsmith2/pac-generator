@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+
+  node:
+    extends:
+      file: common-services.yml
+      service: node
+    build:
+      context: ./pac-generator-server
+      dockerfile: Dockerfile-production
+
+  nginx:
+    extends:
+      file: common-services.yml
+      service: nginx
+    build:
+      context: ./pac-generator-client
+      dockerfile: Dockerfile-production
+    links:
+        - node:pac-generator-server

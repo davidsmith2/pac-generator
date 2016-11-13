@@ -1,22 +1,49 @@
 language: node_js
+
 node_js:
-- '0.10'
+  - '0.10'
+
+sudo: required
+
 services:
-- docker
+  - docker
+
+env:
+  COMPOSE_VERSION: 1.8.0
+
 before_install:
-- echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - docker-compose --version
+
 install:
-- docker build -t davidsmith2/pac-generator:$TRAVIS_COMMIT .
-- docker run -p 127.0.0.1:80:80 -d davidsmith2/pac-generator:$TRAVIS_COMMIT
-- docker ps -a
+  - npm install
+  - docker-compose -f docker-compose.production.yml up --build -d
+  - docker ps
+
 after_success:
-- docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-- chmod +x ./deploy.sh
-- "./deploy.sh $TRAVIS_COMMIT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY"
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - docker-compose -f docker-compose.production.yml push
+  - "./node_modules/.bin/grunt deploy --SHA1=$TRAVIS_COMMIT"
+
+deploy:
+  edge: true
+  skip_cleanup: true
+  zip-file: "dist/pac-generator-$TRAVIS_COMMIT.zip"
+  provider: elasticbeanstalk
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  region: us-east-1
+  app: pac-generator
+  env: pac-generator-dev-01
+  bucket_name: elasticbeanstalk-us-east-1-798511191442
+  on:
+    repo: davidsmith2/pac-generator
+    branch: master
+
 env:
   global:
-  - secure: Fk3+2QEDOpLeW0ZNi5tIohzZWNRTZ1meyHZRsdiNpykGC4WmPGxVDidzNLtxnG+6YLC7SWwh2Sp1xYR7Q/nHCa16JsBjPKTYS5cvnzGS1z4yCRyOyQF9cj7V8OfhYSrQdjBWVkQX+MYriOWuMCWPraGqcq69OzzhTbRKX0elb8I=
-  - secure: YKDc0txjrEZFMvaX35tWKXwEh+ZH8ZmAfzIPy0rg6nC+nzr4+H/0HmoEuVNIRzObawfrux7qvkOj3rx8oUcmGYOD3MgUO5u7mNY2veK60exbh2shYIccTZ8yyTVrKVOGrqfMxyWrWzjlPRd2ccvTU9JzZf2va5Ng4VXki2wshT8=
-  - secure: B1dSeNkfHdmVkyk6omWrPe1o1q61Mu85NOrtfmkpHjJGJ4/LuM8FkeQBOGd6ImRAWWUcZrN2rtGEpH0NYKhWdQGPCuhlgOQm7xjdeB2dgd9gK5AODXYLuXGSjcE/8m9hprTrh51b4M6BiZKiEbPGKel6b86LcUXMhQGeZYjt218=
-  - secure: IdMiihuXHOe7Dned7IeAv2eyJTjYVH/Z64EilEBoI++ZyFgCuGojnonSdc2+K1QNO1VJE06DjJkAGDFwxSGLDy7mzQCppmg9ZXahX2Ca4IRxNQIbLBZ5zD3/aGFoh30xmyVd2Ucw/qKjV0Yt/XymVH4lsZW5fyxS7aEj8oI9uNk=
-  - secure: IKnunSrsdXzH9ZQv3BhtvtA6cKifoT840NgkDu91LghNaei2dYYRq4FXRHSA8jv1dhtd/C45MlCuSM/rh5/nftDZQMiE9Qr4o/xpjfdHQYTHjo2YkSU37ZOkYBQMB9sIqx8EnRQp6GAB8AQAv7JbuilYO1Kn34Ljzlt7Ih2YC7Q=
+    - secure: Fk3+2QEDOpLeW0ZNi5tIohzZWNRTZ1meyHZRsdiNpykGC4WmPGxVDidzNLtxnG+6YLC7SWwh2Sp1xYR7Q/nHCa16JsBjPKTYS5cvnzGS1z4yCRyOyQF9cj7V8OfhYSrQdjBWVkQX+MYriOWuMCWPraGqcq69OzzhTbRKX0elb8I=
+    - secure: YKDc0txjrEZFMvaX35tWKXwEh+ZH8ZmAfzIPy0rg6nC+nzr4+H/0HmoEuVNIRzObawfrux7qvkOj3rx8oUcmGYOD3MgUO5u7mNY2veK60exbh2shYIccTZ8yyTVrKVOGrqfMxyWrWzjlPRd2ccvTU9JzZf2va5Ng4VXki2wshT8=
+    - secure: B1dSeNkfHdmVkyk6omWrPe1o1q61Mu85NOrtfmkpHjJGJ4/LuM8FkeQBOGd6ImRAWWUcZrN2rtGEpH0NYKhWdQGPCuhlgOQm7xjdeB2dgd9gK5AODXYLuXGSjcE/8m9hprTrh51b4M6BiZKiEbPGKel6b86LcUXMhQGeZYjt218=
+    - secure: IdMiihuXHOe7Dned7IeAv2eyJTjYVH/Z64EilEBoI++ZyFgCuGojnonSdc2+K1QNO1VJE06DjJkAGDFwxSGLDy7mzQCppmg9ZXahX2Ca4IRxNQIbLBZ5zD3/aGFoh30xmyVd2Ucw/qKjV0Yt/XymVH4lsZW5fyxS7aEj8oI9uNk=
+    - secure: IKnunSrsdXzH9ZQv3BhtvtA6cKifoT840NgkDu91LghNaei2dYYRq4FXRHSA8jv1dhtd/C45MlCuSM/rh5/nftDZQMiE9Qr4o/xpjfdHQYTHjo2YkSU37ZOkYBQMB9sIqx8EnRQp6GAB8AQAv7JbuilYO1Kn34Ljzlt7Ih2YC7Q=
