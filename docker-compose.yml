@@ -5,13 +5,19 @@ services:
   node:
     build: ./pac-generator-server
     container_name: pac-generator-server
+    image: davidsmith2/pac-generator-server
     ports:
       - "8081:8081"
+    volumes:
+        - ./pac-generator-server:/home/app/pac-generator
 
   nginx:
     build: ./pac-generator-client
     container_name: pac-generator-client
+    image: davidsmith2/pac-generator-client
     links:
         - node:pac-generator-server
     ports:
         - "80:80"
+    volumes:
+        - ./pac-generator-client:/home/app/pac-generator

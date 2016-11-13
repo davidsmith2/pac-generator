@@ -11,19 +11,17 @@ var SECRET_ACCESS_KEY = grunt.option('AWS_SECRET_ACCESS_KEY');
 var SHA1 = grunt.option('SHA1');
 
 module.exports = {
-	deploy: {
-		options: {
-	        accessKeyId: ACCESS_KEY_ID,
-	        applicationName: APPLICATION_NAME,
-	        deployTimeoutMin: DEPLOY_TIMEOUT_MIN,
-	        environmentCNAME: ENVIRONMENT_CNAME,
-	        region: REGION,
-	        s3: {
-				bucket: S3_BUCKET,
-				key: path.basename('deploy/<%= pkg.name %>-' + SHA1 + '.zip')
-			},
-	        secretAccessKey: SECRET_ACCESS_KEY,
-	        sourceBundle: 'deploy/<%= pkg.name %>-' + SHA1 + '.zip'
-		}
+	options: {
+        accessKeyId: ACCESS_KEY_ID,
+        applicationName: APPLICATION_NAME,
+        deployTimeoutMin: DEPLOY_TIMEOUT_MIN,
+        environmentCNAME: ENVIRONMENT_CNAME,
+        region: REGION,
+        s3: {
+			bucket: S3_BUCKET,
+			key: path.basename('deploy/<%= pkg.name %>-' + SHA1 + '.zip')
+		},
+        secretAccessKey: SECRET_ACCESS_KEY,
+        sourceBundle: 'deploy/<%= pkg.name %>-' + SHA1 + '.zip'
 	}
 };

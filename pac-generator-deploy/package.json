@@ -1,0 +1,23 @@
+{
+  "name": "pac-generator",
+  "version": "0.0.0",
+  "description": "Proxy Auto Configuration file generator",
+  "main": ".mongorc.js",
+  "scripts": {},
+  "author": "David Smith",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidsmith2/pac-generator"
+  },
+  "devDependencies": {
+    "glob": "~4.3.5",
+    "grunt": "~0.4.5",
+    "grunt-awsebtdeploy": "^0.2.1",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-sed": "^0.1.1",
+    "grunt-zip": "~0.16.2",
+    "load-grunt-tasks": "~2.0.0"
+  }
+}

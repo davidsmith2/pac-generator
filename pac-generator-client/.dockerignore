@@ -1,7 +1,1 @@
 node_modules
-src
-tasks
-
-.gitignore
-Gruntfile
-package.json
