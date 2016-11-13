@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+
+  node:
+    build: ./pac-generator-server
+    container_name: pac-generator-server
+    ports:
+      - "8081:8081"
+
+  nginx:
+    build: ./pac-generator-client
+    container_name: pac-generator-client
+    links:
+        - node:pac-generator-server
+    ports:
+        - "80:80"

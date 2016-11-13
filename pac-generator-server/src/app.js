@@ -19,6 +19,12 @@ var app             = express();
 var port            = 8081;
 var env             = app.settings.env;
 
+var setHeaders 		= function (res, path) {
+	if (path.split('.')[1] === 'pac') {
+		res.setHeader('Content-Type', 'application/x-ns-proxy-autoconfig');
+	}
+};
+
 // configuration
 
 mongoose.connection.on('error', console.error.bind(console, 'Mongoose connection error'));
@@ -32,15 +38,11 @@ require('./config/passport')(passport);
 app.use(morgan('dev'));
 app.use(cookieParser());
 
-app.use(serveStatic('dist/public'));
+app.use(serveStatic('dist', {
+	setHeaders: setHeaders
+}));
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
-
-if (env === 'development') {
-    app.use(require('connect-livereload')({
-        port: 35729
-    }));
-}
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');

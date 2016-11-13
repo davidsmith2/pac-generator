@@ -14,7 +14,7 @@ var ProxySchema = new mongoose.Schema({
 
 ProxySchema.methods.writePAC = function () {
     var mkdirp = require('mkdirp');
-    var dirp = './build/pac/' + this.name.toLowerCase();
+    var dirp = './dist/pac/' + this.name.toLowerCase();
     var self = this;
     mkdirp(dirp, function (err) {
         var data;

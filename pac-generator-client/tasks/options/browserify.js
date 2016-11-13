@@ -11,15 +11,15 @@ var libs = [
 module.exports = {
     libs: {
         src: [],
-        dest: './dist/public/js/libs.js',
+        dest: './dist/js/libs.js',
         options: {
             external: null,
             require: libs
         }
     },
     app: {
-        src: ['./src/public/js/app.coffee'],
-        dest: './dist/public/js/app.js',
+        src: ['./src/js/app.coffee'],
+        dest: './dist/js/app.js',
         options: {
             browserifyOptions: {
                 debug: true,

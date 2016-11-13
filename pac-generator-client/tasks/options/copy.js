@@ -3,15 +3,15 @@ module.exports = {
         files: [
             {
                 expand: true,
-                cwd: 'src/public/fonts/',
+                cwd: 'src/fonts/',
                 src: ['**/*'],
-                dest: 'dist/public/fonts'
+                dest: 'dist/fonts'
             },
             {
                 expand: true,
-                cwd: 'src/public/',
+                cwd: 'src/',
                 src: ['.htaccess'],
-                dest: 'dist/public'
+                dest: 'dist'
             }
         ]
     }

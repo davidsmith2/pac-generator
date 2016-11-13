@@ -2,7 +2,7 @@ doctype html
 html
     head
         title #{pageName} | #{appName}
-        link(href='/css/index.css', rel='stylesheet', type='text/css')
+        link(href='/static/css/index.css', rel='stylesheet', type='text/css')
         script.
             window.user = {
                 id: "#{user.id}",
@@ -14,5 +14,5 @@ html
             nav#nav-region
             footer#footer-region
         #modal-region
-        script(type='text/javascript', src='/js/libs.js')
-        script(type='text/javascript', src='/js/app.js')
+        script(type='text/javascript', src='/static/js/libs.js')
+        script(type='text/javascript', src='/static/js/app.js')

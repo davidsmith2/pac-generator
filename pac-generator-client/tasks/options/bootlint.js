@@ -6,6 +6,6 @@ module.exports = {
         stoponwarning: false
     },
     files: [
-        'src/public/js/**/*.hbs'
+        'src/js/**/*.hbs'
     ]
 };
