@@ -3,7 +3,7 @@ module.exports = {
         options: {
             sourceMap: true,
             sourceMapFilename: 'dist/css/index.css.map',
-            sourceMapURL: '/css/index.css.map',
+            sourceMapURL: '/static/css/index.css.map',
             outputSourceFiles: true
         },
         files: {
