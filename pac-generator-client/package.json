@@ -4,7 +4,7 @@
   "description": "Proxy Auto Configuration file generator",
   "main": ".mongorc.js",
   "scripts": {
-    "start": "node ./node_modules/.bin/grunt",
+    "start": "",
     "test": ""
   },
   "author": "David Smith",
