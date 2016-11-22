@@ -11,7 +11,7 @@ var SECRET_ACCESS_KEY = grunt.option('AWS_SECRET_ACCESS_KEY');
 var SHA1 = grunt.option('SHA1');
 
 module.exports = {
-	options: {
+    options: {
         accessKeyId: ACCESS_KEY_ID,
         applicationName: APPLICATION_NAME,
         deployTimeoutMin: DEPLOY_TIMEOUT_MIN,

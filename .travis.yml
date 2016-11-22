@@ -1,3 +1,8 @@
+language: node_js
+
+node_js:
+  - '0.10'
+
 sudo: required
 
 services:
@@ -13,6 +18,10 @@ before_install:
 install:
   - docker-compose -f docker-compose.production.yml up --build -d
   - docker ps
+
+after_success:
+  - chmod +x ./pac-generator-deploy/deploy.sh
+  - "./pac-generator-deploy/deploy.sh $TRAVIS_COMMIT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $DOCKER_EMAIL $DOCKER_USERNAME $DOCKER_PASSWORD"
 
 env:
   global:
