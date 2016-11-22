@@ -13,3 +13,9 @@ docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
 # push
 docker-compose -f docker-compose.production.yml push
+
+# deploy
+./node_modules/.bin/grunt deploy \
+	--SHA1="$SHA1" \
+	--AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" \
+	--AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"
