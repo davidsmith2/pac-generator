@@ -8,4 +8,6 @@ WORKDIR $HOME/pac-generator
 
 RUN npm install
 
+ADD . $HOME/pac-generator
+
 CMD ["npm", "start"]

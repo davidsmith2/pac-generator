@@ -1,9 +1,12 @@
 {
-  "AWSEBDockerrunVersion": "2",
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [],
   "containerDefinitions": [
     {
       "name": "pac-generator-server",
-      "image": "davidsmith2/pac-generator-server:test1",
+      "image": "davidsmith2/pac-generator-server:test3",
+      "essential": true,
+      "memory": 128,
       "portMappings": [
         {
           "hostPort": 8081,
@@ -13,7 +16,9 @@
     },
     {
       "name": "pac-generator-client",
-      "image": "davidsmith2/pac-generator-client:test1",
+      "image": "davidsmith2/pac-generator-client:test4",
+      "essential": true,
+      "memory": 128,
       "portMappings": [
         {
           "hostPort": 80,
@@ -22,7 +27,13 @@
       ],
       "links": [
         "pac-generator-server"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "awseb-logs-pac-generator-client",
+          "containerPath": "/var/log/nginx"
+        }
       ]
     }
-  ]  
+  ]
 }
