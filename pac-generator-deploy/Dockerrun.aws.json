@@ -4,7 +4,7 @@
   "containerDefinitions": [
     {
       "name": "pac-generator-server",
-      "image": "davidsmith2/pac-generator-server:test3",
+      "image": "davidsmith2/pac-generator-server",
       "essential": true,
       "memory": 128,
       "portMappings": [
@@ -16,7 +16,7 @@
     },
     {
       "name": "pac-generator-client",
-      "image": "davidsmith2/pac-generator-client:test6",
+      "image": "davidsmith2/pac-generator-client",
       "essential": true,
       "memory": 128,
       "portMappings": [

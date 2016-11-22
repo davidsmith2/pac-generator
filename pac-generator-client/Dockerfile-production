@@ -1,9 +1,29 @@
-FROM davidsmith2/pac-generator-client:test5
+FROM nginx
 
-ONBUILD COPY Gruntfile.js $HOME/pac-generator/
+RUN apt-get update && apt-get install -y curl
 
-ONBUILD COPY tasks $HOME/pac-generator/tasks
+RUN curl -sL https://deb.nodesource.com/setup_0.10 | bash -
 
-ONBUILD COPY src $HOME/pac-generator/src
+RUN apt-get update && apt-get install -y nodejs
 
-ONBUILD RUN grunt build
+ENV HOME=/home/app
+
+COPY package.json $HOME/pac-generator/
+
+WORKDIR $HOME/pac-generator
+
+RUN npm install -g grunt-cli && npm install
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY Gruntfile.js $HOME/pac-generator/
+
+COPY tasks $HOME/pac-generator/tasks
+
+COPY src $HOME/pac-generator/src
+
+RUN grunt build
+
+EXPOSE 80
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
