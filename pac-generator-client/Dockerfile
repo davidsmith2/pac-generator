@@ -14,10 +14,6 @@ WORKDIR $HOME/pac-generator
 
 RUN npm install -g grunt-cli && npm install
 
-ADD . $HOME/pac-generator
-
-RUN grunt build
-
 COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80

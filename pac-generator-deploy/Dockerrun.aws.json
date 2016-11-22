@@ -16,7 +16,7 @@
     },
     {
       "name": "pac-generator-client",
-      "image": "davidsmith2/pac-generator-client:test4",
+      "image": "davidsmith2/pac-generator-client:test6",
       "essential": true,
       "memory": 128,
       "portMappings": [

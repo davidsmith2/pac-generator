@@ -1,0 +1,7 @@
+FROM davidsmith2/pac-generator-client
+
+ONBUILD COPY Gruntfile.js $HOME/pac-generator/
+
+ONBUILD COPY tasks $HOME/pac-generator/tasks
+
+ONBUILD RUN grunt build

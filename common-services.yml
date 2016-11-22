@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+  node:
+    build: ./pac-generator-server
+    container_name: pac-generator-server
+    image: davidsmith2/pac-generator-server
+    ports:
+      - 8081:8081
+
+  nginx:
+    container_name: pac-generator-client
+    image: davidsmith2/pac-generator-client
+    ports:
+      - 80:80

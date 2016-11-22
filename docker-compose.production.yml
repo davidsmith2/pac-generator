@@ -6,8 +6,6 @@ services:
     extends:
       file: common-services.yml
       service: node
-    volumes:
-        - ./pac-generator-server:/home/app/pac-generator
 
   nginx:
     extends:
@@ -15,8 +13,6 @@ services:
       service: nginx
     build:
       context: ./pac-generator-client
-      dockerfile: Dockerfile-development
+      dockerfile: Dockerfile-production
     links:
         - node:pac-generator-server
-    volumes:
-        - ./pac-generator-client:/home/app/pac-generator
