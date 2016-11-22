@@ -20,8 +20,8 @@ install:
   - docker ps
 
 after_success:
-  - chmod +x ./pac-generator-deploy/deploy.sh
-  - "./pac-generator-deploy/deploy.sh $TRAVIS_COMMIT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $DOCKER_EMAIL $DOCKER_USERNAME $DOCKER_PASSWORD"
+  - chmod +x ./deploy.sh
+  - "./deploy.sh $TRAVIS_COMMIT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $DOCKER_EMAIL $DOCKER_USERNAME $DOCKER_PASSWORD"
 
 env:
   global:
