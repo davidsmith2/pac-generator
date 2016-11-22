@@ -21,8 +21,10 @@ install:
   - docker ps
 
 after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - docker-compose -f docker-compose.production.yml push
   - chmod +x ./deploy.sh
-  - "./deploy.sh $TRAVIS_COMMIT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $DOCKER_EMAIL $DOCKER_USERNAME $DOCKER_PASSWORD"
+  - "./deploy.sh $TRAVIS_COMMIT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY"
 
 env:
   global:
