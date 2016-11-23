@@ -23,9 +23,22 @@ install:
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker-compose -f docker-compose.production.yml push
-  - chmod +x ./deploy.sh
-  - "./deploy.sh $TRAVIS_COMMIT $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY"
+  - "./node_modules/.bin/grunt deploy --SHA1=$TRAVIS_COMMIT"
 
+deploy:
+  edge: true
+  skip_cleanup: true
+  zip-file: "dist/pac-generator-$TRAVIS_COMMIT.zip"
+  provider: elasticbeanstalk
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  region: us-east-1
+  app: pac-generator
+  env: pac-generator-dev-01
+  bucket_name: elasticbeanstalk-us-east-1-798511191442
+  on:
+    repo: davidsmith2/pac-generator
+    branch: issue#21
 env:
   global:
     - secure: Fk3+2QEDOpLeW0ZNi5tIohzZWNRTZ1meyHZRsdiNpykGC4WmPGxVDidzNLtxnG+6YLC7SWwh2Sp1xYR7Q/nHCa16JsBjPKTYS5cvnzGS1z4yCRyOyQF9cj7V8OfhYSrQdjBWVkQX+MYriOWuMCWPraGqcq69OzzhTbRKX0elb8I=
