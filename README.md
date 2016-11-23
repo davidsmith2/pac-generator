@@ -21,9 +21,8 @@ You can check version numbers from Terminal with:
 Then to run the app:
 
 * Clone Git repo: `git clone https://github.com/davidsmith2/pac-generator.git`
-* Build Docker image: `docker build -t davidsmith2/pac-generator .`
-* Run Docker image: `docker run -p 8081:8081 -p 35729:35729 -v $(pwd):/home/app/pac-generator -v /home/app/pac-generator/node_modules -d davidsmith2/pac-generator`
-* Open app in browser: `localhost:8081`
+* Create and start containers: `docker-compose up --build -d`
+* Open app in browser: `http://localhost`
 
 ## Docker commands
 
@@ -39,15 +38,32 @@ To remove stopped containers:
 docker rm $(docker ps -a -q)
 ```
 
-To push the build to Docker Hub:
-
-```
-docker tag ${IMAGE_ID} davidsmith2/pac-generator:${COMMIT}
-docker login -e ${EMAIL} -u ${USERNAME} -p ${PASSWORD}
-docker push davidsmith2/pac-generator:${COMMIT}
-```
-
 ## Cloud environments
 
-* pac-generator-dev-01: EC2 t1.micro
-* pac-generator-dev-02: EC2 t2.micro
+* pac-generator-dev-01: EC2 t2.micro
+
+## Database maintenance
+
+### Dump from dev
+
+```
+mongodump -h ds039125.mlab.com:39125 -d pac-generator-local -u admin -p admin -o .
+```
+
+### Restore to dev
+
+```
+mongorestore -h ds039125.mlab.com:39125 -d pac-generator-local -u admin -p admin . --drop
+```
+
+### Dump from prod
+
+```
+mongodump -h ds031691.mlab.com:31691 -d pac-generator -u admin -p admin -o .
+```
+
+### Restore to prod
+
+```
+mongorestore -h ds031691.mlab.com:31691 -d pac-generator -u admin -p admin . --drop
+```
