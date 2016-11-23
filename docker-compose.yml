@@ -6,6 +6,9 @@ services:
     extends:
       file: common-services.yml
       service: node
+    build:
+      context: ./pac-generator-server
+      dockerfile: Dockerfile-development
     volumes:
         - ./pac-generator-server:/home/app/pac-generator
 

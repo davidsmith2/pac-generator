@@ -3,7 +3,6 @@ version: '2'
 services:
 
   node:
-    build: ./pac-generator-server
     container_name: pac-generator-server
     image: davidsmith2/pac-generator-server
     ports:

@@ -6,7 +6,7 @@ COPY package.json $HOME/pac-generator/
 
 WORKDIR $HOME/pac-generator
 
-RUN npm install
+RUN npm install -g nodemon && npm install
 
 ADD . $HOME/pac-generator
 
