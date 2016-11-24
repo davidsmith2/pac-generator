@@ -8,7 +8,7 @@ module.exports = {
         tasks: ['bootlint']
     },
     browserify: {
-        files: ['src/js/**/*.coffee'],
+        files: ['src/js/**/*.coffee', 'src/js/**/*.hbs'],
         tasks: ['browserify:app']
     },
     livereload: {

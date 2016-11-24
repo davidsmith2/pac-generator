@@ -5,7 +5,7 @@ var Exception = require('../../models/Exception');
 var Proxy = require('../../models/Proxy');
 var Rule = require('../../models/Rule');
 
-var publish = function (proxy) {
+var publish = function (proxy, user) {
     proxy.exceptions = [];
     proxy.rules = [];
     Exception.find(function (err, exceptions) {
@@ -16,7 +16,7 @@ var publish = function (proxy) {
             for (var i = 0; i < rules.length; i++) {
                 proxy.rules.push(rules[i]);
             }
-            proxy.writePAC();
+            proxy.writePAC(user);
         });
     });
 };
@@ -43,7 +43,7 @@ module.exports = function (server, bodyParser) {
                 }
                 if (q.action === 'publish') {
                     for (var i = 0; i < proxies.length; i++) {
-                        publish(proxies[i]);
+                        publish(proxies[i], req.user);
                     }
                 }
                 res.json(proxies);
@@ -61,7 +61,7 @@ module.exports = function (server, bodyParser) {
     server.get('/api/proxies/:proxy', function (req, res) {
         var q = req.query;
         if (q.action === 'publish') {
-            publish(req.proxy);
+            publish(req.proxy, req.user);
         }
         res.json(req.proxy);
     });

@@ -1,6 +1,8 @@
-var LocalStrategy   = require('passport-local').Strategy;
-var User            = require('../models/User');
 var flash           = require('connect-flash');
+var LocalStrategy   = require('passport-local').Strategy;
+var uuid            = require('uuid');
+
+var User            = require('../models/User');
 
 module.exports = function (passport) {
 
@@ -26,7 +28,7 @@ module.exports = function (passport) {
             if (user) {
                 return done(null, false, req.flash('signupMessage', 'That email address has been taken.'));
             } else {
-                var newUser            = new User({_id: email});
+                var newUser            = new User({_id: email, uuid: uuid()});
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password);
                 newUser.save(function (err) {

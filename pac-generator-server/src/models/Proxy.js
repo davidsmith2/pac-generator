@@ -9,12 +9,13 @@ var ProxySchema = new mongoose.Schema({
     name: String,
     port: String,
     server: String,
+    href: String,
     _creator: {type: String, ref: 'User'}
 });
 
-ProxySchema.methods.writePAC = function () {
+ProxySchema.methods.writePAC = function (user) {
     var mkdirp = require('mkdirp');
-    var dirp = './dist/pac/' + this.name.toLowerCase();
+    var dirp = './dist/pac/' + user.uuid + '/' + this.id;
     var self = this;
     mkdirp(dirp, function (err) {
         var data;
