@@ -8,8 +8,12 @@ services:
     ports:
       - 8081:8081
 
-  nginx:
+  grunt:
     container_name: pac-generator-client
     image: davidsmith2/pac-generator-client
+
+  nginx:
+    container_name: pac-generator-proxy
+    image: davidsmith2/pac-generator-proxy
     ports:
       - 80:80

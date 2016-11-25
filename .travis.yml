@@ -8,18 +8,13 @@ sudo: required
 services:
   - docker
 
-env:
-  COMPOSE_VERSION: 1.8.0
-
 before_install:
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - docker-compose --version
 
 install:
   - npm install
   - docker-compose -f docker-compose.production.yml up --build -d
-  - docker ps
-
+  - docker cp pac-generator-proxy:/home/app/pac-generator/dist ./assets
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker-compose -f docker-compose.production.yml push

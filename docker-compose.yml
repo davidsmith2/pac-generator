@@ -12,14 +12,25 @@ services:
     volumes:
         - ./pac-generator-server:/home/app/pac-generator
 
+  grunt:
+    extends:
+      file: common-services.yml
+      service: grunt
+    build:
+      context: ./pac-generator-client
+      dockerfile: Dockerfile-development
+    volumes:
+        - ./pac-generator-client:/home/app/pac-generator
+
   nginx:
     extends:
       file: common-services.yml
       service: nginx
     build:
-      context: ./pac-generator-client
-      dockerfile: Dockerfile-development
+      context: ./pac-generator-proxy
+      dockerfile: Dockerfile
+    volumes_from:
+      - grunt
     links:
-        - node:pac-generator-server
-    volumes:
-        - ./pac-generator-client:/home/app/pac-generator
+      - node:pac-generator-server
+      - grunt:pac-generator-client

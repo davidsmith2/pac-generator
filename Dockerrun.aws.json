@@ -1,6 +1,13 @@
 {
   "AWSEBDockerrunVersion": 2,
-  "volumes": [],
+  "volumes": [
+    {
+      "name": "assets",
+      "host": {
+        "sourcePath": "/var/app/current/assets"
+      }
+    }
+  ],
   "containerDefinitions": [
     {
       "name": "pac-generator-server",
@@ -15,9 +22,9 @@
       ]
     },
     {
-      "name": "pac-generator-client",
-      "image": "davidsmith2/pac-generator-client",
-      "essential": true,
+      "name": "pac-generator-proxy",
+      "image": "davidsmith2/pac-generator-proxy",
+      "essential": false,
       "memory": 128,
       "portMappings": [
         {
@@ -30,8 +37,12 @@
       ],
       "mountPoints": [
         {
-          "sourceVolume": "awseb-logs-pac-generator-client",
+          "sourceVolume": "awseb-logs-pac-generator-proxy",
           "containerPath": "/var/log/nginx"
+        },
+        {
+          "sourceVolume": "assets",
+          "containerPath": "/home/dist"
         }
       ]
     }

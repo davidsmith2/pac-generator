@@ -10,12 +10,28 @@ services:
       context: ./pac-generator-server
       dockerfile: Dockerfile-production
 
+  grunt:
+    extends:
+      file: common-services.yml
+      service: grunt
+    build:
+      context: ./pac-generator-client
+      dockerfile: Dockerfile-production
+    volumes:
+      - assets:/home
+
   nginx:
     extends:
       file: common-services.yml
       service: nginx
     build:
-      context: ./pac-generator-client
-      dockerfile: Dockerfile-production
+      context: ./pac-generator-proxy
+      dockerfile: Dockerfile
     links:
-        - node:pac-generator-server
+      - node:pac-generator-server
+      - grunt:pac-generator-client
+    volumes:
+      - assets:/home
+
+volumes:
+  assets: {}
