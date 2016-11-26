@@ -1,6 +1,6 @@
 Host = require './host'
 
 class Rule extends Host
-    urlRoot: '/api/rules'
+    urlRoot: '/api/users/' + window.user.uuid + '/rules'
 
 module.exports = Rule

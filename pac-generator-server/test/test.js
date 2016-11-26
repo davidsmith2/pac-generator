@@ -1,38 +1,4 @@
-var _ = require('underscore');
-var fs = require('fs');
-var mongoose = require('mongoose');
-
-//var creatorSchema = require('../schemas/creatorSchema');
-//var proxySchema = require('../schemas/proxySchema');
-
-var ProxySchema = new mongoose.Schema({
-    name: String,
-    port: String,
-    server: String,
-    href: String,
-    _creator: {type: String, ref: 'User'}
-});
-
-ProxySchema.methods.writePAC = function (user) {
-    var mkdirp = require('mkdirp');
-    var dirp = './dist/pac/' + user.uuid + '/' + this.id;
-    var self = this;
-    mkdirp(dirp, function (err) {
-        var data;
-        if (err) {
-            return console.log(err);
-        }
-        data = require('../templates/pac')(self);
-        fs.writeFile(dirp + '/proxy.pac', data, function (err) {
-            if (err) {
-                return console.log(err);
-            }
-            console.log('PAC file created for ' + self.name + ' proxy');
-        });
-    });
-};
-
-ProxySchema.methods.testPAC = function (maxTries) {
+var testPAC = function (maxTries) {
     var self = this;
     var handleError = function (err) {
         if (maxTries > 0) {
@@ -68,4 +34,4 @@ ProxySchema.methods.testPAC = function (maxTries) {
     }, 1000);
 };
 
-module.exports = mongoose.model('Proxy', ProxySchema);
+module.exports = testPAC;

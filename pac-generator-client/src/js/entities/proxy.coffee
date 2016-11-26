@@ -2,15 +2,14 @@ Backbone = require 'backbone'
 _ = require 'underscore'
 require 'backbone-relational'
 
-class Proxy extends Backbone.RelationalModel
-    urlRoot: '/api/proxies'
+class Proxy extends Backbone.Model
+    urlRoot: '/api/users/' + window.user.uuid + '/proxies'
     idAttribute: '_id'
     defaults:
         name: ''
         port: ''
         server: ''
         href: ''
-        _creator: window.user.id
     setHref: (id) =>
         this.set 'href', window.location.protocol + '//' + window.location.host + '/pac/' + window.user.uuid + '/' + this.id + '/proxy.pac';
     publish: (opts) =>

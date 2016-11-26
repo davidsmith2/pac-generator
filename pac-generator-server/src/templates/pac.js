@@ -8,10 +8,10 @@ var getHosts = function (arrIn) {
     return "'" + arrOut.join("','") + "'";
 };
 
-module.exports = function (proxy) {
+module.exports = function (user, proxy) {
     var server = proxy.server + ':'  + proxy.port;
-    var exceptions = getHosts(proxy.exceptions);
-    var rules = getHosts(proxy.rules);
+    var exceptions = getHosts(user.exceptions);
+    var rules = getHosts(user.rules);
     var output = '';
     output += "function FindProxyForURL(url, host) {\n";
     output += "\tvar proxy = '" + server + "';\n";

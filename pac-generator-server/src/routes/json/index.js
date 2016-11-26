@@ -1,213 +1,236 @@
+var express = require('express');
 var mongoose = require('mongoose');
 var _ = require('underscore');
 
-var Exception = require('../../models/Exception');
-var Proxy = require('../../models/Proxy');
-var Rule = require('../../models/Rule');
+var User = require('../../models/User');
 
-var publish = function (proxy, user) {
-    proxy.exceptions = [];
-    proxy.rules = [];
-    Exception.find(function (err, exceptions) {
-        for (var i = 0; i < exceptions.length; i++) {
-            proxy.exceptions.push(exceptions[i]);
+var findUser = function (req, res, next, userId) {
+    var query = User.findOne({uuid: userId});
+    query.exec(function (err, user) {
+        if (err || !user) {
+            res.json({});
         }
-        Rule.find(function (err, rules) {
-            for (var i = 0; i < rules.length; i++) {
-                proxy.rules.push(rules[i]);
-            }
-            proxy.writePAC(user);
-        });
+        req.user = user;
+        return next();
     });
 };
 
-var filterByCreator = function (collection, userId) {
-    return _.filter(collection, function (model) {
-        return model._creator && (model._creator._id === userId);
-    });
-};
+module.exports = function (app) {
 
-module.exports = function (server, bodyParser) {
+    var userRouter = express.Router();
+    var proxyRouter = express.Router({mergeParams: true});
+    var ruleRouter = express.Router({mergeParams: true});
+    var exceptionRouter = express.Router({mergeParams: true});
 
-    // proxies
+    app.use('/api/users', userRouter);
+    userRouter.use('/:userId/proxies', proxyRouter);
+    userRouter.use('/:userId/rules', ruleRouter);
+    userRouter.use('/:userId/exceptions', exceptionRouter);
 
-    server.get('/api/proxies', function (req, res, next) {
-        Proxy
-            .find()
-            .populate('_creator')
-            .exec(function (err, proxies) {
-                var q = req.query;
-                proxies = filterByCreator(proxies, req.user.id);
-                if (err) {
-                    return next(err);
+    userRouter.route('/')
+        .get(function (req, res) {
+            var query = User.find();
+            query.exec(function (err, users) {
+                if (err || !users) {
+                    return res.json([]);
                 }
-                if (q.action === 'publish') {
-                    for (var i = 0; i < proxies.length; i++) {
-                        publish(proxies[i], req.user);
-                    }
-                }
-                res.json(proxies);
+                res.json(users);
             });
-    });
-    server.post('/api/proxies', bodyParser, function (req, res, next) {
-        var proxy = new Proxy(req.body);
-        proxy.save(function (err, proxy) {
-            if (err) {
-                return next(err);
-            }
-            res.json(proxy);
         });
-    });
-    server.get('/api/proxies/:proxy', function (req, res) {
-        var q = req.query;
-        if (q.action === 'publish') {
-            publish(req.proxy, req.user);
-        }
-        res.json(req.proxy);
-    });
-    server.put('/api/proxies/:proxy', bodyParser, function (req, res, next) {
-        req.proxy.set(req.body);
-        req.proxy.save(function (err, proxy) {
-            if (err) {
-                return next(err);
-            }
-            return res.json(proxy);
+
+    userRouter.route('/:userId')
+        .get(function (req, res) {
+            return res.json(req.user);
         });
-    });
-    server['delete']('/api/proxies/:proxy', function (req, res, next) {
-        req.proxy.remove(function (err, proxy) {
-            if (err) {
-                return next(err);
+
+    userRouter.param('userId', findUser);
+
+    proxyRouter.route('/')
+        .get(function (req, res) {
+            if (req.query.action === 'publish') {
+                _.each(req.user.proxies, function (proxy) {
+                    req.user.writePAC(proxy);
+                });
             }
-            res.json(proxy);
+            res.json(req.user.proxies);
+        })
+        .post(function (req, res) {
+            var proxy = req.user.proxies.create(req.body);
+            req.user.proxies.push(proxy);
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json([]);
+                }
+                res.json(proxy);
+            });
+        })
+        .delete(function (req, res) {
+            req.user.proxies = [];
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json([]);
+                }
+                res.json(user.proxies);
+            });
         });
-    });
-    server.param('proxy', function (req, res, next, id) {
-        var query = Proxy.findById(id);
-        query.exec(function (err, proxy) {
-            if (err) {
-                return next(err);
-            }
+
+    proxyRouter.route('/:proxyId')
+        .get(function (req, res) {
+            var proxy = req.user.proxies.id(req.params.proxyId);
             if (!proxy) {
-                return next(new Error("Can't find proxy"));
+                return res.json({});
             }
-            req.proxy = proxy;
-            return next();
-        });
-    });
-
-    // rules
-
-    server.get('/api/rules', function (req, res, next) {
-        Rule
-            .find()
-            .populate('_creator')
-            .exec(function (err, rules) {
-                rules = filterByCreator(rules, req.user.id);
+            if (req.query.action === 'publish') {
+                req.user.writePAC(proxy);
+            }
+            res.json(proxy);
+        })
+        .put(function (req, res) {
+            var proxy = req.user.proxies.id(req.params.proxyId);
+            if (!proxy) {
+                return res.json({});
+            }
+            proxy = _.extend(proxy, req.body);
+            req.user.save(function (err, user) {
                 if (err) {
-                    return next(err);
+                    return res.json({});
                 }
-                res.json(rules);
+                res.json(proxy);
             });
-    });
-    server.post('/api/rules', bodyParser, function (req, res, next) {
-        var rule = new Rule(req.body);
-        rule.save(function (err, rule) {
-            if (err) {
-                return next(err);
-            }
-            res.json(rule);
+        })
+        .delete(function (req, res) {
+            var proxy = req.user.proxies.id(req.params.proxyId);
+            req.user.proxies = _.reject(req.user.proxies, function (obj) {
+                return _.isEqual(obj, proxy);
+            });
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json({});
+                }
+                res.json(req.user.proxies);
+            });
         });
-    });
-    server.get('/api/rules/:rule', bodyParser, function (req, res, next) {
-        res.json(req.rule);
-    });
-    server.put('/api/rules/:rule', bodyParser, function (req, res, next) {
-        req.rule.set(req.body);
-        req.rule.save(function (err, rule) {
-            if (err) {
-                return next(err);
-            }
-            res.json(rule);
+
+    proxyRouter.param('userId', findUser);
+
+    ruleRouter.route('/')
+        .get(function (req, res) {
+            res.json(req.user.rules);
+        })
+        .post(function (req, res) {
+            var rule = req.user.rules.create(req.body);
+            req.user.rules.push(rule);
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json([]);
+                }
+                res.json(rule);
+            });
+        })
+        .delete(function (req, res) {
+            req.user.rules = [];
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json([]);
+                }
+                res.json(user.rules);
+            });
         });
-    });
-    server['delete']('/api/rules/:rule', function (req, res, next) {
-        req.rule.remove(function (err, rule) {
-            if (err) {
-                return next(err);
-            }
-            res.json(rule);
-        });
-    });
-    server.param('rule', function (req, res, next, id) {
-        var query = Rule.findById(id);
-        query.exec(function (err, rule) {
-            if (err) {
-                return next(err);
-            }
+
+    ruleRouter.route('/:ruleId')
+        .get(function (req, res) {
+            var rule = req.user.rules.id(req.params.ruleId);
             if (!rule) {
-                return next(new Error("Can't find rule"));
+                return res.json({});
             }
-            req.rule = rule;
-            return next();
-        });
-    });
-
-    // exceptions
-
-    server.get('/api/exceptions', function (req, res, next) {
-        Exception
-            .find()
-            .populate('_creator')
-            .exec(function (err, exceptions) {
-                exceptions = filterByCreator(exceptions, req.user.id);
+            res.json(rule);
+        })
+        .put(function (req, res) {
+            var rule = req.user.rules.id(req.params.ruleId);
+            if (!rule) {
+                return res.json({});
+            }
+            rule = _.extend(rule, req.body);
+            req.user.save(function (err, user) {
                 if (err) {
-                    return next(err);
+                    return res.json({});
                 }
-                res.json(exceptions);
+                res.json(rule);
             });
-    });
-    server.post('/api/exceptions', bodyParser, function (req, res, next) {
-        var exception = new Exception(req.body);
-        exception.save(function (err, exception) {
-            if (err) {
-                return next(err);
-            }
-            res.json(exception);
+        })
+        .delete(function (req, res) {
+            var rule = req.user.rules.id(req.params.ruleId);
+            req.user.rules = _.reject(req.user.rules, function (obj) {
+                return _.isEqual(obj, rule);
+            });
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json({});
+                }
+                res.json(req.user.rules);
+            });
         });
-    });
-    server.get('/api/exceptions/:exception', bodyParser, function (req, res, next) {
-        res.json(req.exception);
-    });
-    server.put('/api/exceptions/:exception', bodyParser, function (req, res, next) {
-        req.exception.set(req.body);
-        req.exception.save(function (err, exception) {
-            if (err) {
-                return next(err);
-            }
-            res.json(exception);
+
+    ruleRouter.param('userId', findUser);
+
+    exceptionRouter.route('/')
+        .get(function (req, res) {
+            res.json(req.user.exceptions);
+        })
+        .post(function (req, res) {
+            var exception = req.user.exceptions.create(req.body);
+            req.user.exceptions.push(exception);
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json([]);
+                }
+                res.json(exception);
+            });
+        })
+        .delete(function (req, res) {
+            req.user.exceptions = [];
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json([]);
+                }
+                res.json(user.exceptions);
+            });
         });
-    });
-    server['delete']('/api/exceptions/:exception', function (req, res, next) {
-        req.exception.remove(function (err, exception) {
-            if (err) {
-                return next(err);
-            }
-            res.json(exception);
-        });
-    });
-    server.param('exception', function (req, res, next, id) {
-        var query = Exception.findById(id);
-        query.exec(function (err, exception) {
-            if (err) {
-                return next(err);
-            }
+
+    exceptionRouter.route('/:exceptionId')
+        .get(function (req, res) {
+            var exception = req.user.exceptions.id(req.params.exceptionId);
             if (!exception) {
-                return next(new Error("Can't find exception"));
+                return res.json({});
             }
-            req.exception = exception;
-            return next();
+            res.json(exception);
+        })
+        .put(function (req, res) {
+            var exception = req.user.exceptions.id(req.params.exceptionId);
+            if (!exception) {
+                return res.json({});
+            }
+            exception = _.extend(exception, req.body);
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json({});
+                }
+                res.json(exception);
+            });
+        })
+        .delete(function (req, res) {
+            var exception = req.user.exceptions.id(req.params.exceptionId);
+            req.user.exceptions = _.reject(req.user.exceptions, function (obj) {
+                return _.isEqual(obj, exception);
+            });
+            req.user.save(function (err, user) {
+                if (err) {
+                    return res.json({});
+                }
+                res.json(req.user.exceptions);
+            });
         });
-    });
+
+    exceptionRouter.param('userId', findUser);
 
 };

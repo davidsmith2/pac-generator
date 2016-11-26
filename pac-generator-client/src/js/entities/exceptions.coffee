@@ -2,7 +2,7 @@ Backbone = require 'backbone'
 Exception = require './exception'
 
 class Exceptions extends Backbone.Collection
-    url: '/api/exceptions'
+    url: '/api/users/' + window.user.uuid + '/exceptions'
     model: Exception
     comparator: 'host'
 

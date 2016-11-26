@@ -1,19 +1,19 @@
 // imports and basic setup
 
-var express         = require('express');
-var mongoose        = require('mongoose');
-var passport        = require('passport');
-var flash           = require('connect-flash');
-
-var morgan          = require('morgan');
-var cookieParser    = require('cookie-parser');
 var bodyParser      = require('body-parser');
+var cookieParser    = require('cookie-parser');
+var express         = require('express');
+var flash           = require('connect-flash');
+var jade            = require('jade');
+var mongoose        = require('mongoose');
+var morgan          = require('morgan');
+var passport        = require('passport');
+var serveStatic     = require('serve-static');
 var session         = require('express-session');
 
-var jade            = require('jade');
-var serveStatic     = require('serve-static');
-
 var configDB        = require('./config/database');
+var configPassport  = require('./config/passport');
+var routes 			= require('./routes');
 
 var app             = express();
 var port            = 8081;
@@ -31,7 +31,7 @@ mongoose.connection.on('error', console.error.bind(console, 'Mongoose connection
 mongoose.connection.once('open', console.log.bind(console, 'Mongoose connection open'));
 mongoose.connect(configDB[env].url, configDB.options);
 
-require('./config/passport')(passport);
+configPassport(passport);
 
 // app setup
 
@@ -41,7 +41,9 @@ app.use(cookieParser());
 app.use(serveStatic('dist', {
 	setHeaders: setHeaders
 }));
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
 app.use(bodyParser.json());
 
 app.set('views', __dirname + '/views');
@@ -60,7 +62,7 @@ app.use(flash());
 
 // routes
 
-require('./routes')(app, bodyParser, passport);
+routes(app);
 
 // launch
 

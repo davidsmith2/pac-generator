@@ -12,4 +12,7 @@ COPY Gruntfile.js $HOME/pac-generator/
 
 COPY tasks $HOME/pac-generator/tasks
 
+RUN mkdir $HOME/pac-generator/dist && \
+	ln -s $HOME/pac-generator/dist /home
+
 CMD grunt

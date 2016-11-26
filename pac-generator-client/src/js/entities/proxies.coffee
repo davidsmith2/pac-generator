@@ -3,7 +3,7 @@ _ = require 'underscore'
 Proxy = require './proxy'
 
 class Proxies extends Backbone.Collection
-    url: '/api/proxies'
+    url: '/api/users/' + window.user.uuid + '/proxies'
     model: Proxy
     comparator: 'name'
     publish: (opts) =>

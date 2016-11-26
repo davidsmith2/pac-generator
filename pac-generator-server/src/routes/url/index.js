@@ -1,6 +1,7 @@
+var passport = require('passport');
 var _ = require('underscore');
 
-module.exports = function (app, bodyParser, passport) {
+module.exports = function (app) {
 
     var appName = 'PAC Generator';
 
