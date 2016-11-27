@@ -3,22 +3,20 @@ language: node_js
 node_js:
   - '0.10'
 
-sudo: required
-
 services:
   - docker
 
 before_install:
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - docker --version
   - docker-compose --version
-  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
 install:
   - npm install
   - docker-compose -f docker-compose.production.yml up --build -d
-  - docker ps
+  - docker cp pac-generator-client:/home/app/pac-generator/dist ./assets
+
 after_success:
-  - docker cp pac-generator-proxy:/mnt ./assets
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker-compose -f docker-compose.production.yml push
   - "./node_modules/.bin/grunt deploy --SHA1=$TRAVIS_COMMIT"
