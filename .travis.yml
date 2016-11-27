@@ -14,10 +14,10 @@ before_install:
 install:
   - npm install
   - docker-compose -f docker-compose.production.yml up --build -d
-  - docker cp pac-generator-proxy:/mnt ./assets
+  - docker cp pac-generator-client:/home/app/pac-generator/dist ./assets
 
 after_success:
-  - ls -al && cd assets && ls -al && cd dist && ls -al
+  - cd assets && ls -al
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker-compose -f docker-compose.production.yml push
   - "./node_modules/.bin/grunt deploy --SHA1=$TRAVIS_COMMIT"
