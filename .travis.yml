@@ -12,15 +12,12 @@ before_install:
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - docker --version
   - docker-compose --version
-  - docker images
-  - docker images -a
 
 install:
   - npm install
   - docker-compose -f docker-compose.production.yml up --build -d
-  - docker ps
   - docker cp pac-generator-proxy:/mnt ./assets
-  - ls -al && cd assets && ls -al
+
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker-compose -f docker-compose.production.yml push
