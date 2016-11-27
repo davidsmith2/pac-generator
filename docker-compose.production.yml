@@ -18,7 +18,7 @@ services:
       context: ./pac-generator-client
       dockerfile: Dockerfile-production
     volumes:
-      - static:/home
+      - assets:/mnt
 
   nginx:
     extends:
@@ -29,9 +29,8 @@ services:
       dockerfile: Dockerfile
     links:
       - node:pac-generator-server
-      - grunt:pac-generator-client
     volumes:
-      - static:/home
+      - assets:/mnt
 
 volumes:
-  static: {}
+  assets: {}

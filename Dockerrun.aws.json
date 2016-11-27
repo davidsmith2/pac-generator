@@ -42,7 +42,7 @@
         },
         {
           "sourceVolume": "assets",
-          "containerPath": "/home/dist"
+          "containerPath": "/mnt"
         }
       ]
     }

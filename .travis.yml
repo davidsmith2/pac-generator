@@ -9,13 +9,16 @@ services:
   - docker
 
 before_install:
+  - docker --version
+  - docker-compose --version
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
 install:
   - npm install
   - docker-compose -f docker-compose.production.yml up --build -d
-  - docker cp pac-generator-proxy:/home/app/pac-generator/dist ./assets
+  - docker ps
 after_success:
+  - docker cp pac-generator-proxy:/mnt ./assets
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker-compose -f docker-compose.production.yml push
   - "./node_modules/.bin/grunt deploy --SHA1=$TRAVIS_COMMIT"

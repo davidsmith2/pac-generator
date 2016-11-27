@@ -21,7 +21,7 @@ services:
       dockerfile: Dockerfile-development
     volumes:
       - ./pac-generator-client:/home/app/pac-generator
-      - static:/home
+      - assets:/mnt
 
   nginx:
     extends:
@@ -35,7 +35,7 @@ services:
     volumes_from:
       - grunt
     volumes:
-      - static:/home
+      - assets:/mnt
 
 volumes:
-  static: {}
+  assets: {}
