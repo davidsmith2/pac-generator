@@ -9,9 +9,11 @@ services:
   - docker
 
 before_install:
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - docker --version
   - docker-compose --version
-  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - docker images
+  - docker images -a
 
 install:
   - npm install
