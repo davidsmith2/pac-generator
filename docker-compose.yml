@@ -2,6 +2,11 @@ version: '2'
 
 services:
 
+  node-onbuild:
+    extends:
+      file: common-services.yml
+      service: node-onbuild
+
   node:
     extends:
       file: common-services.yml
@@ -11,6 +16,8 @@ services:
       dockerfile: Dockerfile-development
     volumes:
         - ./pac-generator-server:/home/app/pac-generator
+    depends_on:
+      - node-onbuild
 
   grunt-onbuild:
     extends:

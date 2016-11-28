@@ -2,6 +2,13 @@ version: '2'
 
 services:
 
+  node-onbuild:
+    container_name: pac-generator-server-onbuild
+    image: davidsmith2/pac-generator-server-onbuild
+    build:
+      context: ./pac-generator-server
+      dockerfile: Dockerfile-onbuild
+
   node:
     container_name: pac-generator-server
     image: davidsmith2/pac-generator-server
