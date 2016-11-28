@@ -12,6 +12,11 @@ services:
     volumes:
         - ./pac-generator-server:/home/app/pac-generator
 
+  grunt-onbuild:
+    extends:
+      file: common-services.yml
+      service: grunt-onbuild
+
   grunt:
     extends:
       file: common-services.yml
@@ -21,6 +26,8 @@ services:
       dockerfile: Dockerfile-development
     volumes:
       - ./pac-generator-client:/home/app/pac-generator
+    depends_on:
+      - grunt-onbuild
 
   nginx:
     extends:
