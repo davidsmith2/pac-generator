@@ -20,6 +20,7 @@ after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker-compose -f docker-compose.production.yml push
   - "./node_modules/.bin/grunt deploy --SHA1=$TRAVIS_COMMIT"
+  - ls -al && cd dist && ls -al && cd ../
 
 deploy:
   edge: true
