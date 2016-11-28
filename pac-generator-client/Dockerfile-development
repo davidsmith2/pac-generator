@@ -1,15 +1,3 @@
-FROM node:0.10
-
-ENV HOME=/home/app
-
-COPY package.json $HOME/pac-generator/
-
-WORKDIR $HOME/pac-generator
-
-RUN npm install -g grunt-cli && npm install
-
-COPY Gruntfile.js $HOME/pac-generator/
-
-COPY tasks $HOME/pac-generator/tasks
+FROM davidsmith2/pac-generator-client-onbuild
 
 CMD grunt

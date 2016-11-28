@@ -1,11 +1,5 @@
-FROM node:0.10
+FROM davidsmith2/pac-generator-server-onbuild
 
-ENV HOME=/home/app
-
-COPY package.json $HOME/pac-generator/
-
-WORKDIR $HOME/pac-generator
-
-RUN npm install -g nodemon && npm install
+RUN npm install -g nodemon
 
 CMD ["nodemon", "src/app.js"]
