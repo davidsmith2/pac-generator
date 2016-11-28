@@ -1,8 +1,7 @@
 {
-  "name": "pac-generator",
+  "name": "pac-generator-deploy",
   "version": "0.0.0",
-  "description": "Proxy Auto Configuration file generator",
-  "main": ".mongorc.js",
+  "description": "PAC Generator deployment package",
   "scripts": {},
   "author": "David Smith",
   "license": "ISC",

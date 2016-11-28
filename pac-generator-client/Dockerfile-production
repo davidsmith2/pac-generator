@@ -2,6 +2,6 @@ FROM davidsmith2/pac-generator-client-onbuild
 
 COPY src $HOME/pac-generator/src
 
-RUN grunt build
+RUN ["npm", "start"]
 
 RUN ln -s $HOME/pac-generator/dist /mnt
