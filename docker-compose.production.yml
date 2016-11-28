@@ -16,6 +16,9 @@ services:
       dockerfile: Dockerfile-production
     depends_on:
       - node-onbuild
+    environment:
+      - NODE_ENV=production
+      - DB_URL=mongodb://admin:admin@ds031691.mlab.com:31691/pac-generator
 
   grunt-onbuild:
     extends:

@@ -17,7 +17,6 @@ var routes 			= require('./routes');
 
 var app             = express();
 var port            = 8081;
-var env             = app.settings.env;
 
 var setHeaders 		= function (res, path) {
 	if (path.split('.')[1] === 'pac') {
@@ -29,7 +28,7 @@ var setHeaders 		= function (res, path) {
 
 mongoose.connection.on('error', console.error.bind(console, 'Mongoose connection error'));
 mongoose.connection.once('open', console.log.bind(console, 'Mongoose connection open'));
-mongoose.connect(configDB[env].url, configDB.options);
+mongoose.connect(configDB.url, configDB.options);
 
 configPassport(passport);
 

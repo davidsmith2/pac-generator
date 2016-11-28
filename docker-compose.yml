@@ -18,6 +18,9 @@ services:
         - ./pac-generator-server:/home/app/pac-generator
     depends_on:
       - node-onbuild
+    environment:
+      - NODE_ENV=development
+      - DB_URL=mongodb://admin:admin@ds039125.mlab.com:39125/pac-generator-local
 
   grunt-onbuild:
     extends:
