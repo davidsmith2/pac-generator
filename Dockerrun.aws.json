@@ -19,6 +19,16 @@
           "hostPort": 8081,
           "containerPort": 8081
         }
+      ],
+      "environment": [
+        {
+          "name": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "name": "DB_URL",
+          "value": "mongodb://admin:admin@ds031691.mlab.com:31691/pac-generator"
+        }
       ]
     },
     {
