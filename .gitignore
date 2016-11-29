@@ -1,4 +1,5 @@
 .DS_Store
+assets
 node_modules
 pac-generator-db
 # Elastic Beanstalk Files

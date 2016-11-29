@@ -1,24 +1,26 @@
 // imports and basic setup
 
-var bodyParser      = require('body-parser');
-var cookieParser    = require('cookie-parser');
-var express         = require('express');
-var flash           = require('connect-flash');
-var jade            = require('jade');
-var mongoose        = require('mongoose');
-var morgan          = require('morgan');
-var passport        = require('passport');
-var serveStatic     = require('serve-static');
-var session         = require('express-session');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var express = require('express');
+var flash = require('connect-flash');
+var jade = require('jade');
+var mongoose = require('mongoose');
+var morgan = require('morgan');
+var passport = require('passport');
+var serveStatic = require('serve-static');
+var session = require('express-session');
+var sessionMemoryStore = require('session-memory-store');
 
-var configDB        = require('./config/database');
-var configPassport  = require('./config/passport');
-var routes 			= require('./routes');
+var configDB = require('./config/database');
+var configPassport = require('./config/passport');
+var routes = require('./routes');
 
-var app             = express();
-var port            = 8081;
+var app = express();
+var port = 8081;
+var MemoryStore = sessionMemoryStore(session);
 
-var setHeaders 		= function (res, path) {
+var setHeaders = function (res, path) {
 	if (path.split('.')[1] === 'pac') {
 		res.setHeader('Content-Type', 'application/x-ns-proxy-autoconfig');
 	}
@@ -51,9 +53,13 @@ app.set('view engine', 'jade');
 // passport setup
 
 app.use(session({
-    secret: 'secret',
+	name: 'PAC-GENERATOR__SESSION',
     resave: false,
-    saveUninitialized: false
+    secret: 'secret',
+    saveUninitialized: false,
+    store: new MemoryStore({
+    	expires: 60 * 30
+    })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
