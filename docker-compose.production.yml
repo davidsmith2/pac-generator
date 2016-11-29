@@ -19,6 +19,8 @@ services:
     environment:
       - NODE_ENV=production
       - DB_URL=mongodb://admin:admin@ds031691.mlab.com:31691/pac-generator
+    volumes:
+      - ./uploads:/home/app/pac-generator/dist
 
   grunt-onbuild:
     extends:
@@ -51,3 +53,4 @@ services:
 
 volumes:
   assets: {}
+  uploads: {}

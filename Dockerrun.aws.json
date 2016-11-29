@@ -6,6 +6,12 @@
       "host": {
         "sourcePath": "/var/app/current/assets"
       }
+    },
+    {
+      "name": "uploads",
+      "host": {
+        "sourcePath": "/var/app/uploads"
+      }
     }
   ],
   "containerDefinitions": [
@@ -28,6 +34,12 @@
         {
           "name": "DB_URL",
           "value": "mongodb://admin:admin@ds031691.mlab.com:31691/pac-generator"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "uploads",
+          "containerPath": "/home/app/pac-generator/dist"
         }
       ]
     },

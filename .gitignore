@@ -1,7 +1,9 @@
 .DS_Store
 assets
+dist
 node_modules
 pac-generator-db
+uploads
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
