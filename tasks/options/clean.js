@@ -1,3 +1,3 @@
 module.exports = {
-	deploy: ['dist']
+	predeploy: ['predeploy']
 };
