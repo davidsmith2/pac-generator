@@ -1,3 +1,5 @@
+'use strict';
+
 var grunt = require('grunt');
 
 var SHA1 = grunt.option('SHA1');
@@ -9,6 +11,6 @@ module.exports = {
 	        'assets/**/*',
 	        'Dockerrun.aws.json'
 	    ],
-	    dest: 'predeploy/<%= pkg.name %>-' + SHA1 + '.zip'
+	    dest: `predeploy/<%= pkg.name %>-${SHA1}.zip`
 	}
 };

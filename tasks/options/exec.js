@@ -1,34 +1,36 @@
+'use strict';
+
 var readYaml = require('read-yaml');
 var _ = require('underscore');
 
-var dockerCommands = {
-	tag: function (imageName, tag) {
-		return 'docker tag ' + ' ' + imageName + ' ' + imageName + ':' + tag;
+const dockerCommands = {
+	tag(imageName, tag) {
+		return `docker tag ${imageName}:${tag}`;
 	},
-	push: function (imageName, tag) {
-		return 'docker push ' + ' ' + imageName + ':' + tag;
+	push(imageName, tag) {
+		return `docker push ${imageName}:${tag}`;
 	}
 };
 
-var getShellCommandsByDockerCommand = function (dockerCommand, imageNames, tag) {
-	var shellCommmands = '';
-	for (var i = 0; i < imageNames.length; i++) {
-		shellCommmands += dockerCommands[dockerCommand](imageNames[i], tag) + '\n';
+const getShellCommandsByDockerCommand = (dockerCommand, imageNames, tag) => {
+	let shellCommmands = '';
+	for (var imageName of imageNames) {
+		shellCommmands += `${dockerCommands[dockerCommand](imageName, tag)}\n`;
 	}
 	return shellCommmands;
 };
 
-var getShellCommands = function (tag, images) {
-	var shellCommmands = '';
-	shellCommmands += getShellCommandsByDockerCommand('tag', images, tag);
-	shellCommmands += getShellCommandsByDockerCommand('tag', images, 'newest');
-	shellCommmands += getShellCommandsByDockerCommand('push', images, tag);
-	shellCommmands += getShellCommandsByDockerCommand('push', images, 'newest');
+const getShellCommands = (tag, imageNames) => {
+	let shellCommmands = '';
+	shellCommmands += getShellCommandsByDockerCommand('tag', imageNames, tag);
+	shellCommmands += getShellCommandsByDockerCommand('tag', imageNames, 'newest');
+	shellCommmands += getShellCommandsByDockerCommand('push', imageNames, tag);
+	shellCommmands += getShellCommandsByDockerCommand('push', imageNames, 'newest');
 	return shellCommmands;
 };
 
-var getImageNames = function (config) {
-	var imageNames = [];
+const getImageNames = (config) => {
+	let imageNames = [];
 	for (var service in config.services) {
 		imageNames.push(config.services[service].image);
 	}
@@ -37,7 +39,7 @@ var getImageNames = function (config) {
 
 module.exports = {
 	predeploy: {
-		cmd: _.wrap(getShellCommands, function (func, tag, configFilename) {
+		cmd: _.wrap(getShellCommands, (func, tag, configFilename) => {
 			return func(tag, getImageNames(readYaml.sync(configFilename)));
 		})
 	}
