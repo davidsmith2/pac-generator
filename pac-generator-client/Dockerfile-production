@@ -1,5 +1,5 @@
 FROM node:0.10-onbuild
 
-RUN npm install -g grunt-cli
+RUN npm install -g grunt-cli && npm start
 
-CMD ["npm", "start"]
+RUN ls ./dist
