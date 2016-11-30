@@ -27,6 +27,7 @@ module.exports = function (app) {
     userRouter.use('/:userId/rules', ruleRouter);
     userRouter.use('/:userId/exceptions', exceptionRouter);
 
+/*
     userRouter.route('/')
         .get(function (req, res) {
             var query = User.find();
@@ -44,6 +45,7 @@ module.exports = function (app) {
         });
 
     userRouter.param('userId', findUser);
+ */
 
     proxyRouter.route('/')
         .get(function (req, res) {
