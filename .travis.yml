@@ -17,10 +17,10 @@ install:
   - docker cp pac-generator-client:/home/app/pac-generator/dist ./assets
 
 after_success:
-  if [ "$TRAVIS_BRANCH" = "master" ]; then
-    docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    grunt predeploy --SHA1=$TRAVIS_COMMIT
-  fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then
+      docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      grunt predeploy --SHA1=$TRAVIS_COMMIT
+    fi
 
 deploy:
   edge: true
