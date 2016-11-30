@@ -14,11 +14,12 @@ before_install:
 install:
   - npm install -g grunt-cli && npm install
   - docker-compose -f docker-compose.production.yml up --build -d
+  - docker cp pac-generator-client:/usr/src/app/dist ./assets
+  - cd assets && ls -al && cd ../
 
 after_success:
   - if [ "$TRAVIS_BRANCH" = "master" ]; then
       docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD;
-      docker cp pac-generator-client:/usr/src/app/dist ./assets;
       grunt predeploy --SHA1=$TRAVIS_COMMIT;
     fi;
 
