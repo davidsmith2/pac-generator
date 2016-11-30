@@ -1,5 +1,3 @@
-FROM davidsmith2/pac-generator-server-onbuild
-
-ADD . $HOME/pac-generator
+FROM node:0.10-onbuild
 
 CMD ["npm", "start"]

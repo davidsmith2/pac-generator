@@ -1,4 +1,4 @@
-FROM davidsmith2/pac-generator-server-onbuild
+FROM node:0.10-onbuild
 
 RUN npm install -g nodemon
 

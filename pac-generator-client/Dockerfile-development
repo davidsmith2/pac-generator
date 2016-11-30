@@ -1,3 +1,5 @@
-FROM davidsmith2/pac-generator-client-onbuild
+FROM node:0.10-onbuild
+
+RUN npm install -g grunt-cli
 
 CMD ["npm", "run", "devel"]

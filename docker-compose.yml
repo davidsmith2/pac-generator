@@ -2,11 +2,6 @@ version: '2'
 
 services:
 
-  node-onbuild:
-    extends:
-      file: common-services.yml
-      service: node-onbuild
-
   node:
     extends:
       file: common-services.yml
@@ -14,19 +9,12 @@ services:
     build:
       context: ./pac-generator-server
       dockerfile: Dockerfile-development
-    volumes:
-        - ./pac-generator-server:/home/app/pac-generator
-    depends_on:
-      - node-onbuild
     environment:
       - NODE_ENV=development
       - DB_URL=mongodb://admin:admin@ds039125.mlab.com:39125/pac-generator-local
 
-  grunt-onbuild:
-    extends:
-      file: common-services.yml
-      service: grunt-onbuild
-
+    volumes:
+        - ./pac-generator-server:/usr/src/app
   grunt:
     extends:
       file: common-services.yml
@@ -35,17 +23,12 @@ services:
       context: ./pac-generator-client
       dockerfile: Dockerfile-development
     volumes:
-      - ./pac-generator-client:/home/app/pac-generator
-    depends_on:
-      - grunt-onbuild
+      - ./pac-generator-client:/usr/src/app
 
   nginx:
     extends:
       file: common-services.yml
       service: nginx
-    build:
-      context: ./pac-generator-proxy
-      dockerfile: Dockerfile
     links:
       - node:pac-generator-server
     volumes_from:

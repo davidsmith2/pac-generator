@@ -17,7 +17,7 @@
   "containerDefinitions": [
     {
       "name": "pac-generator-server",
-      "image": "davidsmith2/pac-generator-server:newest",
+      "image": "davidsmith2/pac-generator-server",
       "essential": true,
       "memory": 128,
       "portMappings": [
@@ -39,13 +39,13 @@
       "mountPoints": [
         {
           "sourceVolume": "uploads",
-          "containerPath": "/home/app/pac-generator/dist"
+          "containerPath": "/usr/src/app/dist"
         }
       ]
     },
     {
       "name": "pac-generator-proxy",
-      "image": "davidsmith2/pac-generator-proxy:newest",
+      "image": "davidsmith2/pac-generator-proxy",
       "essential": false,
       "memory": 128,
       "portMappings": [
@@ -64,7 +64,7 @@
         },
         {
           "sourceVolume": "assets",
-          "containerPath": "/mnt"
+          "containerPath": "/usr/src/app/dist"
         }
       ]
     }

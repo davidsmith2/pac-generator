@@ -38,6 +38,12 @@ To remove stopped containers:
 docker rm $(docker ps -a -q)
 ```
 
+To remove dangling volumes:
+
+```
+docker volume rm `docker volume ls -q -f dangling=true`
+```
+
 ## Cloud environments
 
 * pac-generator-dev-01: EC2 t2.micro
