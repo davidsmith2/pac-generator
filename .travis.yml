@@ -19,6 +19,7 @@ after_success:
   - if [ "$TRAVIS_BRANCH" = "issue#45" ]; then
       docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD;
       docker cp pac-generator-client:/usr/src/app/dist ./assets;
+      docker ps;
       grunt predeploy --SHA1=$TRAVIS_COMMIT;
     fi;
 
