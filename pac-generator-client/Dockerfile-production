@@ -1,7 +1,5 @@
-FROM davidsmith2/pac-generator-client-onbuild
+FROM node:0.10-onbuild
 
-COPY src $HOME/pac-generator/src
+RUN npm install -g grunt-cli
 
-RUN ["npm", "start"]
-
-RUN ln -s $HOME/pac-generator/dist /mnt
+CMD ["npm", "start"]

@@ -4,43 +4,46 @@ var readYaml = require('read-yaml');
 var _ = require('underscore');
 
 const dockerCommands = {
-	tag(imageName, tag) {
-		return `docker tag ${imageName} ${imageName}:${tag}`;
+	tag(image, tag) {
+		return `echo docker tag ${image.name} davidsmith2/${image.containerName}:${tag}`;
 	},
-	push(imageName, tag) {
-		return `docker push ${imageName}:${tag}`;
+	push(image, tag) {
+		return `echo docker push davidsmith2/${image.containerName}:${tag}`;
 	}
 };
 
-const getShellCommandsByDockerCommand = (dockerCommand, imageNames, tag) => {
+const getShellCommandsByDockerCommand = (dockerCommand, images, tag) => {
 	let shellCommmands = '';
-	for (var imageName of imageNames) {
-		shellCommmands += `${dockerCommands[dockerCommand](imageName, tag)}\n`;
+	for (var image of images) {
+		shellCommmands += `${dockerCommands[dockerCommand](image, tag)}\n`;
 	}
 	return shellCommmands;
 };
 
-const getShellCommands = (tag, imageNames) => {
+const getShellCommands = (tag, images) => {
 	let shellCommmands = '';
-	shellCommmands += getShellCommandsByDockerCommand('tag', imageNames, tag);
-	shellCommmands += getShellCommandsByDockerCommand('tag', imageNames, 'newest');
-	shellCommmands += getShellCommandsByDockerCommand('push', imageNames, tag);
-	shellCommmands += getShellCommandsByDockerCommand('push', imageNames, 'newest');
+	shellCommmands += getShellCommandsByDockerCommand('tag', images, tag);
+	shellCommmands += getShellCommandsByDockerCommand('tag', images, 'newest');
+	shellCommmands += getShellCommandsByDockerCommand('push', images, tag);
+	shellCommmands += getShellCommandsByDockerCommand('push', images, 'newest');
 	return shellCommmands;
 };
 
-const getImageNames = (config) => {
-	let imageNames = [];
+const getImages = (config) => {
+	let images = [];
 	for (var service in config.services) {
-		imageNames.push(config.services[service].image);
+		images.push({
+			name: 'pacgenerator_' + service,
+			containerName: config.services[service].container_name
+		});
 	}
-	return imageNames;
+	return images;
 };
 
 module.exports = {
 	predeploy: {
 		cmd: _.wrap(getShellCommands, (func, tag, configFilename) => {
-			return func(tag, getImageNames(readYaml.sync(configFilename)));
+			return func(tag, getImages(readYaml.sync(configFilename)));
 		})
 	}
 };
