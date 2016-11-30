@@ -36,7 +36,7 @@ var getImageNames = function (config) {
 };
 
 module.exports = {
-	docker: {
+	predeploy: {
 		cmd: _.wrap(getShellCommands, function (func, tag, configFilename) {
 			return func(tag, getImageNames(readYaml.sync(configFilename)));
 		})
