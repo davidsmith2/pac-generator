@@ -5,10 +5,10 @@ var _ = require('underscore');
 
 const dockerCommands = {
 	tag(image, tag) {
-		return `echo docker tag ${image.name} davidsmith2/${image.containerName}:${tag}`;
+		return `docker tag ${image.name} davidsmith2/${image.containerName}:${tag}`;
 	},
 	push(image, tag) {
-		return `echo docker push davidsmith2/${image.containerName}:${tag}`;
+		return `docker push davidsmith2/${image.containerName}:${tag}`;
 	}
 };
 
