@@ -23,7 +23,7 @@ after_success:
 deploy:
   edge: true
   skip_cleanup: true
-  zip-file: "dist/pac-generator-$TRAVIS_COMMIT.zip"
+  zip-file: "predeploy/pac-generator-$TRAVIS_COMMIT.zip"
   provider: elasticbeanstalk
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
