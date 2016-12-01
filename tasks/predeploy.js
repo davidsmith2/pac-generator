@@ -1,10 +1,11 @@
 'use strict';
 
 module.exports = (grunt) => {
-	const execTask = `exec:predeploy:${grunt.option('SHA1')}:common-services.yml`;
+	var tag = grunt.option('SHA1');
     grunt.registerTask('predeploy', [
         'clean:predeploy',
-    	execTask,
+    	`exec:predeploy:${tag}:common-services.yml`,
+    	'sed:predeploy',
         'zip:predeploy'
     ]);
 };

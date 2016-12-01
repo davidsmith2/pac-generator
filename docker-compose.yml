@@ -12,9 +12,9 @@ services:
     environment:
       - NODE_ENV=development
       - DB_URL=mongodb://admin:admin@ds039125.mlab.com:39125/pac-generator-local
-
     volumes:
         - ./pac-generator-server:/usr/src/app
+
   grunt:
     extends:
       file: common-services.yml

@@ -14,6 +14,7 @@
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "~0.6.0",
     "grunt-exec": "^1.0.1",
+    "grunt-sed": "^0.1.1",
     "grunt-zip": "~0.16.2",
     "load-grunt-tasks": "~2.0.0"
   },
