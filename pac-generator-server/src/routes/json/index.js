@@ -27,26 +27,6 @@ module.exports = function (app) {
     userRouter.use('/:userId/rules', ruleRouter);
     userRouter.use('/:userId/exceptions', exceptionRouter);
 
-/*
-    userRouter.route('/')
-        .get(function (req, res) {
-            var query = User.find();
-            query.exec(function (err, users) {
-                if (err || !users) {
-                    return res.json([]);
-                }
-                res.json(users);
-            });
-        });
-
-    userRouter.route('/:userId')
-        .get(function (req, res) {
-            return res.json(req.user);
-        });
-
-    userRouter.param('userId', findUser);
- */
-
     proxyRouter.route('/')
         .get(function (req, res) {
             if (req.query.action === 'publish') {
@@ -105,6 +85,7 @@ module.exports = function (app) {
             req.user.proxies = _.reject(req.user.proxies, function (obj) {
                 return _.isEqual(obj, proxy);
             });
+            req.user.deletePAC(proxy);
             req.user.save(function (err, user) {
                 if (err) {
                     return res.json({});

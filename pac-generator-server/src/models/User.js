@@ -2,6 +2,7 @@ var bcrypt = require('bcrypt-nodejs');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 var mongoose = require('mongoose');
+var rmdir = require('rmdir');
 var _ = require('underscore');
 
 var ExceptionSchema = require('./ExceptionSchema');
@@ -58,6 +59,14 @@ UserSchema.methods.getPACHosts = function (arrIn) {
         }
     }
     return (arrOut.length) ? "'" + arrOut.join("','") + "'" : arrOut;
+};
+
+UserSchema.methods.deletePAC = function (proxy) {
+    var dirp = './dist/pac/' + this.uuid + '/' + proxy.id;
+    rmdir(dirp, function (err, dirs, files) {
+        console.log('directories deleted: ' + dirs);
+        console.log('files deleted: ' + files);
+    });
 };
 
 module.exports = mongoose.model('User', UserSchema);
