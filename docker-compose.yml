@@ -38,14 +38,10 @@ services:
     extends:
       file: common-services.yml
       service: python-base
-    build:
-      context: ./pac-generator-pacparser-onbuild
 
   python:
     extends:
       file: common-services.yml
       service: python
-    build:
-      context: ./pac-generator-pacparser
     depends_on:
       - python-base

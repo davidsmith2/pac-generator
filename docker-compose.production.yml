@@ -34,6 +34,18 @@ services:
     volumes:
       - assets:/usr/src/app/dist
 
+  python-base:
+    extends:
+      file: common-services.yml
+      service: python-base
+
+  python:
+    extends:
+      file: common-services.yml
+      service: python
+    depends_on:
+      - python-base
+
 volumes:
   assets: {}
   uploads: {}
