@@ -15,7 +15,6 @@ install:
   - npm install -g grunt-cli && npm install
   - docker-compose -f docker-compose.production.yml up --build -d
   - docker cp pac-generator-client:/usr/src/app/dist ./assets
-  - cd assets && ls -al && cd ../
 
 after_success:
   - if [ "$TRAVIS_BRANCH" = "master" ]; then

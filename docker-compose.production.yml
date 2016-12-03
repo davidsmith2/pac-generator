@@ -2,6 +2,21 @@ version: '2'
 
 services:
 
+  python-base:
+    extends:
+      file: common-services.yml
+      service: python-base
+    build:
+      args:
+        - expectedResultForUnresolvableDomain=isNotResolvable
+
+  python:
+    extends:
+      file: common-services.yml
+      service: python
+    depends_on:
+      - python-base
+
   node:
     extends:
       file: common-services.yml
