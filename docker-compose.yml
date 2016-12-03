@@ -6,6 +6,9 @@ services:
     extends:
       file: common-services.yml
       service: python-base
+    build:
+      args:
+        - env=development
 
   python:
     extends:
