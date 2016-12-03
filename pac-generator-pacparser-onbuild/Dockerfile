@@ -12,8 +12,8 @@ ONBUILD RUN apt-get update && \
 
 ONBUILD WORKDIR $HOME/pacparser-1.3.7
 
-ONBUILD RUN rm $HOME/pacparser-1.3.7/tests/testdata && ls  -al $HOME/pacparser-1.3.7/tests
+ONBUILD RUN rm $HOME/pacparser-1.3.7/tests/testdata && ls -al $HOME/pacparser-1.3.7/tests
 
-#ONBUILD COPY testdata $HOME/pacparser-1.3.7/tests/testdata
+ONBUILD COPY testdata $HOME/pacparser-1.3.7/tests/testdata
 
 ONBUILD RUN make -C src pymod && make -C src install-pymod

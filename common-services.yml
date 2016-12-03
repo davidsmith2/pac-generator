@@ -2,6 +2,16 @@ version: '2'
 
 services:
 
+  python-base:
+    container_name: pac-generator-pacparser-onbuild
+    build:
+      context: ./pac-generator-pacparser-onbuild
+
+  python:
+    container_name: pac-generator-pacparser
+    build:
+      context: ./pac-generator-pacparser
+
   node:
     container_name: pac-generator-server
     ports:
@@ -16,13 +26,3 @@ services:
       context: ./pac-generator-proxy
     ports:
       - 80:80
-
-  python-base:
-    container_name: pac-generator-pacparser-onbuild
-    build:
-      context: ./pac-generator-pacparser-onbuild
-
-  python:
-    container_name: pac-generator-pacparser
-    build:
-      context: ./pac-generator-pacparser
