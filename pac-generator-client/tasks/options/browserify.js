@@ -30,7 +30,8 @@ module.exports = {
                 'browserify-shim',
                 'coffeeify',
                 'hbsfy'
-            ]
+            ],
+            watch: true
         }
     }
 };

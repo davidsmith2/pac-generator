@@ -7,10 +7,6 @@ module.exports = {
         files: ['src/js/**/*.hbs'],
         tasks: ['bootlint']
     },
-    browserify: {
-        files: ['src/js/**/*.coffee', 'src/js/**/*.hbs'],
-        tasks: ['browserify:app']
-    },
     livereload: {
         files: ['dist/css/**/*', 'dist/js/**/*'],
         options: {
