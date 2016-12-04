@@ -12,12 +12,13 @@ class TabsView extends Marionette.LayoutView
         rulesRegion:        '#rules-region'
         exceptionsRegion:   '#exceptions-region'
     events:
-        'click [href=#proxies-region]':     'change',
-        'click [href=#rules-region]':       'change',
-        'click [href=#exceptions-region]':  'change'
-    change: (e) =>
-        id = $(e.target).attr('href').slice(1)
+        'click [data-toggle=tab]': 'change'
+    initialize: () ->
+        this.on 'changed', this.onChanged, this
+    change: (e) ->
+        id = $(e.target).attr('href').slice(1).split('-')[0]
         this.trigger 'change', id
+    onChanged: (id) ->
+        this.$('[href=#' + id + '-region]').trigger 'click'
 
-module.exports = new TabsView
-
+module.exports = TabsView

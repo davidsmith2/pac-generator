@@ -1,29 +1,38 @@
+Backbone = require 'backbone'
 Marionette = require 'marionette'
-tabsView = require './views/tabs'
+
+ControlsApp = require '../controls/app'
+ExceptionsApp = require '../exceptions/app'
+ProxiesApp = require '../proxies/app'
+RulesApp = require '../rules/app'
 
 module.exports = (App) =>
-    ControlsApp = require('../controls/app')(App)
-    ProxiesApp = require('../proxies/app')(App)
-    RulesApp = require('../rules/app')(App)
-    ExceptionsApp = require('../exceptions/app')(App)
     class NavController extends Marionette.Controller
-        show: () =>
-            ControlsApp.start()
-            ProxiesApp.start()
-            tabsView.on 'change', (id) =>
-                if id is 'proxies-region'
-                    RulesApp.stop()
-                    ExceptionsApp.stop()
-                    ProxiesApp.start()
-                if id is 'rules-region'
-                    ProxiesApp.stop()
-                    ExceptionsApp.stop()
-                    RulesApp.start()
-                if id is 'exceptions-region'
-                    ProxiesApp.stop()
-                    RulesApp.stop()
-                    ExceptionsApp.start()
-            App.NavApp.on 'tab:change', (region, view) =>
-                tabsView[region].show view
+        subApps:
+            controlsApp: ControlsApp(App)
+            exceptionsApp: ExceptionsApp(App)
+            proxiesApp: ProxiesApp(App)
+            rulesApp: RulesApp(App)
+        initialize: () ->
+            this.subApps.controlsApp.start()
+            this.subApps.proxiesApp.start()
+        show: (tabsView) ->
+            this.tabsView = tabsView
+            tabsView.on 'change', this.manual, this
+            tabsView.on 'changed', this.auto, this
             App.navRegion.show tabsView
+        manual: (id) ->
+            Backbone.history.navigate id + '/', {trigger: true}
+        auto: (id) ->
+            if id is 'proxies'
+                this.subApps.rulesApp.stop()
+                this.subApps.exceptionsApp.stop()
+            if id is 'rules'
+                this.subApps.proxiesApp.stop()
+                this.subApps.exceptionsApp.stop()
+            if id is 'exceptions'
+                this.subApps.proxiesApp.stop()
+                this.subApps.rulesApp.stop()
+            this.subApps[id + 'App'].start()
+
     return new NavController

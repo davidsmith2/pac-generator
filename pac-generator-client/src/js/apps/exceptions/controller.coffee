@@ -1,6 +1,6 @@
 module.exports = (App) =>
     HostController = require('../../common/controllers/host/controller')(App)
-    return new HostController
+    hostController = new HostController
         collectionType: require '../../entities/exceptions'
         relatedModel: require '../../entities/exception'
         regionName: 'exceptionsRegion'
@@ -9,3 +9,4 @@ module.exports = (App) =>
             modalTitles:
                 create: 'Create exception'
                 edit: 'Edit exception'
+    return hostController

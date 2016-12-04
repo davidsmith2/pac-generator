@@ -19,4 +19,5 @@ module.exports = (App) =>
             return require('./actions/publish')(App, @, view)
         notify: (opts) =>
             return require('../../common/actions/notify')(opts)
-    return new ProxyController
+    proxyController = new ProxyController
+    return proxyController

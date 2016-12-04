@@ -12,5 +12,5 @@ module.exports = (App, controller) =>
                 compositeView.on 'childview:publish', controller.publish, controller
                 controller.layout.bodyRegion.show compositeView
                 App.NavApp.trigger 'panel:ready', 'proxiesRegion', controller.layout.headerRegion
-            App.NavApp.trigger 'tab:change', 'proxiesRegion', controller.layout
+            App.NavApp.view['proxiesRegion'].show controller.layout
             App.trigger 'proxies:acquired', proxies

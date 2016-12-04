@@ -52,13 +52,17 @@ module.exports = function (app) {
 
     // dashboard
 
-    app.get('/dashboard', isLoggedIn, function (req, res) {
+    var dashboardRoute = function (req, res) {
         res.render('dashboard', {
             appName: appName,
             pageName: 'Dashboard',
             user: req.user
         });
-    });
+    };
+
+    app.get('/dashboard*', isLoggedIn, dashboardRoute);
+
+    app.get('/dashboard', isLoggedIn, dashboardRoute);
 
     // logout
 
