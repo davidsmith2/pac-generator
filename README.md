@@ -43,33 +43,3 @@ To remove dangling volumes:
 ```
 docker volume rm `docker volume ls -q -f dangling=true`
 ```
-
-## Cloud environments
-
-* pac-generator-dev-01: EC2 t2.micro
-
-## Database maintenance
-
-### Dump from dev
-
-```
-mongodump -h ds039125.mlab.com:39125 -d pac-generator-local -u admin -p admin -o .
-```
-
-### Restore to dev
-
-```
-mongorestore -h ds039125.mlab.com:39125 -d pac-generator-local -u admin -p admin . --drop
-```
-
-### Dump from prod
-
-```
-mongodump -h ds031691.mlab.com:31691 -d pac-generator -u admin -p admin -o .
-```
-
-### Restore to prod
-
-```
-mongorestore -h ds031691.mlab.com:31691 -d pac-generator -u admin -p admin . --drop
-```
