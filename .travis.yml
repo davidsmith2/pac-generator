@@ -31,7 +31,7 @@ deploy:
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   region: us-east-1
   app: pac-generator
-  env: pac-generator-dev-01
+  env: pac-generator-dev-02
   bucket_name: elasticbeanstalk-us-east-1-798511191442
   on:
     repo: davidsmith2/pac-generator
