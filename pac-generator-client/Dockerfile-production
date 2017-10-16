@@ -1,5 +1,17 @@
-FROM node:8.7-onbuild
+FROM node:8.7.0
 
-RUN npm install -g grunt-cli && npm start
+RUN mkdir -p /usr/src/app
 
-RUN ls ./dist
+WORKDIR /usr/src/app
+
+ARG NODE_ENV
+
+ENV NODE_ENV $NODE_ENV
+
+COPY package.json /usr/src/app/
+
+RUN npm install -g grunt-cli && npm install && ls ./dist
+
+COPY . /usr/src/app
+
+CMD [ "npm", "start" ]
