@@ -9,3 +9,6 @@ uploads
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# WebStorm Files
+.idea
