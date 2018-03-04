@@ -1,7 +1,7 @@
 'use strict';
 
-var glob = require('glob');
-var loadGruntTasks = require('load-grunt-tasks');
+const glob = require('glob');
+const loadGruntTasks = require('load-grunt-tasks');
 
 const loadConfig = (path) => {
     let object = {};

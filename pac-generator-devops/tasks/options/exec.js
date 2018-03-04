@@ -1,7 +1,7 @@
 'use strict';
 
-var readYaml = require('read-yaml');
-var _ = require('underscore');
+const readYaml = require('read-yaml');
+const _ = require('underscore');
 
 const dockerCommands = {
 	tag(image, tag) {
@@ -14,7 +14,7 @@ const dockerCommands = {
 
 const getShellCommandsByDockerCommand = (dockerCommand, images, tag) => {
 	let shellCommmands = '';
-	for (var image of images) {
+	for (let image of images) {
 		shellCommmands += `${dockerCommands[dockerCommand](image, tag)}\n`;
 	}
 	return shellCommmands;
@@ -31,11 +31,13 @@ const getShellCommands = (tag, images) => {
 
 const getImages = (config) => {
 	let images = [];
-	for (var service in config.services) {
-		images.push({
-			name: 'pacgenerator_' + service,
-			containerName: config.services[service].container_name
-		});
+	for (let service in config.services) {
+		if (config.services.hasOwnProperty(service)) {
+      images.push({
+        name: 'pacgenerator_' + service,
+        containerName: config.services[service].container_name
+      });
+		}
 	}
 	return images;
 };

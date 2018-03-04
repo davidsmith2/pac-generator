@@ -22,23 +22,23 @@ services:
       file: common-services.yml
       service: node
     build:
-      context: ./pac-generator-server
+      context: ../pac-generator-server
       dockerfile: Dockerfile-development
     environment:
       - NODE_ENV=development
       - DB_URL=mongodb://admin:admin@ds039125.mlab.com:39125/pac-generator-local
     volumes:
-        - ./pac-generator-server:/usr/src/app
+        - ../pac-generator-server:/usr/src/app
 
   grunt:
     extends:
       file: common-services.yml
       service: grunt
     build:
-      context: ./pac-generator-client
+      context: ../pac-generator-client
       dockerfile: Dockerfile-development
     volumes:
-      - ./pac-generator-client:/usr/src/app
+      - ../pac-generator-client:/usr/src/app
 
   nginx:
     extends:

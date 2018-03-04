@@ -5,12 +5,12 @@ services:
   python-base:
     container_name: pac-generator-pacparser-onbuild
     build:
-      context: ./pac-generator-pacparser-onbuild
+      context: ../pac-generator-pacparser-onbuild
 
   python:
     container_name: pac-generator-pacparser
     build:
-      context: ./pac-generator-pacparser
+      context: ../pac-generator-pacparser
 
   node:
     container_name: pac-generator-server
@@ -23,6 +23,6 @@ services:
   nginx:
     container_name: pac-generator-proxy
     build:
-      context: ./pac-generator-proxy
+      context: ../pac-generator-proxy
     ports:
       - 80:80

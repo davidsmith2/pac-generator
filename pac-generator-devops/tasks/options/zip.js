@@ -1,8 +1,8 @@
 'use strict';
 
-var grunt = require('grunt');
+const grunt = require('grunt');
 
-var SHA1 = grunt.option('SHA1');
+const SHA1 = grunt.option('SHA1');
 
 module.exports = {
 	predeploy: {
