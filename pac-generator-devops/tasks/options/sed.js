@@ -1,6 +1,6 @@
-var grunt = require('grunt');
+const grunt = require('grunt');
 
-var tag = grunt.option('SHA1');
+const tag = grunt.option('SHA1');
 
 module.exports = {
 	predeploy: {
