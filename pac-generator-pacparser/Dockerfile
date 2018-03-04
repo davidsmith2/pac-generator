@@ -1,4 +1,4 @@
-FROM pacgenerator_python-base
+FROM pacgeneratordevops_python-base
 
 WORKDIR $HOME
 
