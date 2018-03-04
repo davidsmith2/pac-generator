@@ -34,7 +34,7 @@ const getImages = (config) => {
 	for (let service in config.services) {
 		if (config.services.hasOwnProperty(service)) {
       images.push({
-        name: 'pacgenerator_' + service,
+        name: 'pacgeneratordevops_' + service,
         containerName: config.services[service].container_name
       });
 		}

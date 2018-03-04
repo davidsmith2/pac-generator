@@ -11,6 +11,6 @@ module.exports = {
 	        'assets/**/*',
 	        'Dockerrun.aws.json'
 	    ],
-	    dest: `predeploy/<%= pkg.name %>-${SHA1}.zip`
+	    dest: `predeploy/pac-generator-${SHA1}.zip`
 	}
 };
