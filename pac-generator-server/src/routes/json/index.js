@@ -38,9 +38,10 @@ module.exports = function (app) {
         })
         .post(function (req, res) {
             var proxy = req.user.proxies.create(req.body);
-            req.user.proxies.push(proxy);
+            req.user.proxies = req.user.proxies.concat([proxy]);
             req.user.save(function (err, user) {
                 if (err) {
+                    console.log(err)
                     return res.json([]);
                 }
                 res.json(proxy);
@@ -102,7 +103,7 @@ module.exports = function (app) {
         })
         .post(function (req, res) {
             var rule = req.user.rules.create(req.body);
-            req.user.rules.push(rule);
+            req.user.rules = req.user.rules.concat([rule]);
             req.user.save(function (err, user) {
                 if (err) {
                     return res.json([]);
@@ -162,7 +163,7 @@ module.exports = function (app) {
         })
         .post(function (req, res) {
             var exception = req.user.exceptions.create(req.body);
-            req.user.exceptions.push(exception);
+            req.user.exceptions = req.user.exceptions.concat([exception]);
             req.user.save(function (err, user) {
                 if (err) {
                     return res.json([]);

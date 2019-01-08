@@ -19,6 +19,6 @@ class TabsView extends Marionette.LayoutView
         id = $(e.target).attr('href').slice(1).split('-')[0]
         this.trigger 'change', id
     onChanged: (id) ->
-        this.$('[href=#' + id + '-region]').trigger 'click'
+        this.$('[href="#' + id + '-region"]').trigger 'click'
 
 module.exports = TabsView
